@@ -1,0 +1,27 @@
+{
+    "name": "2a",
+    "version": "1.0.0",
+    "description": "",
+    "main": "./dist/index.js",
+    "scripts": {
+        "build": "tsc --project ./tsconfig.json",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+ssh://git@github.com/neoscrib/2a.git"
+    },
+    "author": "Tanner Jepsen (neoscrib@gmail.com)",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/neoscrib/2a/issues"
+    },
+    "homepage": "https://github.com/neoscrib/2a#readme",
+    "typings": "./index.d.ts",
+    "devDependencies": {
+        "ts-node": "^8.6.2",
+        "tslint": "^6.0.0",
+        "tslint-microsoft-contrib": "^6.2.0",
+        "typescript": "^3.7.5"
+    }
+}
