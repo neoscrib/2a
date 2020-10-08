@@ -773,9 +773,9 @@ export default class Lz<T> implements IterableIterator<T> {
         for (const item of source) {
             if (predicate(item)) {
                 yield item;
-            } else {
-                break;
+                continue;
             }
+            break;
         }
     }
 
@@ -801,10 +801,8 @@ export default class Lz<T> implements IterableIterator<T> {
     }
 
     private static *skipWhileInternal<T>(source: LzIterable<T>, predicate: (item: T) => boolean): IterableIterator<T> {
-        let flag = false;
         for (const item of source) {
-            if (!flag && predicate(item)) {
-                flag = true;
+            if (predicate(item)) {
                 continue;
             }
             yield item;
