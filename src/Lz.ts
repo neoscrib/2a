@@ -7,16 +7,18 @@ import ComparatorFunction = twoa.ComparatorFunction;
 import LzIterable = twoa.LzIterable;
 
 type IdentityFunction<T, U> = (item: T) => U;
+type PredicateFunction<T> = (item: T, index: number) => boolean;
+type SelectorFunction<T, U> = (item: T, index: number) => U;
 
 export default class Lz<T> implements IterableIterator<T> {
+    public static readonly identityFunction: <T>(item: T) => T = item => item;
+    public static readonly defaultPredicate: PredicateFunction<any> = () => true;
+    private static readonly defaultSelector: SelectorFunction<any, any> = Lz.identityFunction;
+
     private readonly iterable: IterableIterator<T>;
 
     private constructor(iterable: IterableIterator<T>) {
         this.iterable = iterable;
-    }
-
-    public static identityFunction<T>(item: T): T {
-        return item;
     }
 
     /**
@@ -403,22 +405,27 @@ export default class Lz<T> implements IterableIterator<T> {
 
     /**
      * Returns the last element of a sequence.
-     * @param {(item: T, index: number) => boolean} predicate A function to test each element for a condition.
+     * @param {PredicateFunction<T>} predicate A function to test each element for a condition.
      * @returns {T} The value at the last position in the source sequence.
      * @throws If the source sequence contains no elements or the predicate did not match any elements.
      */
-    public last(predicate?: (item: T, index: number) => boolean): T {
+    public last(predicate?: PredicateFunction<T>): T {
         return Lz.last(this, predicate);
     }
 
     /**
      * Returns the last element of a sequence.
      * @param {LzIterable<T>} source A sequence to return the last element of.
-     * @param {(item: T, index: number) => boolean} predicate A function to test each element for a condition.
+     * @param {PredicateFunction<T>} predicate A function to test each element for a condition.
      * @returns {T} The value at the last position in the source sequence.
      * @throws If the source sequence contains no elements or the predicate did not match any elements.
      */
-    public static last<T>(source: LzIterable<T>, predicate: (item: T, index: number) => boolean = () => true): T {
+    public static last<T>(source: LzIterable<T>, predicate: PredicateFunction<T> = Lz.defaultPredicate): T {
+        // optimize if source is an array and using default predicate
+        if (Array.isArray(source) && predicate === Lz.defaultPredicate) {
+            return source[source.length - 1];
+        }
+
         let result: T;
         let index = 0;
         let found = false;
@@ -437,10 +444,10 @@ export default class Lz<T> implements IterableIterator<T> {
     /**
      * Returns the last element of a sequence, or a default value if no element is found.
      * @param {T} defaultValue The default value.
-     * @param {(item: T, index: number) => boolean} predicate A function to test each element for a condition.
+     * @param {PredicateFunction<T>} predicate A function to test each element for a condition.
      * @returns {T} The value at the last position in the source sequence.
      */
-    public lastOrDefault(defaultValue: T, predicate?: (item: T, index: number) => boolean): T {
+    public lastOrDefault(defaultValue: T, predicate?: PredicateFunction<T>): T {
         return Lz.lastOrDefault(this, defaultValue, predicate);
     }
 
@@ -448,11 +455,11 @@ export default class Lz<T> implements IterableIterator<T> {
      * Returns the last element of a sequence, or a default value if no element is found.
      * @param {LzIterable<T>} source A sequence to return the last element of.
      * @param {T} defaultValue The default value.
-     * @param {(item: T, index: number) => boolean} predicate A function to test each element for a condition.
+     * @param {PredicateFunction<T>} predicate A function to test each element for a condition.
      * @returns {T} The value at the last position in the source sequence.
      */
     public static lastOrDefault<T>(source: LzIterable<T>, defaultValue: T,
-                                   predicate: (item: T, index: number) => boolean = () => true): T {
+                                   predicate: PredicateFunction<T> = Lz.defaultPredicate): T {
         let result: T;
         let index = 0;
         let found = false;
@@ -515,11 +522,14 @@ export default class Lz<T> implements IterableIterator<T> {
     }
 
     private static *rangeInternal(start: number, count: number): IterableIterator<number> {
-        if (count < 0) {
-            throw new Error('Count is less than 0.');
-        }
-        for (let n = start; n < start + count; n++) {
-            yield n;
+        if (count >= 0) {
+            for (let n = start; n < start + count; n++) {
+                yield n;
+            }
+        } else {
+            for (let n = start; n > start + count; n--) {
+                yield n;
+            }
         }
     }
 
@@ -544,6 +554,30 @@ export default class Lz<T> implements IterableIterator<T> {
         }
         for (let i = 0; i < count; i++) {
             yield element;
+        }
+    }
+
+    /**
+     * Generates a sequence that contains the results of a repeated action.
+     * @param {SelectorFunction<void, T>} selector
+     * @param {number} count The number of times to repeat the action in the generated sequence.
+     * @returns {Lz<T>} A sequence that contains the results of the repeated action.
+     * @throws If count is less than 0.
+     * @remarks
+     * This method is implemented by using deferred execution. The immediate return value is an object that stores all
+     * the information that is required to perform the action. The query represented by this method is not executed
+     * until the object is enumerated either by calling its toArray method directly or by using for...of.
+     */
+    public static repeatAction<T>(selector: SelectorFunction<void, T>, count: number): Lz<T> {
+        return new Lz<T>(Lz.repeatActionInternal(selector, count));
+    }
+
+    private static *repeatActionInternal<T>(selector: SelectorFunction<void, T>, count: number): IterableIterator<T> {
+        if (count < 0) {
+            throw new Error('Count is less than 0.');
+        }
+        for (let i = 0; i < count; i++) {
+            yield selector(undefined, i);
         }
     }
 
@@ -640,24 +674,24 @@ export default class Lz<T> implements IterableIterator<T> {
 
     /**
      * Projects each element of a sequence into a new form.
-     * @param {(item: T, index?: number) => U} selector A transform function to apply to each element.
+     * @param {SelectorFunction<T, U>} selector A transform function to apply to each element.
      * @returns {IterableIterator<U>} An iterable whose elements are the result of invoking the transform function on each element of source.
      */
-    public select<U>(selector: (item: T, index?: number) => U): Lz<U> {
+    public select<U>(selector: SelectorFunction<T, U>): Lz<U> {
         return Lz.select(this, selector);
     }
 
     /**
      * Projects each element of a sequence into a new form.
      * @param {LzIterable<T>} source An iterable of values to invoke a transform function on.
-     * @param {(item: T, index?: number) => U} selector A transform function to apply to each element.
+     * @param {SelectorFunction<T, U>} selector A transform function to apply to each element.
      * @returns {IterableIterator<U>} An iterable whose elements are the result of invoking the transform function on each element of source.
      */
-    public static select<T, U>(source: LzIterable<T>, selector: (item: T, index?: number) => U): Lz<U> {
+    public static select<T, U>(source: LzIterable<T>, selector: SelectorFunction<T, U>): Lz<U> {
         return new Lz<U>(Lz.selectInternal(source, selector));
     }
 
-    private static *selectInternal<T, U>(source: LzIterable<T>, selector: (item: T, index?: number) => U): IterableIterator<U> {
+    private static *selectInternal<T, U>(source: LzIterable<T>, selector: SelectorFunction<T, U>): IterableIterator<U> {
         let index = 0;
         for (const item of source) {
             yield selector(item, index++);
@@ -750,28 +784,29 @@ export default class Lz<T> implements IterableIterator<T> {
 
     /**
      * Returns elements from a sequence as long as a specified condition is true.
-     * @param {(item: T) => boolean} predicate A function to test each element for a condition.
+     * @param {PredicateFunction<T>} predicate A function to test each element for a condition.
      * @returns {IterableIterator<T>} A sequence that contains the elements from the input sequence that occur before the element at which the test no
      * longer passes.
      */
-    public takeWhile(predicate: (item: T) => boolean): Lz<T> {
+    public takeWhile(predicate: PredicateFunction<T>): Lz<T> {
         return Lz.takeWhile(this, predicate);
     }
 
     /**
      * Returns elements from a sequence as long as a specified condition is true.
      * @param {LzIterable<T>} source A sequence to return elements from.
-     * @param {(item: T) => boolean} predicate A function to test each element for a condition.
+     * @param {PredicateFunction<T>} predicate A function to test each element for a condition.
      * @returns {IterableIterator<T>} A sequence that contains the elements from the input sequence that occur before the element at which the test no
      * longer passes.
      */
-    public static takeWhile<T>(source: LzIterable<T>, predicate: (item: T) => boolean): Lz<T> {
+    public static takeWhile<T>(source: LzIterable<T>, predicate: PredicateFunction<T>): Lz<T> {
         return new Lz<T>(Lz.takeWhileInternal(source, predicate));
     }
 
-    private static *takeWhileInternal<T>(source: LzIterable<T>, predicate: (item: T) => boolean): IterableIterator<T> {
+    private static *takeWhileInternal<T>(source: LzIterable<T>, predicate: PredicateFunction<T> = Lz.defaultPredicate): IterableIterator<T> {
+        let index = 0;
         for (const item of source) {
-            if (predicate(item)) {
+            if (predicate(item, index++)) {
                 yield item;
                 continue;
             }
@@ -781,28 +816,29 @@ export default class Lz<T> implements IterableIterator<T> {
 
     /**
      * Bypasses elements in a sequence as long as a specified condition is true and then returns the remaining elements.
-     * @param {(item: T) => boolean} predicate A function to test each element for a condition.
+     * @param {PredicateFunction<T>} predicate A function to test each element for a condition.
      * @returns {IterableIterator<T>} A sequence that contains the elements from the input sequence starting at the first element in the linear series
      * that does not pass the test specified by predicate.
      */
-    public skipWhile(predicate: (item: T) => boolean): Lz<T> {
+    public skipWhile(predicate: PredicateFunction<T>): Lz<T> {
         return Lz.skipWhile(this, predicate);
     }
 
     /**
      * Bypasses elements in a sequence as long as a specified condition is true and then returns the remaining elements.
      * @param {LzIterable<T>} source A sequence to return elements from.
-     * @param {(item: T) => boolean} predicate A function to test each element for a condition.
+     * @param {PredicateFunction<T>} predicate A function to test each element for a condition.
      * @returns {IterableIterator<T>} A sequence that contains the elements from the input sequence starting at the first element in the linear series
      * that does not pass the test specified by predicate.
      */
-    public static skipWhile<T>(source: LzIterable<T>, predicate: (item: T) => boolean): Lz<T> {
+    public static skipWhile<T>(source: LzIterable<T>, predicate: PredicateFunction<T>): Lz<T> {
         return new Lz<T>(Lz.skipWhileInternal(source, predicate));
     }
 
-    private static *skipWhileInternal<T>(source: LzIterable<T>, predicate: (item: T) => boolean): IterableIterator<T> {
+    private static *skipWhileInternal<T>(source: LzIterable<T>, predicate: PredicateFunction<T> = Lz.defaultPredicate): IterableIterator<T> {
+        let index = 0;
         for (const item of source) {
-            if (predicate(item)) {
+            if (predicate(item, index++)) {
                 continue;
             }
             yield item;
@@ -823,8 +859,8 @@ export default class Lz<T> implements IterableIterator<T> {
      * @param {(item: T) => V} elementSelector A function to map each source element to an element in the returned Map.
      * @returns {IterableIterator<[K, V[]]>} A Map where each entry contains a collection of objects of type V.
      */
-    public groupBy<K, V>(keySelector: (item: T) => K, elementSelector?: (item: T) => V): Lz<[K, V[]]>;
-    public groupBy<K, V>(keySelector: (item: T) => K, elementSelector: (item: T) => V = Lz.identityFunction as IdentityFunction<T, V>)
+    public groupBy<K, V>(keySelector: SelectorFunction<T, K>, elementSelector?: SelectorFunction<T, V>): Lz<[K, V[]]>;
+    public groupBy<K, V>(keySelector: SelectorFunction<T, K>, elementSelector: SelectorFunction<T, V> = Lz.identityFunction as SelectorFunction<T, V>)
         : Lz<[K, V[]]> {
         return Lz.groupBy(this, keySelector, elementSelector);
     }
@@ -836,7 +872,7 @@ export default class Lz<T> implements IterableIterator<T> {
      * @param {(item: T) => K} keySelector A function to extract the key for each element.
      * @returns {IterableIterator<[K, V[]]>} A Map where each entry contains a collection of objects of type V.
      */
-    public static groupBy<T, K>(source: LzIterable<T>, keySelector: (item: T) => K): Lz<[K, T[]]>;
+    public static groupBy<T, K>(source: LzIterable<T>, keySelector: SelectorFunction<T, K>): Lz<[K, T[]]>;
 
     /**
      * Groups the elements of a sequence according to a specified key selector function and projects the elements for each group by using a
@@ -846,24 +882,26 @@ export default class Lz<T> implements IterableIterator<T> {
      * @param {(item: T) => V} elementSelector A function to map each source element to an element in the returned Map.
      * @returns {IterableIterator<[K, V[]]>} A Map where each entry contains a collection of objects of type V.
      */
-    public static groupBy<T, K, V>(source: LzIterable<T>, keySelector: (item: T) => K,
-                                   elementSelector?: (item: T) => V): Lz<[K, V[]]>;
+    public static groupBy<T, K, V>(source: LzIterable<T>, keySelector: SelectorFunction<T, K>,
+                                   elementSelector?: SelectorFunction<T, V>): Lz<[K, V[]]>;
 
-    public static groupBy<T, K, V>(source: LzIterable<T>, keySelector: (item: T) => K,
-                                   elementSelector: (item: T) => V = Lz.identityFunction as IdentityFunction<T, V>): Lz<[K, V[]]> {
+    public static groupBy<T, K, V>(source: LzIterable<T>, keySelector: SelectorFunction<T, K>,
+                                   elementSelector: SelectorFunction<T, V> = Lz.identityFunction as SelectorFunction<T, V>): Lz<[K, V[]]> {
         return new Lz<[K, V[]]>(Lz.groupByInternal(source, keySelector, elementSelector));
     }
 
-    private static *groupByInternal<T, K, V>(source: LzIterable<T>, keySelector: (item: T) => K, elementSelector: (item: T) => V)
+    private static *groupByInternal<T, K, V>(source: LzIterable<T>, keySelector: SelectorFunction<T, K>, elementSelector: SelectorFunction<T, V>)
         : IterableIterator<[K, V[]]> {
         const map: Map<K, V[]> = new Map<K, V[]>();
+        let index = 0;
         for (const item of source) {
-            const key: K = keySelector(item);
+            const key: K = keySelector(item, index);
             if (!map.has(key)) {
-                map.set(key, [ elementSelector(item) ]);
+                map.set(key, [ elementSelector(item, index) ]);
             } else {
-                map.get(key).push(elementSelector(item));
+                map.get(key).push(elementSelector(item, index));
             }
+            index++;
         }
 
         yield* map;
@@ -1074,41 +1112,54 @@ export default class Lz<T> implements IterableIterator<T> {
 
     /**
      * Returns a number that represents how many elements in the specified sequence satisfy a condition.
-     * @param {(item: T) => boolean} predicate A function to test each element for a condition.
+     * @param {PredicateFunction<T>} predicate A function to test each element for a condition.
      * @returns {number} A number that represents how many elements in the sequence satisfy the condition in the predicate function.
      */
-    public count(predicate: (item: T) => boolean = () => true): number {
+    public count(predicate?: PredicateFunction<T>): number {
         return Lz.count(this[Symbol.iterator](), predicate);
     }
 
     /**
      * Returns a number that represents how many elements in the specified sequence satisfy a condition.
      * @param {LzIterable<T>} source The sequence to return elements from.
-     * @param {(item: T) => boolean} predicate A function to test each element for a condition.
+     * @param {PredicateFunction<T>} predicate A function to test each element for a condition.
      * @returns {number} A number that represents how many elements in the sequence satisfy the condition in the predicate function.
      */
-    public static count<T>(source: LzIterable<T>, predicate: (item: T) => boolean = () => true): number {
-        return Lz.where(source, predicate).toArray().length;
+    public static count<T>(source: LzIterable<T>, predicate: PredicateFunction<T> = Lz.defaultPredicate): number {
+        if (Array.isArray(source) && predicate === Lz.defaultPredicate) {
+            return source.length;
+        }
+
+        let index = 0;
+        let count = 0;
+
+        for (const item of source) {
+            if (predicate(item, index++)) {
+                count++;
+            }
+        }
+        return count;
     }
 
     /**
      * Determines whether any element of a sequence satisfies a condition.
-     * @param {(item: T) => boolean} predicate A function to test each element for a condition.
+     * @param {PredicateFunction<T>} predicate A function to test each element for a condition.
      * @returns {boolean} <b>true</b> if any elements in the source sequence pass the test in the specified predicate; otherwise, <b>false</b>.
      */
-    public any(predicate: (item: T) => boolean): boolean {
+    public any(predicate: PredicateFunction<T>): boolean {
         return Lz.any(this, predicate);
     }
 
     /**
      * Determines whether any element of a sequence satisfies a condition.
      * @param {LzIterable<T>} source The sequence whose elements to apply the predicate to.
-     * @param {(item: T) => boolean} predicate A function to test each element for a condition.
+     * @param {PredicateFunction<T>} predicate A function to test each element for a condition.
      * @returns {boolean} <b>true</b> if any elements in the source sequence pass the test in the specified predicate; otherwise, <b>false</b>.
      */
-    public static any<T>(source: LzIterable<T>, predicate: (item: T) => boolean): boolean {
+    public static any<T>(source: LzIterable<T>, predicate: PredicateFunction<T>): boolean {
+        let index = 0;
         for (const item of source) {
-            if (predicate(item)) {
+            if (predicate(item, index++)) {
                 return true;
             }
         }
@@ -1117,24 +1168,25 @@ export default class Lz<T> implements IterableIterator<T> {
 
     /**
      * Determines whether all elements of a sequence satisfy a condition.
-     * @param {(item: T) => boolean} predicate A function to test each element for a condition.
+     * @param {PredicateFunction<T>} predicate A function to test each element for a condition.
      * @returns {boolean} <b>true</b> if every element of the source sequence passes the test in the specified predicate, or if the sequence is empty;
      * otherwise, <b>false</b>.
      */
-    public all(predicate: (item: T) => boolean): boolean {
+    public all(predicate: PredicateFunction<T>): boolean {
         return Lz.all(this, predicate);
     }
 
     /**
      * Determines whether all elements of a sequence satisfy a condition.
      * @param {LzIterable<T>} source The sequence that contains the elements to apply the predicate to.
-     * @param {(item: T) => boolean} predicate A function to test each element for a condition.
+     * @param {PredicateFunction<T>} predicate A function to test each element for a condition.
      * @returns {boolean} <b>true</b> if every element of the source sequence passes the test in the specified predicate, or if the sequence is empty;
      * otherwise, <b>false</b>.
      */
-    public static all<T>(source: LzIterable<T>, predicate: (item: T) => boolean): boolean {
+    public static all<T>(source: LzIterable<T>, predicate: PredicateFunction<T>): boolean {
+        let index = 0;
         for (const item of source) {
-            if (!predicate(item)) {
+            if (!predicate(item, index++)) {
                 return false;
             }
         }
@@ -1143,27 +1195,27 @@ export default class Lz<T> implements IterableIterator<T> {
 
     /**
      * Returns the only element of a sequence, and throws an exception if there is not exactly one element in the sequence.
-     * @param {(item: T) => boolean} predicate A function to test an element for a condition. Return true to keep the element,
+     * @param {PredicateFunction<T>} predicate A function to test an element for a condition. Return true to keep the element,
      * false otherwise.
      * @returns {T} The single element of the input sequence that satisfies a condition.
      * @throws If no element satisfies the condition in predicate, or more than one element satisfies the condition
      * in predicate, or the source sequence is empty.
      */
-    public single(predicate?: (item: T, index: number) => boolean): T {
+    public single(predicate?: PredicateFunction<T>): T {
         return Lz.single(this, predicate);
     }
 
     /**
      * Returns the only element of a sequence, and throws an exception if there is not exactly one element in the sequence.
      * @param {LzIterable<T>} source An iterable to return the single element of.
-     * @param {(item: T) => boolean} predicate A function to test an element for a condition. Return true to keep the element,
+     * @param {PredicateFunction<T>} predicate A function to test an element for a condition. Return true to keep the element,
      * false otherwise.
      * @returns {T} The single element of the input sequence that satisfies a condition.
      * @throws If no element satisfies the condition in predicate, or more than one element satisfies the condition
      * in predicate, or the source sequence is empty.
      */
     public static single<T>(source: LzIterable<T>,
-                            predicate: (item: T, index: number) => boolean = () => true): T {
+                            predicate: PredicateFunction<T> = Lz.defaultPredicate): T {
         const iterable = Lz.whereInternal(source, predicate);
         let result = iterable.next();
         if (!result.done) {
@@ -1182,12 +1234,12 @@ export default class Lz<T> implements IterableIterator<T> {
      * Returns the only element of a sequence that satisfies a specified condition or a default value if no such element
      * exists; this method throws an exception if more than one element satisfies the condition.
      * @param {T} defaultValue The default value.
-     * @param {(item: T) => boolean} predicate A function to test an element for a condition. Return true to keep the element,
+     * @param {PredicateFunction<T>} predicate A function to test an element for a condition. Return true to keep the element,
      * false otherwise.
      * @returns {T} The single element of the input sequence that satisfies a condition.
      * @throws If more than one element satisfies the condition in predicate.
      */
-    public singleOrDefault(defaultValue: T, predicate?: (item: T, index: number) => boolean): T {
+    public singleOrDefault(defaultValue: T, predicate?: PredicateFunction<T>): T {
         return Lz.singleOrDefault(this, defaultValue, predicate);
     }
 
@@ -1196,14 +1248,14 @@ export default class Lz<T> implements IterableIterator<T> {
      * this method throws an exception if more than one element satisfies the condition.
      * @param {LzIterable<T>} source A sequence to return the single element from.
      * @param {T} defaultValue The default value.
-     * @param {(item: T) => boolean} predicate A function to test an element for a condition. Return true to keep the element,
+     * @param {PredicateFunction<T>} predicate A function to test an element for a condition. Return true to keep the element,
      * false otherwise.
      * @returns {T} The single element of the input sequence that satisfies the condition, or <i>defaultValue</i> if
      * no such element is found.
      * @throws If more than one element satisfies the condition in predicate.
      */
     public static singleOrDefault<T>(source: LzIterable<T>, defaultValue: T,
-                                     predicate: (item: T, index: number) => boolean = () => true): T {
+                                     predicate: PredicateFunction<T> = Lz.defaultPredicate): T {
         const iterable = Lz.whereInternal(source, predicate);
         let result = iterable.next();
         if (!result.done) {
@@ -1220,22 +1272,27 @@ export default class Lz<T> implements IterableIterator<T> {
 
     /**
      * Returns the first element of a sequence.
-     * @param {(item: T, index: number) => boolean} predicate A function to test each element for a condition.
+     * @param {PredicateFunction<T>} predicate A function to test each element for a condition.
      * @returns {T} The first element.
      * @throws If the source sequence contains no elements or the predicate did not match any elements.
      */
-    public first(predicate?: (item: T, index: number) => boolean): T {
+    public first(predicate?: PredicateFunction<T>): T {
         return Lz.first(this);
     }
 
     /**
      * Returns the first element of a sequence.
      * @param {LzIterable<T>} source The sequence to return an element from.
-     * @param {(item: T, index: number) => boolean} predicate A function to test each element for a condition.
+     * @param {PredicateFunction<T>} predicate A function to test each element for a condition.
      * @returns {T} The first element.
      * @throws If the source sequence contains no elements or the predicate did not match any elements.
      */
-    public static first<T>(source: LzIterable<T>, predicate: (item: T, index: number) => boolean = () => true): T {
+    public static first<T>(source: LzIterable<T>, predicate: PredicateFunction<T> = Lz.defaultPredicate): T {
+        // optimize if source is an array and using default predicate
+        if (Array.isArray(source) && predicate === Lz.defaultPredicate) {
+            return source[0];
+        }
+
         let index = 0;
         for (const item of source) {
             if (predicate(item, index++)) {
@@ -1249,10 +1306,10 @@ export default class Lz<T> implements IterableIterator<T> {
     /**
      * Returns the first element of a sequence, or a default value if the sequence contains no elements.
      * @param {T} defaultValue The default value.
-     * @param {(item: T, index: number) => boolean} predicate A function to test each element for a condition.
+     * @param {PredicateFunction<T>} predicate A function to test each element for a condition.
      * @returns {T} The first element, or a default value if the sequence contains no elements.
      */
-    public firstOrDefault(defaultValue: T, predicate?: (item: T, index: number) => boolean): T {
+    public firstOrDefault(defaultValue: T, predicate?: PredicateFunction<T>): T {
         return Lz.firstOrDefault(this, defaultValue, predicate);
     }
 
@@ -1260,11 +1317,11 @@ export default class Lz<T> implements IterableIterator<T> {
      * Returns the first element of a sequence, or a default value if the sequence contains no elements.
      * @param {LzIterable<T>} source The sequence to return an element from.
      * @param {T} defaultValue The default value.
-     * @param {(item: T, index: number) => boolean} predicate A function to test each element for a condition.
+     * @param {PredicateFunction<T>} predicate A function to test each element for a condition.
      * @returns {T} The first element, or a default value if the sequence contains no elements.
      */
     public static firstOrDefault<T>(source: LzIterable<T>, defaultValue: T,
-                                    predicate: (item: T, index: number) => boolean = () => true): T {
+                                    predicate: PredicateFunction<T> = Lz.defaultPredicate): T {
         let index = 0;
         for (const item of source) {
             if (predicate(item, index++)) {

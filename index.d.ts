@@ -1,8 +1,39 @@
+// tslint:disable:max-classes-per-file
+// tslint:disable:no-namespace
+// tslint:disable:ban-types
+
 declare module '2a' {
     export import Lz  = twoa.Lz;
     export import BinarySearch = twoa.BinarySearch;
     export import Comparator = twoa.Comparator;
     export import SortedMap = twoa.SortedMap;
+}
+
+declare module '2a/client' {
+    export import bodyParam = twoa.client.bodyParam;
+    export import client = twoa.client.client;
+    export import mapping = twoa.client.mapping;
+    export import headerParam = twoa.client.headerParam;
+    export import pathParam = twoa.client.pathParam;
+    export import queryParam = twoa.client.queryParam;
+}
+
+declare module '2a/di' {
+    export import Application = twoa.di.Application;
+    export import autowire = twoa.di.autowire;
+    export import inject = twoa.di.inject;
+    export import service = twoa.di.service;
+}
+
+declare module '2a/scheduling' {
+    export import scheduled = twoa.scheduling.scheduled;
+    export import enableScheduling = twoa.scheduling.enableScheduling;
+    export import disableScheduling = twoa.scheduling.disableScheduling;
+    export import interval = twoa.scheduling.interval;
+}
+
+declare module '2a/util' {
+    export import createUrl = twoa.util.createUrl;
 }
 
 declare namespace twoa {
@@ -877,5 +908,123 @@ declare namespace twoa {
         public next(value?: any): IteratorResult<[ K, V ]>;
         public return(value?: any): IteratorResult<[ K, V ]>;
         public throw(e?: any): IteratorResult<[ K, V ]>;
+    }
+
+    export namespace client {
+        export interface IClientOptions {
+            baseUrl(): string;
+            interceptors?: (() => RequestInit)[];
+        }
+
+        export interface IMappingOptions {
+            method: string;
+            value: string;
+            blob?: boolean;
+            produces?: string;
+            interceptors?: (() => RequestInit)[];
+        }
+
+        export interface IQueryParamOptions {
+            name: string;
+            required?: boolean;
+        }
+
+        export function bodyParam(target: any, propertyKey: string | symbol, parameterIndex: number): void;
+
+        export function client(options: IClientOptions): ClassDecorator;
+
+        export function mapping(options: IMappingOptions): MethodDecorator;
+
+        export function headerParam(name: string): ParameterDecorator;
+
+        export function pathParam(name: string): ParameterDecorator;
+
+        export function queryParam(options: string | IQueryParamOptions): ParameterDecorator;
+    }
+
+    export namespace di {
+        export class Application {
+            public static run(): void;
+            public static getTargets(): ReadonlyMap<string, new(...args: any[]) => any>;
+            public static getServices(): ReadonlyMap<string, any>;
+            public static getService<T>(name: string): T;
+        }
+
+        export function autowire(name: string): PropertyDecorator | ParameterDecorator;
+        export function autowire(target: Object, propertyKey: string | symbol): void;
+
+        /**
+         * Injects the decorated class with autowired dependencies when it is instantiated.
+         * @description Dependency injection is similar to using the @service decorator except that classes decorated with @inject
+         * are not singletons and are not instantiated automatically when the application starts. Instead, the developer can create instances
+         * of classes decorated with @inject at any time and they will be injected with their appropriate autowired dependencies
+         * @param {T} target The class to receive autowired dependencies
+         * @returns {{new(...args: any[]): any, prototype: {}}} Wrapped class which injects autowired dependencies upon instantiation
+         */
+        export function inject<T extends new(...args: any[]) => any>(target: T): T;
+
+        export function service(name: string): ClassDecorator;
+    }
+
+    export namespace scheduling {
+        export interface IIntervalOptions {
+            /**
+             * The callback function to execute at the specified {@link #fixedRate} or {@link #fixedDelay}
+             */
+            callback: Function;
+            /**
+             * Execute the callback with a fixed period in milliseconds between invocations.
+             */
+            fixedRate?: number;
+            /**
+             * Execute the callback with a fixed period in milliseconds between the end of the last invocation and the start of the next.
+             */
+            fixedDelay?: number;
+            /**
+             * Number of milliseconds to delay before the first execution of a {@link #fixedRate} or {@link #fixedDelay} task.
+             */
+            initialDelay?: number;
+        }
+
+        export type IScheduledOptions = Pick<IIntervalOptions, 'fixedRate' | 'fixedDelay' | 'initialDelay'>;
+
+        export interface IEnableSchedulingOptions {
+            include?: string[];
+            exclude?: string[];
+        }
+
+        export function scheduled(options: IScheduledOptions): MethodDecorator;
+
+        /**
+         * As a class decorator: schedules will be started when class is instantiated; as a method decorator: schedules will be started when the decorated method is first called
+         * @param {IEnableSchedulingOptions} options Specify which decorated scheduled methods to include/exclude from starting.
+         * @returns {ClassDecorator | MethodDecorator}
+         */
+        export function enableScheduling(options?: IEnableSchedulingOptions): ClassDecorator | MethodDecorator;
+
+        /**
+         * Schedules will be stopped when the decorated method is first called.
+         * @param {IEnableSchedulingOptions} options Specify which decorated scheduled methods to include/exclude from stopping.
+         * @returns {MethodDecorator}
+         */
+        export function disableScheduling(options?: IEnableSchedulingOptions): MethodDecorator;
+
+        /**
+         * Start a timer interval with the specified options. Calling the returned function will stop the timer.
+         * @param {IIntervalOptions} options Timer options
+         * @returns {() => void} Cancel function
+         */
+        export function interval(options: IIntervalOptions): () => void;
+    }
+
+    export namespace util {
+        /**
+         * Creates a URL with the specified base, path, and query params.
+         * @param {string} baseUrl The URL to use for the base.
+         * @param {string} path The path of the URL.
+         * @param {Record<string, any>} params The query parameters.
+         * @returns {string} The constructed URL with any necessary component encodings.
+         */
+        export function createUrl(baseUrl: string, path: string, params?: Record<string, any>): string;
     }
 }
