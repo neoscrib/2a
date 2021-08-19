@@ -1,11 +1,12 @@
 {
     "name": "2a",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "description": "",
-    "main": "./dist/index.js",
+    "main": "./index.js",
     "scripts": {
         "build": "tsc --project ./tsconfig.json",
-        "prepublish": "npm run lint && npm run build",
+        "prepublish": "[ $(echo $PWD | sed 's/\\// /g' | awk '{print $NF}') = 'dist' ] || (echo 'Must publish from dist directory! Try \"npm run dist\"' && exit 1)",
+        "dist": "./publish.sh",
         "lint": "tslint --project ./tsconfig.json",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
@@ -20,12 +21,6 @@
     },
     "homepage": "https://github.com/neoscrib/2a#readme",
     "typings": "./index.d.ts",
-    "files": [
-        "dist",
-        "index.d.ts",
-        "LICENSE",
-        "README.md"
-    ],
     "devDependencies": {
         "@types/chai": "^4.2.15",
         "@types/mocha": "^8.2.0",
