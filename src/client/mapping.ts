@@ -108,6 +108,11 @@ export default ({ method, value, blob, produces, interceptors }: IMappingOptions
             }
         }
 
+        if (headers.get('content-type') === 'multipart/form-data' && body instanceof FormData) {
+            // delete form-data content type header -- fetch will set this for us with the proper boundary value
+            headers.delete('content-type');
+        }
+
         const url = createUrl(clientOptions.baseUrl(), path, query);
 
         const init = [ ...interceptors ?? [], ...clientOptions.interceptors ?? [] ]
