@@ -23,13 +23,23 @@ export default ({ method, value, blob, produces, interceptors }: IMappingOptions
 
         let path = value;
         let body;
+        const form = new FormData();
         const query: Record<string, any> = {};
         const headers = new Headers();
 
         const pathParams: Map<number, string> = Reflect.getMetadata(ClientConstants.PathParams, target, propertyKey);
         const queryParams: Map<number, string | IQueryParamOptions> = Reflect.getMetadata(ClientConstants.QueryParams, target, propertyKey);
         const headerParams: Map<number, string> = Reflect.getMetadata(ClientConstants.HeaderParams, target, propertyKey);
+        const formParams: Map<number, string> = Reflect.getMetadata(ClientConstants.FormParams, target, propertyKey);
         const bodyParams: Set<number> = Reflect.getMetadata(ClientConstants.BodyParams, target, propertyKey);
+
+        if (bodyParams.size > 1) {
+            throw new Error('Only a single body param may be used.');
+        }
+
+        if (formParams.size > 0 && bodyParams.size > 0) {
+            throw new Error('Only form params or a body param may be used, but not both.');
+        }
 
         for (let i = 0; i < args.length; i++) {
             const current = args[i];
@@ -58,6 +68,16 @@ export default ({ method, value, blob, produces, interceptors }: IMappingOptions
                     headers.set(name, current);
                 } else {
                     headers.append(name, current);
+                }
+            }
+
+            if (formParams?.has(i)) {
+                const name = formParams.get(i);
+                form.append(name, current);
+
+                const contentType = produces ?? 'multipart/form-data';
+                if (!headers.has('content-type')) {
+                    headers.set('content-type', contentType);
                 }
             }
 

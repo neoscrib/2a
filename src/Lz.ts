@@ -44,65 +44,65 @@ export default class Lz<T> implements IterableIterator<T> {
 
     /**
      * Appends a value to the end of the sequence.
-     * @param {T} element The value to append to source.
+     * @param {T[]} elements The value(s) to append to source.
      * @returns {Lz<T>} A new sequence that ends with element.
      * @remarks
      * This method is implemented by using deferred execution. The immediate return value is an object that stores all
      * the information that is required to perform the action. The query represented by this method is not executed
      * until the object is enumerated either by calling its toArray method directly or by using for...of.
      */
-    public append(element: T): Lz<T> {
-        return Lz.append(this, element);
+    public append(...elements: T[]): Lz<T> {
+        return Lz.append(this, ...elements);
     }
 
     /**
      * Appends a value to the end of the sequence.
      * @param {LzIterable<T>} source A sequence of values.
-     * @param {T} element The value to append to source.
+     * @param {T[]} elements The value(s) to append to source.
      * @returns {Lz<T>} A new sequence that ends with element.
      * @remarks
      * This method is implemented by using deferred execution. The immediate return value is an object that stores all
      * the information that is required to perform the action. The query represented by this method is not executed
      * until the object is enumerated either by calling its toArray method directly or by using for...of.
      */
-    public static append<T>(source: LzIterable<T>, element: T): Lz<T> {
-        return new Lz<T>(Lz.appendInternal(source, element));
+    public static append<T>(source: LzIterable<T>, ...elements: T[]): Lz<T> {
+        return new Lz<T>(Lz.appendInternal(source, ...elements));
     }
 
-    private static *appendInternal<T>(source: LzIterable<T>, element: T): IterableIterator<T> {
+    private static *appendInternal<T>(source: LzIterable<T>, ...elements: T[]): IterableIterator<T> {
         yield* source;
-        yield element;
+        yield* elements;
     }
 
     /**
      * Adds a value to the beginning of the sequence.
-     * @param {T} element The value to prepend to <i>source</i>.
+     * @param {T[]} elements The value(s) to prepend to <i>source</i>.
      * @returns {Lz<T>} A new sequence that begins with <i>element</i>.
      * @remarks
      * This method is implemented by using deferred execution. The immediate return value is an object that stores all
      * the information that is required to perform the action. The query represented by this method is not executed
      * until the object is enumerated either by calling its toArray method directly or by using for...of.
      */
-    public prepend(element: T): Lz<T> {
-        return Lz.prepend(this, element);
+    public prepend(...elements: T[]): Lz<T> {
+        return Lz.prepend(this, ...elements);
     }
 
     /**
      * Adds a value to the beginning of the sequence.
      * @param {LzIterable<T>} source A sequence of values.
-     * @param {T} element The value to prepend to <i>source</i>.
+     * @param {T[]} elements The value(s) to prepend to <i>source</i>.
      * @returns {Lz<T>} A new sequence that begins with <i>element</i>.
      * @remarks
      * This method is implemented by using deferred execution. The immediate return value is an object that stores all
      * the information that is required to perform the action. The query represented by this method is not executed
      * until the object is enumerated either by calling its toArray method directly or by using for...of.
      */
-    public static prepend<T>(source: LzIterable<T>, element: T): Lz<T> {
-        return new Lz<T>(Lz.prependInternal(source, element));
+    public static prepend<T>(source: LzIterable<T>, ...elements: T[]): Lz<T> {
+        return new Lz<T>(Lz.prependInternal(source, ...elements));
     }
 
-    private static *prependInternal<T>(source: LzIterable<T>, element: T): IterableIterator<T> {
-        yield element;
+    private static *prependInternal<T>(source: LzIterable<T>, ...elements: T[]): IterableIterator<T> {
+        yield* elements;
         yield* source;
     }
 
@@ -267,6 +267,20 @@ export default class Lz<T> implements IterableIterator<T> {
             if (index < 0) {
                 yield item;
             }
+        }
+    }
+
+    /**
+     * Performs the specified action on each element of the sequence.
+     * @param {(item: T) => void} action The action delegate to perform on each element of the sequence.
+     */
+    public forEach(action: (item: T) => void): void {
+        Lz.forEach(this, action);
+    }
+
+    public static forEach<T>(source: LzIterable<T>, action: (item: T) => void): void {
+        for (const item of source) {
+            action(item);
         }
     }
 

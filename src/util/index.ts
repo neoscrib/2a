@@ -1,9 +1,7 @@
-export function createUrl(baseUrl: string, path: string, params: Record<string, any> = {}): string {
-    const url = new URL(path, baseUrl);
+import Color from './Color';
+import MathHelper from './MathHelper';
+import NamesGenerator from './NamesGenerator';
+import { createUrl } from './createUrl';
 
-    for (const [ name, value ] of Object.entries(params)) {
-        url.searchParams.append(name, value);
-    }
+export { Color, MathHelper, NamesGenerator, createUrl };
 
-    return url.toString();
-}

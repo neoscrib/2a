@@ -1,12 +1,23 @@
 // tslint:disable:max-classes-per-file
 // tslint:disable:no-namespace
 // tslint:disable:ban-types
+// tslint:disable:member-ordering
 
 declare module '2a' {
     export import Lz  = twoa.Lz;
     export import BinarySearch = twoa.BinarySearch;
     export import Comparator = twoa.Comparator;
     export import SortedMap = twoa.SortedMap;
+    export import StringBuilder = twoa.StringBuilder;
+    export import FilenameUtils = twoa.FilenameUtils;
+}
+
+declare module '2a/geometry' {
+    export import BoundingBox = twoa.geometry.BoundingBox;
+    export import BoundingSphere = twoa.geometry.BoundingSphere;
+    export import Matrix = twoa.geometry.Matrix;
+    export import Quaternion = twoa.geometry.Quaternion;
+    export import Vector3 = twoa.geometry.Vector3;
 }
 
 declare module '2a/client' {
@@ -15,6 +26,7 @@ declare module '2a/client' {
     export import mapping = twoa.client.mapping;
     export import headerParam = twoa.client.headerParam;
     export import pathParam = twoa.client.pathParam;
+    export import formParam = twoa.client.formParam;
     export import queryParam = twoa.client.queryParam;
 }
 
@@ -33,6 +45,7 @@ declare module '2a/scheduling' {
 }
 
 declare module '2a/util' {
+    export import Color = twoa.util.Color;
     export import createUrl = twoa.util.createUrl;
 }
 
@@ -67,49 +80,49 @@ declare namespace twoa {
 
         /**
          * Appends a value to the end of the sequence.
-         * @param {T} element The value to append to source.
+         * @param {T[]} elements The value(s) to append to source.
          * @returns {Lz<T>} A new sequence that ends with element.
          * @remarks
          * This method is implemented by using deferred execution. The immediate return value is an object that stores all
          * the information that is required to perform the action. The query represented by this method is not executed
          * until the object is enumerated either by calling its toArray method directly or by using for...of.
          */
-        public append(element: T): Lz<T>;
+        public append(...elements: T[]): Lz<T>;
 
         /**
          * Appends a value to the end of the sequence.
          * @param {LzIterable<T>} source A sequence of values.
-         * @param {T} element The value to append to source.
+         * @param {T[]} elements The value(s) to append to source.
          * @returns {Lz<T>} A new sequence that ends with element.
          * @remarks
          * This method is implemented by using deferred execution. The immediate return value is an object that stores all
          * the information that is required to perform the action. The query represented by this method is not executed
          * until the object is enumerated either by calling its toArray method directly or by using for...of.
          */
-        public static append<T>(source: LzIterable<T>, element: T): Lz<T>;
+        public static append<T>(source: LzIterable<T>, ...elements: T[]): Lz<T>;
 
         /**
          * Adds a value to the beginning of the sequence.
-         * @param {T} element The value to prepend to <i>source</i>.
+         * @param {T[]} elements The value(s) to prepend to <i>source</i>.
          * @returns {Lz<T>} A new sequence that begins with <i>element</i>.
          * @remarks
          * This method is implemented by using deferred execution. The immediate return value is an object that stores all
          * the information that is required to perform the action. The query represented by this method is not executed
          * until the object is enumerated either by calling its toArray method directly or by using for...of.
          */
-        public prepend(element: T): Lz<T>;
+        public prepend(...elements: T[]): Lz<T>;
 
         /**
          * Adds a value to the beginning of the sequence.
          * @param {LzIterable<T>} source A sequence of values.
-         * @param {T} element The value to prepend to <i>source</i>.
+         * @param {T[]} elements The value(s) to prepend to <i>source</i>.
          * @returns {Lz<T>} A new sequence that begins with <i>element</i>.
          * @remarks
          * This method is implemented by using deferred execution. The immediate return value is an object that stores all
          * the information that is required to perform the action. The query represented by this method is not executed
          * until the object is enumerated either by calling its toArray method directly or by using for...of.
          */
-        public static prepend<T>(source: LzIterable<T>, element: T): Lz<T>;
+        public static prepend<T>(source: LzIterable<T>, ...elements: T[]): Lz<T>;
 
         /**
          * Concatenates two sequences.
@@ -204,6 +217,19 @@ declare namespace twoa {
          */
         public static except<T>(first: LzIterable<T>, second: LzIterable<T>,
                                 comparator?: ComparatorFunction<T>): Lz<T>;
+
+        /**
+         * Performs the specified action on each element of the sequence.
+         * @param {(item: T) => void} action The action delegate to perform on each element of the sequence.
+         */
+        public forEach(action: (item: T) => void): void;
+
+        /**
+         * Performs the specified action on each element of the sequence.
+         * @param {LzIterable<T>} source The sequence whose elements to perform the specified action on.
+         * @param {(item: T) => void} action The action delegate to perform on each element of the sequence.
+         */
+        public static forEach<T>(source: LzIterable<T>, action: (item: T) => void): void;
 
         /**
          * Inserts a value into the source sequence at the specified index.
@@ -910,6 +936,673 @@ declare namespace twoa {
         public throw(e?: any): IteratorResult<[ K, V ]>;
     }
 
+    export class StringBuilder {
+        public constructor(content: string, indentSize?: number);
+
+        public append(...content: string[]): this;
+
+        public appendLines(...content: string[]): this;
+
+        public indent(): this;
+
+        public outdent(): this;
+
+        public newline(n?: number): this;
+
+        public toString(): string;
+
+        /**
+         * Gets the current length of the final string.
+         * @note This builds the string in its current state in order to determine the length.
+         * @returns {number} The length of the final string in its current state.
+         */
+        public get length(): number;
+    }
+
+    export class FilenameUtils {
+        /**
+         * Concatenates a fileName to a base path using normal command line style rules.
+         * <p>
+         * The effect is equivalent to resultant directory after changing
+         * directory to the first argument, followed by changing directory to
+         * the second argument.
+         * </p>
+         * <p>
+         * The first argument is the base path, the second is the path to concatenate.
+         * The returned path is always normalized via {@link #normalize(String)},
+         * thus {@code ..} is handled.
+         * </p>
+         * <p>
+         * If {@code pathToAdd} is absolute (has an absolute prefix), then
+         * it will be normalized and returned.
+         * Otherwise, the paths will be joined, normalized and returned.
+         * </p>
+         * <p>
+         * The output will be the same on both Unix and Windows except
+         * for the separator character.
+         * </p>
+         * <pre>
+         * /foo/      + bar        --&gt;  /foo/bar
+         * /foo       + bar        --&gt;  /foo/bar
+         * /foo       + /bar       --&gt;  /bar
+         * /foo       + C:/bar     --&gt;  C:/bar
+         * /foo       + C:bar      --&gt;  C:bar [1]
+         * /foo/a/    + ../bar     --&gt;  /foo/bar
+         * /foo/      + ../../bar  --&gt;  null
+         * /foo/      + /bar       --&gt;  /bar
+         * /foo/..    + /bar       --&gt;  /bar
+         * /foo       + bar/c.txt  --&gt;  /foo/bar/c.txt
+         * /foo/c.txt + bar        --&gt;  /foo/c.txt/bar [2]
+         * </pre>
+         * <p>
+         * [1] Note that the Windows relative drive prefix is unreliable when
+         * used with this method.
+         * </p>
+         * <p>
+         * [2] Note that the first parameter must be a path. If it ends with a name, then
+         * the name will be built into the concatenated path. If this might be a problem,
+         * use {@link #getFullPath(String)} on the base path argument.
+         * </p>
+         *
+         * @param basePath  the base path to attach to, always treated as a path
+         * @param fullFileNameToAdd  the fileName (or path) to attach to the base
+         * @return the concatenated path, or null if invalid.  Null bytes inside string will be removed
+         */
+        public static concat(basePath: string, fullFileNameToAdd: string): string;
+
+        /**
+         * Determines whether the {@code parent} directory contains the {@code child} element (a file or directory).
+         * <p>
+         * The files names are expected to be normalized.
+         * </p>
+         *
+         * Edge cases:
+         * <ul>
+         * <li>A {@code directory} must not be null: if null, throw IllegalArgumentException</li>
+         * <li>A directory does not contain itself: return false</li>
+         * <li>A null child file is not contained in any parent: return false</li>
+         * </ul>
+         *
+         * @param canonicalParent
+         *            the file to consider as the parent.
+         * @param canonicalChild
+         *            the file to consider as the child.
+         * @return true is the candidate leaf is under by the specified composite. False otherwise.
+         * @since 2.2
+         * @see FileUtils#directoryContains(File, File)
+         */
+        public static directoryContains(canonicalParent: string, canonicalChild: string): boolean;
+
+        /**
+         * Checks whether two fileNames are equal, optionally normalizing and providing
+         * control over the case-sensitivity.
+         *
+         * @param fileName1  the first fileName to query, may be null
+         * @param fileName2  the second fileName to query, may be null
+         * @param normalized  whether to normalize the fileNames
+         * @return true if the fileNames are equal, null equals null
+         * @since 1.3
+         */
+        public static equals(fileName1: string, fileName2: string, normalized?: boolean): boolean;
+
+        /**
+         * Checks whether two fileNames are equal after both have been normalized.
+         * <p>
+         * Both fileNames are first passed to {@link #normalize(String)}.
+         * The check is then performed in a case-sensitive manner.
+         * </p>
+         *
+         * @param fileName1  the first fileName to query, may be null
+         * @param fileName2  the second fileName to query, may be null
+         * @return true if the fileNames are equal, null equals null
+         */
+        public static equalsNormalized(fileName1: string, fileName2: string): boolean;
+
+        /**
+         * Checks whether two fileNames are equal after both have been normalized
+         * and using the case rules of the system.
+         * <p>
+         * Both fileNames are first passed to {@link #normalize(String)}.
+         * The check is then performed case-sensitive on Unix and
+         * case-insensitive on Windows.
+         * </p>
+         *
+         * @param fileName1  the first fileName to query, may be null
+         * @param fileName2  the second fileName to query, may be null
+         * @return true if the fileNames are equal, null equals null
+         */
+        public static equalsNormalizedOnSystem(fileName1: string, fileName2: string): boolean;
+
+        /**
+         * Checks whether two fileNames are equal using the case rules of the system.
+         * <p>
+         * No processing is performed on the fileNames other than comparison.
+         * The check is case-sensitive on Unix and case-insensitive on Windows.
+         * </p>
+         *
+         * @param fileName1  the first fileName to query, may be null
+         * @param fileName2  the second fileName to query, may be null
+         * @return true if the fileNames are equal, null equals null
+         */
+        public static equalsOnSystem(fileName1: string, fileName2: string): boolean;
+
+        /**
+         * Flips the Windows name separator to Linux and vice-versa.
+         *
+         * @param ch The Windows or Linux name separator.
+         * @return The Windows or Linux name separator.
+         */
+        public static flipSeparator(ch: string): string;
+
+        /**
+         * Gets the base name, minus the full path and extension, from a full fileName.
+         * <p>
+         * This method will handle a file in either Unix or Windows format.
+         * The text after the last forward or backslash and before the last dot is returned.
+         * </p>
+         * <pre>
+         * a/b/c.txt --&gt; c
+         * a.txt     --&gt; a
+         * a/b/c     --&gt; c
+         * a/b/c/    --&gt; ""
+         * </pre>
+         * <p>
+         * The output will be the same irrespective of the machine that the code is running on.
+         * </p>
+         *
+         * @param fileName  the fileName to query, null returns null
+         * @return the name of the file without the path, or an empty string if none exists. Null bytes inside string
+         * will be removed
+         */
+        public static getBaseName(fileName: string): string;
+
+        /**
+         * Gets the extension of a fileName.
+         * <p>
+         * This method returns the textual part of the fileName after the last dot.
+         * There must be no directory separator after the dot.
+         * </p>
+         * <pre>
+         * foo.txt      --&gt; "txt"
+         * a/b/c.jpg    --&gt; "jpg"
+         * a/b.txt/c    --&gt; ""
+         * a/b/c        --&gt; ""
+         * </pre>
+         * <p>
+         * The output will be the same irrespective of the machine that the code is running on, with the
+         * exception of a possible {@link IllegalArgumentException} on Windows (see below).
+         * </p>
+         * <p>
+         * <b>Note:</b> This method used to have a hidden problem for names like "foo.exe:bar.txt".
+         * In this case, the name wouldn't be the name of a file, but the identifier of an
+         * alternate data stream (bar.txt) on the file foo.exe. The method used to return
+         * ".txt" here, which would be misleading. Commons IO 2.7, and later versions, are throwing
+         * an {@link IllegalArgumentException} for names like this.
+         * </p>
+         *
+         * @param fileName the fileName to retrieve the extension of.
+         * @return the extension of the file or an empty string if none exists or {@code null}
+         * if the fileName is {@code null}.
+         * @throws IllegalArgumentException <b>Windows only:</b> The fileName parameter is, in fact,
+         * the identifier of an Alternate Data Stream, for example "foo.exe:bar.txt".
+         */
+        public static getExtension(fileName: string): string;
+
+        /**
+         * Gets the full path from a full fileName, which is the prefix + path.
+         * <p>
+         * This method will handle a file in either Unix or Windows format.
+         * The method is entirely text based, and returns the text before and
+         * including the last forward or backslash.
+         * </p>
+         * <pre>
+         * C:\a\b\c.txt --&gt; C:\a\b\
+         * ~/a/b/c.txt  --&gt; ~/a/b/
+         * a.txt        --&gt; ""
+         * a/b/c        --&gt; a/b/
+         * a/b/c/       --&gt; a/b/c/
+         * C:           --&gt; C:
+         * C:\          --&gt; C:\
+         * ~            --&gt; ~/
+         * ~/           --&gt; ~/
+         * ~user        --&gt; ~user/
+         * ~user/       --&gt; ~user/
+         * </pre>
+         * <p>
+         * The output will be the same irrespective of the machine that the code is running on.
+         * </p>
+         *
+         * @param fileName  the fileName to query, null returns null
+         * @return the path of the file, an empty string if none exists, null if invalid
+         */
+        public static getFullPath(fileName: string): string;
+
+        /**
+         * Gets the full path from a full fileName, which is the prefix + path,
+         * and also excluding the final directory separator.
+         * <p>
+         * This method will handle a file in either Unix or Windows format.
+         * The method is entirely text based, and returns the text before the
+         * last forward or backslash.
+         * </p>
+         * <pre>
+         * C:\a\b\c.txt --&gt; C:\a\b
+         * ~/a/b/c.txt  --&gt; ~/a/b
+         * a.txt        --&gt; ""
+         * a/b/c        --&gt; a/b
+         * a/b/c/       --&gt; a/b/c
+         * C:           --&gt; C:
+         * C:\          --&gt; C:\
+         * ~            --&gt; ~
+         * ~/           --&gt; ~
+         * ~user        --&gt; ~user
+         * ~user/       --&gt; ~user
+         * </pre>
+         * <p>
+         * The output will be the same irrespective of the machine that the code is running on.
+         * </p>
+         *
+         * @param fileName  the fileName to query, null returns null
+         * @return the path of the file, an empty string if none exists, null if invalid
+         */
+        public static getFullPathNoEndSeparator(fileName: string): string;
+
+        /**
+         * Gets the name minus the path from a full fileName.
+         * <p>
+         * This method will handle a file in either Unix or Windows format.
+         * The text after the last forward or backslash is returned.
+         * </p>
+         * <pre>
+         * a/b/c.txt --&gt; c.txt
+         * a.txt     --&gt; a.txt
+         * a/b/c     --&gt; c
+         * a/b/c/    --&gt; ""
+         * </pre>
+         * <p>
+         * The output will be the same irrespective of the machine that the code is running on.
+         * </p>
+         *
+         * @param fileName  the fileName to query, null returns null
+         * @return the name of the file without the path, or an empty string if none exists.
+         * Null bytes inside string will be removed
+         */
+        public static getName(fileName: string): string;
+
+        /**
+         * Gets the path from a full fileName, which excludes the prefix.
+         * <p>
+         * This method will handle a file in either Unix or Windows format.
+         * The method is entirely text based, and returns the text before and
+         * including the last forward or backslash.
+         * </p>
+         * <pre>
+         * C:\a\b\c.txt --&gt; a\b\
+         * ~/a/b/c.txt  --&gt; a/b/
+         * a.txt        --&gt; ""
+         * a/b/c        --&gt; a/b/
+         * a/b/c/       --&gt; a/b/c/
+         * </pre>
+         * <p>
+         * The output will be the same irrespective of the machine that the code is running on.
+         * </p>
+         * <p>
+         * This method drops the prefix from the result.
+         * See {@link #getFullPath(String)} for the method that retains the prefix.
+         * </p>
+         *
+         * @param fileName  the fileName to query, null returns null
+         * @return the path of the file, an empty string if none exists, null if invalid.
+         * Null bytes inside string will be removed
+         */
+        public static getPath(fileName: string): string;
+
+        /**
+         * Gets the path from a full fileName, which excludes the prefix, and
+         * also excluding the final directory separator.
+         * <p>
+         * This method will handle a file in either Unix or Windows format.
+         * The method is entirely text based, and returns the text before the
+         * last forward or backslash.
+         * </p>
+         * <pre>
+         * C:\a\b\c.txt --&gt; a\b
+         * ~/a/b/c.txt  --&gt; a/b
+         * a.txt        --&gt; ""
+         * a/b/c        --&gt; a/b
+         * a/b/c/       --&gt; a/b/c
+         * </pre>
+         * <p>
+         * The output will be the same irrespective of the machine that the code is running on.
+         * </p>
+         * <p>
+         * This method drops the prefix from the result.
+         * See {@link #getFullPathNoEndSeparator(String)} for the method that retains the prefix.
+         * </p>
+         *
+         * @param fileName  the fileName to query, null returns null
+         * @return the path of the file, an empty string if none exists, null if invalid.
+         * Null bytes inside string will be removed
+         */
+        public static getPathNoEndSeparator(fileName: string): string;
+
+        /**
+         * Gets the prefix from a full fileName, such as {@code C:/}
+         * or {@code ~/}.
+         * <p>
+         * This method will handle a file in either Unix or Windows format.
+         * The prefix includes the first slash in the full fileName where applicable.
+         * </p>
+         * <pre>
+         * Windows:
+         * a\b\c.txt           --&gt; ""          --&gt; relative
+         * \a\b\c.txt          --&gt; "\"         --&gt; current drive absolute
+         * C:a\b\c.txt         --&gt; "C:"        --&gt; drive relative
+         * C:\a\b\c.txt        --&gt; "C:\"       --&gt; absolute
+         * \\server\a\b\c.txt  --&gt; "\\server\" --&gt; UNC
+         *
+         * Unix:
+         * a/b/c.txt           --&gt; ""          --&gt; relative
+         * /a/b/c.txt          --&gt; "/"         --&gt; absolute
+         * ~/a/b/c.txt         --&gt; "~/"        --&gt; current user
+         * ~                   --&gt; "~/"        --&gt; current user (slash added)
+         * ~user/a/b/c.txt     --&gt; "~user/"    --&gt; named user
+         * ~user               --&gt; "~user/"    --&gt; named user (slash added)
+         * </pre>
+         * <p>
+         * The output will be the same irrespective of the machine that the code is running on.
+         * ie. both Unix and Windows prefixes are matched regardless.
+         * </p>
+         *
+         * @param fileName  the fileName to query, null returns null
+         * @return the prefix of the file, null if invalid. Null bytes inside string will be removed
+         */
+        public static getPrefix(fileName: string): string;
+
+        /**
+         * Returns the length of the fileName prefix, such as {@code C:/} or {@code ~/}.
+         * <p>
+         * This method will handle a file in either Unix or Windows format.
+         * </p>
+         * <p>
+         * The prefix length includes the first slash in the full fileName
+         * if applicable. Thus, it is possible that the length returned is greater
+         * than the length of the input string.
+         * </p>
+         * <pre>
+         * Windows:
+         * a\b\c.txt           --&gt; 0           --&gt; relative
+         * \a\b\c.txt          --&gt; 1           --&gt; current drive absolute
+         * C:a\b\c.txt         --&gt; 2           --&gt; drive relative
+         * C:\a\b\c.txt        --&gt; 3           --&gt; absolute
+         * \\server\a\b\c.txt  --&gt; 9           --&gt; UNC
+         * \\\a\b\c.txt        --&gt; -1          --&gt; error
+         *
+         * Unix:
+         * a/b/c.txt           --&gt; 0           --&gt; relative
+         * /a/b/c.txt          --&gt; 1           --&gt; absolute
+         * ~/a/b/c.txt         --&gt; 2           --&gt; current user
+         * ~                   --&gt; 2           --&gt; current user (slash added)
+         * ~user/a/b/c.txt     --&gt; 6           --&gt; named user
+         * ~user               --&gt; 6           --&gt; named user (slash added)
+         * //server/a/b/c.txt  --&gt; 9
+         * ///a/b/c.txt        --&gt; -1          --&gt; error
+         * C:                  --&gt; 0           --&gt; valid filename as only null byte and / are reserved characters
+         * </pre>
+         * <p>
+         * The output will be the same irrespective of the machine that the code is running on.
+         * ie. both Unix and Windows prefixes are matched regardless.
+         * </p>
+         * <p>
+         * Note that a leading // (or \\) is used to indicate a UNC name on Windows.
+         * These must be followed by a server name, so double-slashes are not collapsed
+         * to a single slash at the start of the fileName.
+         * </p>
+         *
+         * @param fileName  the fileName to find the prefix in, null returns -1
+         * @return the length of the prefix, -1 if invalid or null
+         */
+        public static getPrefixLength(fileName: string): number;
+
+        /**
+         * Returns the index of the last extension separator character, which is a dot.
+         * <p>
+         * This method also checks that there is no directory separator after the last dot. To do this it uses
+         * {@link #indexOfLastSeparator(String)} which will handle a file in either Unix or Windows format.
+         * </p>
+         * <p>
+         * The output will be the same irrespective of the machine that the code is running on, with the
+         * exception of a possible {@link IllegalArgumentException} on Windows (see below).
+         * </p>
+         * <b>Note:</b> This method used to have a hidden problem for names like "foo.exe:bar.txt".
+         * In this case, the name wouldn't be the name of a file, but the identifier of an
+         * alternate data stream (bar.txt) on the file foo.exe. The method used to return
+         * ".txt" here, which would be misleading. Commons IO 2.7, and later versions, are throwing
+         * an {@link IllegalArgumentException} for names like this.
+         *
+         * @param fileName
+         *            the fileName to find the last extension separator in, null returns -1
+         * @return the index of the last extension separator character, or -1 if there is no such character
+         * @throws IllegalArgumentException <b>Windows only:</b> The fileName parameter is, in fact,
+         * the identifier of an Alternate Data Stream, for example "foo.exe:bar.txt".
+         */
+        public static indexOfExtension(fileName: string): number;
+
+        /**
+         * Returns the index of the last directory separator character.
+         * <p>
+         * This method will handle a file in either Unix or Windows format.
+         * The position of the last forward or backslash is returned.
+         * <p>
+         * The output will be the same irrespective of the machine that the code is running on.
+         *
+         * @param fileName  the fileName to find the last path separator in, null returns -1
+         * @return the index of the last separator character, or -1 if there
+         * is no such character
+         */
+        public static indexOfLastSeparator(fileName: string): number;
+
+        /**
+         * Checks whether the extension of the fileName is one of those specified.
+         * <p>
+         * This method obtains the extension as the textual part of the fileName
+         * after the last dot. There must be no directory separator after the dot.
+         * The extension check is case-sensitive on all platforms.
+         *
+         * @param fileName  the fileName to query, null returns false
+         * @param extensions  the extensions to check for, null checks for no extension
+         * @return true if the fileName is one of the extensions
+         * @throws java.lang.IllegalArgumentException if the supplied fileName contains null bytes
+         */
+        public static isExtension(fileName: string, extensions: string[]): boolean;
+
+        /**
+         * Checks whether the extension of the fileName is that specified.
+         * <p>
+         * This method obtains the extension as the textual part of the fileName
+         * after the last dot. There must be no directory separator after the dot.
+         * The extension check is case-sensitive on all platforms.
+         *
+         * @param fileName  the fileName to query, null returns false
+         * @param extension  the extension to check for, null or empty checks for no extension
+         * @return true if the fileName has the specified extension
+         * @throws java.lang.IllegalArgumentException if the supplied fileName contains null bytes
+         */
+        // tslint:disable-next-line:unified-signatures
+        public static isExtension(fileName: string, extension: string): boolean;
+
+        /**
+         * Checks whether the extension of the fileName is one of those specified.
+         * <p>
+         * This method obtains the extension as the textual part of the fileName
+         * after the last dot. There must be no directory separator after the dot.
+         * The extension check is case-sensitive on all platforms.
+         *
+         * @param fileName  the fileName to query, null returns false
+         * @param extensions  the extensions to check for, null checks for no extension
+         * @return true if the fileName is one of the extensions
+         * @throws java.lang.IllegalArgumentException if the supplied fileName contains null bytes
+         */
+        public static isExtension(fileName: string, ...extensions: string[]): boolean;
+
+        /**
+         * Normalizes a path, removing double and single dot path steps.
+         * <p>
+         * This method normalizes a path to a standard format.
+         * The input may contain separators in either Unix or Windows format.
+         * The output will contain separators in the format specified.
+         * <p>
+         * A trailing slash will be retained.
+         * A double slash will be merged to a single slash (but UNC names are handled).
+         * A single dot path segment will be removed.
+         * A double dot will cause that path segment and the one before to be removed.
+         * If the double dot has no parent path segment to work with, {@code null}
+         * is returned.
+         * <p>
+         * The output will be the same on both Unix and Windows except
+         * for the separator character.
+         * <pre>
+         * /foo//               --&gt;   /foo/
+         * /foo/./              --&gt;   /foo/
+         * /foo/../bar          --&gt;   /bar
+         * /foo/../bar/         --&gt;   /bar/
+         * /foo/../bar/../baz   --&gt;   /baz
+         * //foo//./bar         --&gt;   /foo/bar
+         * /../                 --&gt;   null
+         * ../foo               --&gt;   null
+         * foo/bar/..           --&gt;   foo/
+         * foo/../../bar        --&gt;   null
+         * foo/../bar           --&gt;   bar
+         * //server/foo/../bar  --&gt;   //server/bar
+         * //server/../bar      --&gt;   null
+         * C:\foo\..\bar        --&gt;   C:\bar
+         * C:\..\bar            --&gt;   null
+         * ~/foo/../bar/        --&gt;   ~/bar/
+         * ~/../bar             --&gt;   null
+         * </pre>
+         * The output will be the same on both Unix and Windows including
+         * the separator character.
+         *
+         * @param fileName  the fileName to normalize, null returns null
+         * @param unixSeparator {@code true} if a unix separator should
+         * be used or {@code false} if a windows separator should be used.
+         * @return the normalized fileName, or null if invalid. Null bytes inside string will be removed
+         * @since 2.0
+         */
+        public static normalize(fileName: string, unixSeparator?: boolean): string;
+
+        /**
+         * Normalizes a path, removing double and single dot path steps,
+         * and removing any final directory separator.
+         * <p>
+         * This method normalizes a path to a standard format.
+         * The input may contain separators in either Unix or Windows format.
+         * The output will contain separators in the format specified.
+         * <p>
+         * A trailing slash will be removed.
+         * A double slash will be merged to a single slash (but UNC names are handled).
+         * A single dot path segment will be removed.
+         * A double dot will cause that path segment and the one before to be removed.
+         * If the double dot has no parent path segment to work with, {@code null}
+         * is returned.
+         * <p>
+         * The output will be the same on both Unix and Windows including
+         * the separator character.
+         * <pre>
+         * /foo//               --&gt;   /foo
+         * /foo/./              --&gt;   /foo
+         * /foo/../bar          --&gt;   /bar
+         * /foo/../bar/         --&gt;   /bar
+         * /foo/../bar/../baz   --&gt;   /baz
+         * //foo//./bar         --&gt;   /foo/bar
+         * /../                 --&gt;   null
+         * ../foo               --&gt;   null
+         * foo/bar/..           --&gt;   foo
+         * foo/../../bar        --&gt;   null
+         * foo/../bar           --&gt;   bar
+         * //server/foo/../bar  --&gt;   //server/bar
+         * //server/../bar      --&gt;   null
+         * C:\foo\..\bar        --&gt;   C:\bar
+         * C:\..\bar            --&gt;   null
+         * ~/foo/../bar/        --&gt;   ~/bar
+         * ~/../bar             --&gt;   null
+         * </pre>
+         *
+         * @param fileName  the fileName to normalize, null returns null
+         * @param unixSeparator {@code true} if a unix separator should
+         * be used or {@code false} if a windows separator should be used.
+         * @return the normalized fileName, or null if invalid. Null bytes inside string will be removed
+         * @since 2.0
+         */
+        public static normalizeNoEndSeparator(fileName: string, unixSeparator?: boolean): string;
+
+        /**
+         * Removes the extension from a fileName.
+         * <p>
+         * This method returns the textual part of the fileName before the last dot.
+         * There must be no directory separator after the dot.
+         * <pre>
+         * foo.txt    --&gt; foo
+         * a\b\c.jpg  --&gt; a\b\c
+         * a\b\c      --&gt; a\b\c
+         * a.b\c      --&gt; a.b\c
+         * </pre>
+         * <p>
+         * The output will be the same irrespective of the machine that the code is running on.
+         *
+         * @param fileName  the fileName to query, null returns null
+         * @return the fileName minus the extension
+         */
+        public static removeExtension(fileName: string): string;
+
+        /**
+         * Converts all separators to the system separator.
+         *
+         * @param path the path to be changed, null ignored.
+         * @return the updated path.
+         */
+        public static separatorsToSystem(path: string): string;
+
+        /**
+         * Converts all separators to the Unix separator of forward slash.
+         *
+         * @param path the path to be changed, null ignored.
+         * @return the new path.
+         */
+        public static separatorsToUnix(path: string): string;
+
+        /**
+         * Converts all separators to the Windows separator of backslash.
+         *
+         * @param path the path to be changed, null ignored.
+         * @return the updated path.
+         */
+        public static separatorsToWindows(path: string): string;
+
+        /**
+         * Checks a fileName to see if it matches the specified wildcard matcher,
+         * always testing case-sensitive.
+         * <p>
+         * The wildcard matcher uses the characters '?' and '*' to represent a
+         * single or multiple (zero or more) wildcard characters.
+         * This is the same as often found on DOS/Unix command lines.
+         * The check is case-sensitive always.
+         * <pre>
+         * wildcardMatch("c.txt", "*.txt")      --&gt; true
+         * wildcardMatch("c.txt", "*.jpg")      --&gt; false
+         * wildcardMatch("a/b/c.txt", "a/b/*")  --&gt; true
+         * wildcardMatch("c.txt", "*.???")      --&gt; true
+         * wildcardMatch("c.txt", "*.????")     --&gt; false
+         * </pre>
+         * N.B. the sequence "*?" does not work properly at present in match strings.
+         *
+         * @param fileName  the fileName to match on
+         * @param wildcardMatcher  the wildcard string to match against
+         * @return true if the fileName matches the wildcard string
+         */
+        public static wildcardMatch(fileName: string, wildcardMatcher: string): boolean;
+    }
+
     export namespace client {
         export interface IClientOptions {
             baseUrl(): string;
@@ -938,6 +1631,8 @@ declare namespace twoa {
         export function headerParam(name: string): ParameterDecorator;
 
         export function pathParam(name: string): ParameterDecorator;
+
+        export function formParam(name: string): ParameterDecorator;
 
         export function queryParam(options: string | IQueryParamOptions): ParameterDecorator;
     }
@@ -1018,6 +1713,55 @@ declare namespace twoa {
     }
 
     export namespace util {
+        export class Color {
+            public r: number;
+            public g: number;
+            public b: number;
+            public a: number;
+
+            public constructor(r: number, g: number, b: number, a: number);
+
+            public static parse(color: string): Color;
+
+            public set(color: { r?: number, g?: number, b?: number, a?: number }): Color;
+
+            public add(color: { r?: number, g?: number, b?: number, a?: number }): Color;
+
+            public lighten(percentage?: number): Color;
+
+            public darken(percentage?: number): Color;
+
+            public rotate(degrees: number): Color;
+
+            public toHSL(): { h: number, s: number, l: number, a: number, toString: () => string };
+
+            public toString(): string;
+
+            public toHtmlString(): string;
+        }
+
+        export class MathHelper {
+            public static readonly radiansDegreesRatio: number;
+            public static readonly degreesRadiansRatio: number;
+
+            public static toRadians(degrees: number): number;
+
+            public static toDegrees(radians: number): number;
+
+            public static clamp(value: number, min: number, max: number): number;
+
+            public static round(value: number, digits: number): number;
+        }
+
+        export class NamesGenerator {
+            /**
+             * getRandomName generates a random name from the list of adjectives and surnames in this package
+             * formatted as "adjective_surname". For example 'focused_turing'.
+             * @param retry If retry is non-zero, a random integer between 0 and 10 will be added to the end of the name, e.g `focused_turing3`
+             */
+            public static getRandomName(retry?: number): string;
+        }
+
         /**
          * Creates a URL with the specified base, path, and query params.
          * @param {string} baseUrl The URL to use for the base.
@@ -1026,5 +1770,386 @@ declare namespace twoa {
          * @returns {string} The constructed URL with any necessary component encodings.
          */
         export function createUrl(baseUrl: string, path: string, params?: Record<string, any>): string;
+    }
+
+    export namespace geometry {
+        /**
+         * Indicates the extent to which bounding volumes intersect or contain one another.
+         * @type {{disjoint: number = 0, contains: number = 1, intersects: number = 2}}
+         */
+        export type ContainmentType = 0 | 1 | 2;
+
+        export class BoundingBox {
+            constructor(min: Vector3, max: Vector3);
+
+            public min: Vector3;
+            public max: Vector3;
+
+            public getCorners(): [Vector3, Vector3, Vector3, Vector3, Vector3, Vector3, Vector3, Vector3];
+            public getCornersXY(): [Vector3, Vector3, Vector3, Vector3];
+            public intersects(box: BoundingBox): boolean;
+            public containsBox(box: BoundingBox): ContainmentType;
+            public containsPoint(point: Vector3): ContainmentType;
+            public grow(amount: Vector3): void;
+
+            public static createMerged(original: BoundingBox, additional: BoundingBox): BoundingBox;
+            public static createFromPoints(points: Vector3[]): BoundingBox;
+        }
+
+        export class BoundingSphere {
+            public center: Vector3;
+            public radius: number;
+
+            constructor(center: Vector3, radius: number);
+            public contains(v: Vector3): boolean;
+        }
+
+        export class Matrix {
+            constructor(
+                m11: number, m12: number, m13: number, m14: number,
+                m21: number, m22: number, m23: number, m24: number,
+                m31: number, m32: number, m33: number, m34: number,
+                m41: number, m42: number, m43: number, m44: number);
+
+            public matrix: number[][];
+
+            public m11: number; public m12: number; public m13: number; public m14: number;
+            public m21: number; public m22: number; public m23: number; public m24: number;
+            public m31: number; public m32: number; public m33: number; public m34: number;
+            public m41: number; public m42: number; public m43: number; public m44: number;
+
+            public backward: Vector3;
+            public down: Vector3;
+            public forward: Vector3;
+            public left: Vector3;
+            public right: Vector3;
+            public translation: Vector3;
+            public up: Vector3;
+
+            public add(matrix: Matrix): Matrix;
+            public decompose(): { success: boolean, scale: Vector3, rotation: Quaternion, translation: Vector3 };
+            public determinant(): number;
+            public inverse(): Matrix;
+            public equals(matrix2: Matrix): boolean;
+            public subtract(matrix: Matrix): Matrix;
+            public multiplyScalar(scalar: number): Matrix;
+            public multiply(matrix: Matrix): Matrix;
+            public divideScalar(scalar: number): Matrix;
+            public divide(matrix: Matrix): Matrix;
+
+            public static identity: Matrix;
+            public static add(matrix1: Matrix, matrix2: Matrix): Matrix;
+            public static determinant(matrix: Matrix): number;
+            public static inverse(matrix: Matrix): Matrix;
+            public static equals(matrix1: Matrix, matrix2: Matrix): boolean;
+            public static subtract(matrix1: Matrix, matrix2: Matrix): Matrix;
+            public static multiplyScalar(matrix: Matrix, scalar: number): Matrix;
+            public static multiply(matrix1: Matrix, matrix2: Matrix): Matrix;
+            public static divideScalar(matrix: Matrix, scalar: number): Matrix;
+            public static divide(matrix1: Matrix, matrix2: Matrix): Matrix;
+
+            public static createFromArray(a: number[][]): Matrix;
+            public static createFromQuaternion(quaternion: any): Matrix;
+            public static createFromYawPitchRoll(yaw: number, pitch: number, roll: number): Matrix;
+            public static createPerspective(width: number, height: number, nearPlaneDistance: number, farPlaneDistance: number): Matrix;
+            public static createPerspectiveFOV(fieldOfView: number, aspectRatio: number, nearPlaneDistance: number, farPlaneDistance: number): Matrix;
+            public static createRotationX(radians: number): Matrix;
+            public static createRotationY(radians: number): Matrix;
+            public static createRotationZ(radians: number): Matrix;
+            public static createScale(x: number, y: number, z: number): Matrix;
+            public static createTranslation(x: number, y: number, z: number): Matrix;
+            public static createWorld(position: Vector3, forward: Vector3, up: Vector3): Matrix;
+            public static lerp(matrix1: Matrix, matrix2: Matrix, amount: number): Matrix;
+            public static compose(...matrices: Matrix[]): Matrix;
+        }
+
+        export class Vector3 {
+            constructor(x: number, y: number, z: number);
+
+            public x: number;
+            public y: number;
+            public z: number;
+
+            public add(v2: Vector3): Vector3;
+            public clamp(min: Vector3, max: Vector3): Vector3;
+            public cross(v2: Vector3): Vector3;
+            public distance(v2: Vector3): number;
+            public distanceSquared(v2: Vector3): number;
+            public divide(v2: Vector3): Vector3;
+            public divideScalar(scalar: number): Vector3;
+            public dot(v2: Vector3): number;
+            public equals(v2: Vector3): boolean;
+            public length1(): number;
+            public lengthSquared(): number;
+            public lerp(v2: Vector3, amount: number): Vector3;
+            public max(v2: Vector3): Vector3;
+            public min(v2: Vector3): Vector3;
+            public multiply(v2: Vector3): Vector3;
+            public multiplyScalar(scalar: number): Vector3;
+            public negate(): Vector3;
+            public normalize(): Vector3;
+            public reflect(normal: Vector3): Vector3;
+            public smoothStep(v2: Vector3, amount: number): Vector3;
+            public subtract(v2: Vector3): Vector3;
+            public transform(matrix: Matrix): Vector3;
+
+            public static add(v1: Vector3, v2: Vector3): Vector3;
+            public static barycentric(v1: Vector3, v2: Vector3, v3: Vector3, amount1: number, amount2: number): Vector3;
+            public static catmullrom(v1: Vector3, v2: Vector3, v3: Vector3, v4: Vector3, amount: number): Vector3;
+            public static clamp(v1: Vector3, min: Vector3, max: Vector3): Vector3;
+            public static cross(v1: Vector3, v2: Vector3): Vector3;
+            public static distance(v1: Vector3, v2: Vector3): number;
+            public static distanceSquared(v1: Vector3, v2: Vector3): number;
+            public static divide(v1: Vector3, v2: Vector3): Vector3;
+            public static divideScalar(v1: Vector3, scalar: number): Vector3;
+            public static dot(v1: Vector3, v2: Vector3): number;
+            public static equals(v1: Vector3, v2: Vector3): boolean;
+            public static hermite(v1: Vector3, t1: Vector3, v2: Vector3, t2: Vector3, amount: number): Vector3;
+            public static length1(v1: Vector3): number;
+            public static lengthSquared(v1: Vector3): number;
+            public static lerp(v1: Vector3, v2: Vector3, amount: number): Vector3;
+            public static max(v1: Vector3, v2: Vector3): Vector3;
+            public static min(v1: Vector3, v2: Vector3): Vector3;
+            public static multiply(v1: Vector3, v2: Vector3): Vector3;
+            public static multiplyScalar(v1: Vector3, scalar: number): Vector3;
+            public static negate(v1: Vector3): Vector3;
+            public static normalize(v1: Vector3): Vector3;
+            public static reflect(vector: Vector3, normal: Vector3): Vector3;
+            public static smoothStep(v1: Vector3, v2: Vector3, amount: number): Vector3;
+            public static subtract(v1: Vector3, v2: Vector3): Vector3;
+            public static transform(v1: Vector3, matrix: Matrix): Vector3;
+
+            public static fromObject(o: { x: number, y: number, z: number }): Vector3;
+            public static backward: Vector3;
+            public static down: Vector3;
+            public static forward: Vector3;
+            public static left: Vector3;
+            public static one: Vector3;
+            public static right: Vector3;
+            public static unitX: Vector3;
+            public static unitY: Vector3;
+            public static unitZ: Vector3;
+            public static up: Vector3;
+            public static zero: Vector3;
+        }
+
+        export class Quaternion {
+            public x: number;
+            public y: number;
+            public z: number;
+            public w: number;
+
+            /**
+             * Initializes a new instance of Quaternion.
+             * @param {number} x The x-value of the quaternion.
+             * @param {number} y The y-value of the quaternion.
+             * @param {number} z The z-value of the quaternion.
+             * @param {number} w The w-value of the quaternion.
+             */
+            constructor(x: number, y: number, z: number, w: number);
+
+            /**
+             * Returns a Quaternion representing no rotation.
+             * @returns {Quaternion} A Quaternion representing no rotation.
+             */
+            public static identity: Quaternion;
+
+            /**
+             * Determines whether the specified Quaternion is equal to the current Quaternion.
+             * @param {Quaternion} q2 The Quaternion to compare with the current Quaternion.
+             * @returns {boolean} <b>true</b> if the specified Object is equal to the current Quaternion; <b>false</b> otherwise.
+             */
+            public equals(q2: Quaternion): boolean;
+
+            /**
+             * Adds two Quaternions.
+             * @param {Quaternion} q2 Quaternion to add.
+             * @returns {Quaternion} Result of adding the Quaternions.
+             */
+            public add(q2: Quaternion): Quaternion;
+
+            /**
+             * Adds two Quaternions.
+             * @param {Quaternion} q1 Quaternion to add.
+             * @param {Quaternion} q2 Quaternion to add.
+             * @returns {Quaternion} Result of adding the Quaternions.
+             */
+            public static add(q1: Quaternion, q2: Quaternion): Quaternion;
+
+            /**
+             * Subtracts a quaternion from another quaternion.
+             * @param {Quaternion} q2 Source quaternion.
+             * @returns {Quaternion} Result of the subtraction.
+             */
+            public subtract(q2: Quaternion): Quaternion;
+
+            /**
+             * Subtracts a quaternion from another quaternion.
+             * @param {Quaternion} q1 Source quaternion.
+             * @param {Quaternion} q2 Source quaternion.
+             * @returns {Quaternion} Result of the subtraction.
+             */
+            public static subtract(q1: Quaternion, q2: Quaternion): Quaternion;
+
+            /**
+             * Multiplies two quaternions.
+             * @param {Quaternion} q2 The quaternion on the right of the multiplication.
+             * @returns {Quaternion} The result of the multiplication.
+             */
+            public multiply(q2: Quaternion): Quaternion;
+
+            /**
+             * Multiplies two quaternions.
+             * @param {Quaternion} q1 The quaternion on the left of the multiplication.
+             * @param {Quaternion} q2 The quaternion on the right of the multiplication.
+             * @returns {Quaternion} The result of the multiplication.
+             */
+            public static multiply(q1: Quaternion, q2: Quaternion): Quaternion;
+
+            /**
+             * Multiplies a quaternion by a scalar value.
+             * @param {number} scalar Scalar value.
+             * @returns {Quaternion} The result of the multiplication.
+             */
+            public multiplyScalar(scalar: number): Quaternion;
+
+            /**
+             * Multiplies a quaternion by a scalar value.
+             * @param {Quaternion} q1 Source quaternion.
+             * @param {number} scalar Scalar value.
+             * @returns {Quaternion} The result of the multiplication.
+             */
+            public static multiplyScalar(q1: Quaternion, scalar: number): Quaternion;
+
+            /**
+             * Divides a Quaternion by another Quaternion.
+             * @param {Quaternion} q2 The divisor.
+             * @returns {Quaternion} Result of the division.
+             */
+            public divide(q2: Quaternion): Quaternion;
+
+            /**
+             * Divides a Quaternion by another Quaternion.
+             * @param {Quaternion} q1 Source Quaternion.
+             * @param {Quaternion} q2 The divisor.
+             * @returns {Quaternion} Result of the division.
+             */
+            public static divide(q1: Quaternion, q2: Quaternion): Quaternion;
+
+            /**
+             * Calculates the length squared of a Quaternion.
+             * @returns {number} The length squared of the Quaternion.
+             */
+            public lengthSquared(): number;
+
+            /**
+             * Calculates the length of a Quaternion.
+             * @returns {number} The length of the Quaternion.
+             */
+            public length(): number;
+
+            /**
+             * Divides each component of the quaternion by the length of the quaternion.
+             */
+            public normalize(): void;
+
+            /**
+             * Divides each component of the quaternion by the length of the quaternion.
+             * @param {Quaternion} q1 Source quaternion.
+             * @returns {Quaternion} Normalized quaternion.
+             */
+            public static normalize(q1: Quaternion): Quaternion;
+
+            /**
+             * Transforms this Quaternion into its conjugate.
+             */
+            public conjugate(): void;
+
+            /**
+             * Returns the conjugate of a specified Quaternion.
+             * @param {Quaternion} q1 The Quaternion of which to return the conjugate.
+             * @returns {Quaternion} A new Quaternion that is the conjugate of the specified one.
+             */
+            public static conjugate(q1: Quaternion): Quaternion;
+
+            /**
+             * Returns the inverse of a Quaternion.
+             * @returns {Quaternion} The inverse of the Quaternion.
+             */
+            public inverse(): Quaternion;
+
+            /**
+             * Returns the inverse of a Quaternion.
+             * @param {Quaternion} q1 Source Quaternion.
+             * @returns {Quaternion} The inverse of the Quaternion.
+             */
+            public static inverse(q1: Quaternion): Quaternion;
+
+            /**
+             * Creates a Quaternion from a vector and an angle to rotate about the vector.
+             * @param {Vector3} vector The vector to rotate around.
+             * @param {number} angle The angle to rotate around the vector.
+             * @returns {Quaternion} The created Quaternion.
+             */
+            public static createFromAxisAngle(vector: Vector3, angle: number): Quaternion;
+
+            /**
+             * Creates a new Quaternion from specified yaw, pitch, and roll angles.
+             * @param {number} yaw The yaw angle, in radians, around the y-axis.
+             * @param {number} pitch The pitch angle, in radians, around the x-axis.
+             * @param {number} roll The roll angle, in radians, around the z-axis.
+             * @returns {Quaternion} A new Quaternion expressing the specified yaw, pitch, and roll angles.
+             */
+            public static createFromYawPitchRoll(yaw: number, pitch: number, roll: number): Quaternion;
+
+            /**
+             * Creates a Quaternion from a rotation Matrix.
+             * @param {Matrix} m The rotation Matrix to create the Quaternion from.
+             * @returns {Quaternion} The created Quaternion.
+             */
+            public static createFromRotationMatrix(m: Matrix): Quaternion;
+
+            /**
+             * Calculates the dot product of two Quaternions.
+             * @param {Quaternion} q1 Source Quaternion.
+             * @param {Quaternion} q2 Source Quaternion.
+             * @returns {number} Dot product of the Quaternions.
+             */
+            public static dot(q1: Quaternion, q2: Quaternion): number;
+
+            /**
+             * Interpolates between two quaternions, using spherical linear interpolation.
+             * @param {Quaternion} q1 Source quaternion.
+             * @param {Quaternion} q2 Source quaternion.
+             * @param {number} amount Value that indicates how far to interpolate between the quaternions.
+             * @returns {Quaternion} Result of the interpolation.
+             */
+            public static slerp(q1: Quaternion, q2: Quaternion, amount: number): Quaternion;
+
+            /**
+             * Linearly interpolates between two quaternions.
+             * @param {Quaternion} q1 Source quaternion.
+             * @param {Quaternion} q2 Source quaternion.
+             * @param {number} amount Value indicating how far to interpolate between the quaternions.
+             * @returns {Quaternion} The resulting quaternion.
+             */
+            public static lerp(q1: Quaternion, q2: Quaternion, amount: number): Quaternion;
+
+            /**
+             * Concatenates two Quaternions; the result represents the first rotation followed by the second rotation.
+             * @param {Quaternion} q1 The first Quaternion rotation in the series.
+             * @param {Quaternion} q2 The second Quaternion rotation in the series.
+             * @returns {Quaternion} A new Quaternion representing the concatenation of the <i>value1</i> rotation followed by
+             * the <i>value2</i> rotation.
+             */
+            public static concatenate(q1: Quaternion, q2: Quaternion): Quaternion;
+
+            /**
+             * Flips the sign of each component of the quaternion.
+             * @param {Quaternion} q1 Source quaternion.
+             * @returns {Quaternion} Negated quaternion.
+             */
+            public static negate(q1: Quaternion): Quaternion;
+        }
     }
 }
