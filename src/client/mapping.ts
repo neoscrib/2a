@@ -72,6 +72,7 @@ export default ({ method, value, blob, produces, interceptors }: IMappingOptions
             }
 
             if (formParams?.has(i)) {
+                body = form;
                 const name = formParams.get(i);
                 form.append(name, current);
 
