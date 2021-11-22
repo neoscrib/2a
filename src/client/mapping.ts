@@ -33,11 +33,11 @@ export default ({ method, value, blob, produces, interceptors }: IMappingOptions
         const formParams: Map<number, string> = Reflect.getMetadata(ClientConstants.FormParams, target, propertyKey);
         const bodyParams: Set<number> = Reflect.getMetadata(ClientConstants.BodyParams, target, propertyKey);
 
-        if (bodyParams.size > 1) {
+        if (bodyParams?.size > 1) {
             throw new Error('Only a single body param may be used.');
         }
 
-        if (formParams.size > 0 && bodyParams.size > 0) {
+        if (formParams?.size > 0 && bodyParams?.size > 0) {
             throw new Error('Only form params or a body param may be used, but not both.');
         }
 
