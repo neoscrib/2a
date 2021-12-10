@@ -1,11 +1,11 @@
 {
     "name": "2a",
-    "version": "1.0.12",
+    "version": "1.0.13",
     "description": "",
     "main": "./index.js",
     "scripts": {
         "build": "tsc --project ./tsconfig.json",
-        "prepublish": "[ $(echo $PWD | sed 's/\\// /g' | awk '{print $NF}') = 'dist' ] || (echo 'Must publish from dist directory! Try \"npm run dist\"' && exit 1)",
+        "prepublishOnly": "[ $(echo $PWD | sed 's/\\// /g' | awk '{print $NF}') = 'dist' ] || (echo 'Must publish from dist directory! Try \"npm run dist\"' && exit 1)",
         "dist": "./publish.sh",
         "lint": "tslint --project ./tsconfig.json",
         "test": "echo \"Error: no test specified\" && exit 1"

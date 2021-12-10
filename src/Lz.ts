@@ -5,15 +5,15 @@ import Comparator from './Comparator';
 
 import ComparatorFunction = twoa.ComparatorFunction;
 import LzIterable = twoa.LzIterable;
-
-type IdentityFunction<T, U> = (item: T) => U;
-type PredicateFunction<T> = (item: T, index: number) => boolean;
-type SelectorFunction<T, U> = (item: T, index: number) => U;
+import PredicateFunction = twoa.PredicateFunction;
+import SelectorFunction = twoa.SelectorFunction;
+import Action = twoa.Action;
+import IdentityFunction = twoa.IdentityFunction;
+import AccumulatorFunction = twoa.AccumulatorFunction;
+import SelectorFunctionNoIndex = twoa.SelectorFunctionNoIndex;
 
 export default class Lz<T> implements IterableIterator<T> {
-    public static readonly identityFunction: <T>(item: T) => T = item => item;
-    public static readonly defaultPredicate: PredicateFunction<any> = () => true;
-    private static readonly defaultSelector: SelectorFunction<any, any> = Lz.identityFunction;
+    public static readonly identityFunction: IdentityFunction<any> = item => item;
 
     private readonly iterable: IterableIterator<T>;
 
@@ -272,15 +272,16 @@ export default class Lz<T> implements IterableIterator<T> {
 
     /**
      * Performs the specified action on each element of the sequence.
-     * @param {(item: T) => void} action The action delegate to perform on each element of the sequence.
+     * @param {Action<T>>} action The action delegate to perform on each element of the sequence.
      */
-    public forEach(action: (item: T) => void): void {
+    public forEach(action: Action<T>): void {
         Lz.forEach(this, action);
     }
 
-    public static forEach<T>(source: LzIterable<T>, action: (item: T) => void): void {
+    public static forEach<T>(source: LzIterable<T>, action: Action<T>): void {
+        let i = 0;
         for (const item of source) {
-            action(item);
+            action(item, i++);
         }
     }
 
@@ -369,8 +370,8 @@ export default class Lz<T> implements IterableIterator<T> {
     /**
      * Correlates the elements of two sequences based on matching keys.
      * @param {IterableIterator<T2> | T2[]} inner The sequence to join to the first sequence.
-     * @param {(item: T1) => K} outerKeySelector A function to extract the join key from each element of the first sequence.
-     * @param {(item: T2) => K} innerKeySelector A function to extract the join key from each element of the second sequence.
+     * @param {SelectorFunction<T, K>} outerKeySelector A function to extract the join key from each element of the first sequence.
+     * @param {SelectorFunction<T2, K>} innerKeySelector A function to extract the join key from each element of the second sequence.
      * @param {(a: T1, b: T2) => U} resultSelector A function to create a result element from two matching elements.
      * @returns {Lz<U>} A sequence that has elements of type <i>U</i> that are obtained by performing an inner
      * join on two sequences.
@@ -380,7 +381,8 @@ export default class Lz<T> implements IterableIterator<T> {
      * until the object is enumerated either by calling its toArray method directly or by using for...of.
      */
     public join<T2, K, U>(inner: IterableIterator<T2> | T2[],
-                          outerKeySelector: (item: T) => K, innerKeySelector: (item: T2) => K,
+                          outerKeySelector: SelectorFunction<T, K>,
+                          innerKeySelector: SelectorFunction<T2, K>,
                           resultSelector: (a: T, b: T2) => U): Lz<U> {
         return Lz.join(this, inner, outerKeySelector, innerKeySelector, resultSelector);
     }
@@ -389,8 +391,8 @@ export default class Lz<T> implements IterableIterator<T> {
      * Correlates the elements of two sequences based on matching keys.
      * @param {IterableIterator<T1> | T1[]} outer The first sequence to join.
      * @param {IterableIterator<T2> | T2[]} inner The sequence to join to the first sequence.
-     * @param {(item: T1) => K} outerKeySelector A function to extract the join key from each element of the first sequence.
-     * @param {(item: T2) => K} innerKeySelector A function to extract the join key from each element of the second sequence.
+     * @param {SelectorFunction<T1, K>} outerKeySelector A function to extract the join key from each element of the first sequence.
+     * @param {SelectorFunction<T2, K>} innerKeySelector A function to extract the join key from each element of the second sequence.
      * @param {(a: T1, b: T2) => U} resultSelector A function to create a result element from two matching elements.
      * @returns {Lz<U>} A sequence that has elements of type <i>U</i> that are obtained by performing an inner
      * join on two sequences.
@@ -400,17 +402,20 @@ export default class Lz<T> implements IterableIterator<T> {
      * until the object is enumerated either by calling its toArray method directly or by using for...of.
      */
     public static join<T1, T2, K, U>(outer: IterableIterator<T1> | T1[], inner: IterableIterator<T2> | T2[],
-                                     outerKeySelector: (item: T1) => K, innerKeySelector: (item: T2) => K,
+                                     outerKeySelector: SelectorFunction<T1, K>,
+                                     innerKeySelector: SelectorFunction<T2, K>,
                                      resultSelector: (a: T1, b: T2) => U): Lz<U> {
         return new Lz<U>(Lz.joinInternal(outer, inner, outerKeySelector, innerKeySelector, resultSelector));
     }
 
     private static *joinInternal<T1, T2, K, U>(outer: IterableIterator<T1> | T1[], inner: IterableIterator<T2> | T2[],
-                                               outerKeySelector: (item: T1) => K, innerKeySelector: (item: T2) => K,
+                                               outerKeySelector: SelectorFunction<T1, K>,
+                                               innerKeySelector: SelectorFunction<T2, K>,
                                                resultSelector: (a: T1, b: T2) => U): IterableIterator<U> {
         const lookup: Map<K, T2> = Lz.toDictionary(inner, innerKeySelector);
+        let i = 0;
         for (const item of outer) {
-            const g: T2 = lookup.get(outerKeySelector(item));
+            const g: T2 = lookup.get(outerKeySelector(item, i++));
             if (g !== undefined) {
                 yield resultSelector(item, g);
             }
@@ -434,9 +439,9 @@ export default class Lz<T> implements IterableIterator<T> {
      * @returns {T} The value at the last position in the source sequence.
      * @throws If the source sequence contains no elements or the predicate did not match any elements.
      */
-    public static last<T>(source: LzIterable<T>, predicate: PredicateFunction<T> = Lz.defaultPredicate): T {
+    public static last<T>(source: LzIterable<T>, predicate?: PredicateFunction<T>): T {
         // optimize if source is an array and using default predicate
-        if (Array.isArray(source) && predicate === Lz.defaultPredicate) {
+        if (Array.isArray(source) && !predicate) {
             return source[source.length - 1];
         }
 
@@ -444,7 +449,7 @@ export default class Lz<T> implements IterableIterator<T> {
         let index = 0;
         let found = false;
         for (const item of source) {
-            if (predicate(item, index++)) {
+            if (predicate?.(item, index++) ?? true) {
                 found = true;
                 result = item;
             }
@@ -473,12 +478,12 @@ export default class Lz<T> implements IterableIterator<T> {
      * @returns {T} The value at the last position in the source sequence.
      */
     public static lastOrDefault<T>(source: LzIterable<T>, defaultValue: T,
-                                   predicate: PredicateFunction<T> = Lz.defaultPredicate): T {
+                                   predicate?: PredicateFunction<T>): T {
         let result: T;
         let index = 0;
         let found = false;
         for (const item of source) {
-            if (predicate(item, index++)) {
+            if (predicate?.(item, index++) ?? true) {
                 found = true;
                 result = item;
             }
@@ -491,26 +496,26 @@ export default class Lz<T> implements IterableIterator<T> {
 
     /**
      * Sorts the elements of a sequence in ascending order according to a key.
-     * @param {(item: T) => V} selector A function to extract a key from an element.
+     * @param {SelectorFunctionNoIndex<T, V>} selector A function to extract a key from an element.
      * @param {ComparatorFunction<V>} comparator A ComparatorFunction<V> to compare keys.
      * @returns {Lz<T>} A sequence whose elements are sorted according to a key.
      */
-    public orderBy<V>(selector: (item: T) => V, comparator?: ComparatorFunction<V>): Lz<T> {
+    public orderBy<V>(selector: SelectorFunctionNoIndex<T, V>, comparator?: ComparatorFunction<V>): Lz<T> {
         return Lz.orderBy(this, selector, comparator);
     }
 
     /**
      * Sorts the elements of a sequence in ascending order according to a key.
      * @param {LzIterable<T>} source A sequence of values to order.
-     * @param {(item: T) => V} selector A function to extract a key from an element.
+     * @param {SelectorFunctionNoIndex<T, V>} selector A function to extract a key from an element.
      * @param {ComparatorFunction<V>} comparator A ComparatorFunction<V> to compare keys.
      * @returns {Lz<T>} A sequence whose elements are sorted according to a key.
      */
-    public static orderBy<T, V>(source: LzIterable<T>, selector: (item: T) => V, comparator?: ComparatorFunction<V>): Lz<T> {
+    public static orderBy<T, V>(source: LzIterable<T>, selector: SelectorFunctionNoIndex<T, V>, comparator?: ComparatorFunction<V>): Lz<T> {
         return new Lz<T>(Lz.orderByInternal(source, selector, comparator));
     }
 
-    private static *orderByInternal<T, V>(source: LzIterable<T>, selector: (item: T) => V, comparator: ComparatorFunction<V> = Comparator.defaultComparator): IterableIterator<T> {
+    private static *orderByInternal<T, V>(source: LzIterable<T>, selector: SelectorFunctionNoIndex<T, V>, comparator: ComparatorFunction<V> = Comparator.defaultComparator): IterableIterator<T> {
         const sorted: T[] = [];
         const internalComparator = (a: T, b: T) => comparator(selector(a), selector(b));
         for (const item of source) {
@@ -658,29 +663,29 @@ export default class Lz<T> implements IterableIterator<T> {
 
     /**
      * Filters a sequence of values based on a predicate.
-     * @param {(item: T, index?: number) => boolean} predicate A function to test each element for a condition. Return true to keep the element,
+     * @param {PredicateFunction<T>} predicate A function to test each element for a condition. Return true to keep the element,
      * false otherwise.
-     * @returns {IterableIterator<T>} An iterable that contains elements from the input sequence that satisfy the condition.
+     * @returns {Lz<T>} An iterable that contains elements from the input sequence that satisfy the condition.
      */
-    public where(predicate: (item: T, index?: number) => boolean): Lz<T> {
+    public where(predicate: PredicateFunction<T>): Lz<T> {
         return Lz.where(this, predicate);
     }
 
     /**
      * Filters a sequence of values based on a predicate.
      * @param {LzIterable<T>} source An iterable to filter.
-     * @param {(item: T, index?: number) => boolean} predicate A function to test each element for a condition. Return true to keep the element,
+     * @param {PredicateFunction<T>} predicate A function to test each element for a condition. Return true to keep the element,
      * false otherwise.
-     * @returns {IterableIterator<T>} An iterable that contains elements from the input sequence that satisfy the condition.
+     * @returns {Lz<T>} An iterable that contains elements from the input sequence that satisfy the condition.
      */
-    public static where<T>(source: LzIterable<T>, predicate: (item: T, index?: number) => boolean): Lz<T> {
+    public static where<T>(source: LzIterable<T>, predicate: PredicateFunction<T>): Lz<T> {
         return new Lz<T>(Lz.whereInternal(source, predicate));
     }
 
-    private static *whereInternal<T>(source: LzIterable<T>, predicate: (item: T, index?: number) => boolean): IterableIterator<T> {
+    private static *whereInternal<T>(source: LzIterable<T>, predicate?: PredicateFunction<T>): IterableIterator<T> {
         let index = 0;
         for (const item of source) {
-            if (predicate(item, index++)) {
+            if (predicate?.(item, index++) ?? true) {
                 yield item;
             }
         }
@@ -689,7 +694,7 @@ export default class Lz<T> implements IterableIterator<T> {
     /**
      * Projects each element of a sequence into a new form.
      * @param {SelectorFunction<T, U>} selector A transform function to apply to each element.
-     * @returns {IterableIterator<U>} An iterable whose elements are the result of invoking the transform function on each element of source.
+     * @returns {Lz<U>} An iterable whose elements are the result of invoking the transform function on each element of source.
      */
     public select<U>(selector: SelectorFunction<T, U>): Lz<U> {
         return Lz.select(this, selector);
@@ -699,7 +704,7 @@ export default class Lz<T> implements IterableIterator<T> {
      * Projects each element of a sequence into a new form.
      * @param {LzIterable<T>} source An iterable of values to invoke a transform function on.
      * @param {SelectorFunction<T, U>} selector A transform function to apply to each element.
-     * @returns {IterableIterator<U>} An iterable whose elements are the result of invoking the transform function on each element of source.
+     * @returns {Lz<U>} An iterable whose elements are the result of invoking the transform function on each element of source.
      */
     public static select<T, U>(source: LzIterable<T>, selector: SelectorFunction<T, U>): Lz<U> {
         return new Lz<U>(Lz.selectInternal(source, selector));
@@ -714,29 +719,29 @@ export default class Lz<T> implements IterableIterator<T> {
 
     /**
      * Projects each element of a sequence to an IterableIterator<U> and flattens the resulting sequences into one sequence.
-     * @param {(item: T) => (IterableIterator<U> | U[])} selector A transform function to apply to each element.
+     * @param {SelectorFunction<T, IterableIterator<U> | U[]>} selector A transform function to apply to each element.
      * @returns {Lz<U>} An sequence whose elements are the result of invoking the one-to-many transform function on each element of the input
      * sequence.
      */
-    public selectMany<U>(selector: (item: T) => IterableIterator<U> | U[]): Lz<U> {
+    public selectMany<U>(selector: SelectorFunction<T, IterableIterator<U> | U[]>): Lz<U> {
         return Lz.selectMany(this, selector);
     }
 
     /**
      * Projects each element of a sequence to an IterableIterator<U> and flattens the resulting sequences into one sequence.
      * @param {LzIterable<T>} source A sequence of values to project.
-     * @param {(item: T) => (IterableIterator<U> | U[])} selector A transform function to apply to each element.
+     * @param {SelectorFunction<T, IterableIterator<U> | U[]>} selector A transform function to apply to each element.
      * @returns {Lz<U>} An sequence whose elements are the result of invoking the one-to-many transform function on each element of the input
      * sequence.
      */
-    public static selectMany<T, U>(source: LzIterable<T>, selector: (item: T) => IterableIterator<U> | U[]): Lz<U> {
+    public static selectMany<T, U>(source: LzIterable<T>, selector: SelectorFunction<T, IterableIterator<U> | U[]>): Lz<U> {
         return new Lz<U>(Lz.selectManyInternal(source, selector));
     }
 
-    private static *selectManyInternal<T, U>(source: LzIterable<T>,
-                                             selector: (item: T) => IterableIterator<U> | U[]): IterableIterator<U> {
+    private static *selectManyInternal<T, U>(source: LzIterable<T>, selector: SelectorFunction<T, IterableIterator<U> | U[]>): IterableIterator<U> {
+        let i = 0;
         for (const item of source) {
-            yield* selector(item);
+            yield* selector(item, i++);
         }
     }
 
@@ -817,10 +822,10 @@ export default class Lz<T> implements IterableIterator<T> {
         return new Lz<T>(Lz.takeWhileInternal(source, predicate));
     }
 
-    private static *takeWhileInternal<T>(source: LzIterable<T>, predicate: PredicateFunction<T> = Lz.defaultPredicate): IterableIterator<T> {
+    private static *takeWhileInternal<T>(source: LzIterable<T>, predicate?: PredicateFunction<T>): IterableIterator<T> {
         let index = 0;
         for (const item of source) {
-            if (predicate(item, index++)) {
+            if (predicate?.(item, index++) ?? true) {
                 yield item;
                 continue;
             }
@@ -849,10 +854,10 @@ export default class Lz<T> implements IterableIterator<T> {
         return new Lz<T>(Lz.skipWhileInternal(source, predicate));
     }
 
-    private static *skipWhileInternal<T>(source: LzIterable<T>, predicate: PredicateFunction<T> = Lz.defaultPredicate): IterableIterator<T> {
+    private static *skipWhileInternal<T>(source: LzIterable<T>, predicate?: PredicateFunction<T>): IterableIterator<T> {
         let index = 0;
         for (const item of source) {
-            if (predicate(item, index++)) {
+            if (predicate?.(item, index++) ?? true) {
                 continue;
             }
             yield item;
@@ -862,20 +867,19 @@ export default class Lz<T> implements IterableIterator<T> {
     /**
      * Groups the elements of a sequence according to a specified key selector function and projects the elements for each group by using a
      * specified function.
-     * @param {(item: T) => K} keySelector A function to extract the key for each element.
-     * @returns {IterableIterator<[K, T[]]>} A Map where each entry contains a collection of objects of type T.
+     * @param {SelectorFunction<T, K>} keySelector A function to extract the key for each element.
+     * @returns {Lz<[K, T[]]>} A Map where each entry contains a collection of objects of type T.
      */
-    public groupBy<K>(keySelector: (item: T) => K): Lz<[K, T[]]>;
+    public groupBy<K>(keySelector: SelectorFunction<T, K>): Lz<[K, T[]]>;
     /**
      * Groups the elements of a sequence according to a specified key selector function and projects the elements for each group by using a
      * specified function.
-     * @param {(item: T) => K} keySelector A function to extract the key for each element.
-     * @param {(item: T) => V} elementSelector A function to map each source element to an element in the returned Map.
-     * @returns {IterableIterator<[K, V[]]>} A Map where each entry contains a collection of objects of type V.
+     * @param {SelectorFunction<T, K>} keySelector A function to extract the key for each element.
+     * @param {SelectorFunction<T, V>} elementSelector A function to map each source element to an element in the returned Map.
+     * @returns {Lz<[K, V[]]>} A Map where each entry contains a collection of objects of type V.
      */
     public groupBy<K, V>(keySelector: SelectorFunction<T, K>, elementSelector?: SelectorFunction<T, V>): Lz<[K, V[]]>;
-    public groupBy<K, V>(keySelector: SelectorFunction<T, K>, elementSelector: SelectorFunction<T, V> = Lz.identityFunction as SelectorFunction<T, V>)
-        : Lz<[K, V[]]> {
+    public groupBy<K, V>(keySelector: SelectorFunction<T, K>, elementSelector: SelectorFunction<T, V> = Lz.identityFunction as SelectorFunction<T, V>): Lz<[K, V[]]> {
         return Lz.groupBy(this, keySelector, elementSelector);
     }
 
@@ -883,8 +887,8 @@ export default class Lz<T> implements IterableIterator<T> {
      * Groups the elements of a sequence according to a specified key selector function and projects the elements for each group by using a
      * specified function.
      * @param {LzIterable<T>} source The sequence whose elements to group.
-     * @param {(item: T) => K} keySelector A function to extract the key for each element.
-     * @returns {IterableIterator<[K, V[]]>} A Map where each entry contains a collection of objects of type V.
+     * @param {SelectorFunction<T, K>} keySelector A function to extract the key for each element.
+     * @returns {Lz<[K, V[]]>} A Map where each entry contains a collection of objects of type V.
      */
     public static groupBy<T, K>(source: LzIterable<T>, keySelector: SelectorFunction<T, K>): Lz<[K, T[]]>;
 
@@ -892,20 +896,18 @@ export default class Lz<T> implements IterableIterator<T> {
      * Groups the elements of a sequence according to a specified key selector function and projects the elements for each group by using a
      * specified function.
      * @param {LzIterable<T>} source The sequence whose elements to group.
-     * @param {(item: T) => K} keySelector A function to extract the key for each element.
-     * @param {(item: T) => V} elementSelector A function to map each source element to an element in the returned Map.
-     * @returns {IterableIterator<[K, V[]]>} A Map where each entry contains a collection of objects of type V.
+     * @param {SelectorFunction<T, K>} keySelector A function to extract the key for each element.
+     * @param {SelectorFunction<T, V>} elementSelector A function to map each source element to an element in the returned Map.
+     * @returns {Lz<[K, V[]]>} A Map where each entry contains a collection of objects of type V.
      */
-    public static groupBy<T, K, V>(source: LzIterable<T>, keySelector: SelectorFunction<T, K>,
-                                   elementSelector?: SelectorFunction<T, V>): Lz<[K, V[]]>;
+    public static groupBy<T, K, V>(source: LzIterable<T>, keySelector: SelectorFunction<T, K>, elementSelector?: SelectorFunction<T, V>): Lz<[K, V[]]>;
 
     public static groupBy<T, K, V>(source: LzIterable<T>, keySelector: SelectorFunction<T, K>,
                                    elementSelector: SelectorFunction<T, V> = Lz.identityFunction as SelectorFunction<T, V>): Lz<[K, V[]]> {
         return new Lz<[K, V[]]>(Lz.groupByInternal(source, keySelector, elementSelector));
     }
 
-    private static *groupByInternal<T, K, V>(source: LzIterable<T>, keySelector: SelectorFunction<T, K>, elementSelector: SelectorFunction<T, V>)
-        : IterableIterator<[K, V[]]> {
+    private static *groupByInternal<T, K, V>(source: LzIterable<T>, keySelector: SelectorFunction<T, K>, elementSelector: SelectorFunction<T, V>): IterableIterator<[K, V[]]> {
         const map: Map<K, V[]> = new Map<K, V[]>();
         let index = 0;
         for (const item of source) {
@@ -921,10 +923,23 @@ export default class Lz<T> implements IterableIterator<T> {
         yield* map;
     }
 
+    /**
+     * Partitions the sequence into arrays of specified size.
+     * @param {number} size The size of each partitioned array. The last array may be smaller if there are
+     * not enough elements in the sequence to fill it.
+     * @returns {Lz<T[]>} A sequence that contains the partitioned arrays.
+     */
     public partition(size: number): Lz<T[]> {
         return Lz.partition(this, size);
     }
 
+    /**
+     * Partitions the sequence into arrays of specified size.
+     * @param {twoa.LzIterable<T>} source The sequence whose elements to partition.
+     * @param {number} size The size of each partitioned array. The last array may be smaller if there are
+     * not enough elements in the sequence to fill it.
+     * @returns {Lz<T[]>} A sequence that contains the partitioned arrays.
+     */
     public static partition<T>(source: LzIterable<T>, size: number): Lz<T[]> {
         return new Lz<T[]>(Lz.partitionInternal(source, size));
     }
@@ -1011,111 +1026,123 @@ export default class Lz<T> implements IterableIterator<T> {
 
     /**
      * Applies an accumulator function over a sequence. The specified seed value is used as the initial accumulator value.
-     * @param {(accumulator: U, current: T) => U} func An accumulator function to be invoked on each element.
+     * @param {AccumulatorFunction<T, U>} func An accumulator function to be invoked on each element.
      * @param {U} seed The initial accumulator value.
      * @returns {U} The final accumulator value.
      */
-    public aggregate<U>(func: (accumulator: U, current: T) => U, seed?: U): U {
+    public aggregate<U>(func: AccumulatorFunction<T, U>, seed?: U): U {
         return Lz.aggregate(this, func, seed);
     }
 
     /**
      * Applies an accumulator function over a sequence. The specified seed value is used as the initial accumulator value.
      * @param {LzIterable<T>} source The sequence to aggregate over.
-     * @param {(accumulator: U, current: T) => U} func An accumulator function to be invoked on each element.
+     * @param {AccumulatorFunction<T, U>} func An accumulator function to be invoked on each element.
      * @param {U} seed The initial accumulator value.
      * @returns {U} The final accumulator value.
      */
-    public static aggregate<T, U>(source: LzIterable<T>, func: (accumulator: U, current: T) => U, seed?: U): U {
+    public static aggregate<T, U>(source: LzIterable<T>, func: AccumulatorFunction<T, U>, seed?: U): U {
         let value: U = seed;
+        let i = 0;
         for (const item of source) {
-            value = func(value, item);
+            value = func(value, item, i++);
         }
         return value;
     }
 
     /**
      * Invokes a transform function on each element of a sequence and returns the maximum value.
-     * @param {(item: T) => number} selector A transform function to apply to each element.
+     * @param {SelectorFunction<T, number>} selector A transform function to apply to each element.
      * @returns {number} The maximum value in the sequence.
      */
-    public max(selector: (item: T) => number = Lz.identityFunction as IdentityFunction<T, number>): number {
+    public max(selector: SelectorFunction<T, number>): number;
+    public max(selector?: SelectorFunction<number, number>): number;
+    public max(selector: SelectorFunction<any, number> = Lz.identityFunction as IdentityFunction<number>): number {
         return Lz.select(this, selector).aggregate(Math.max, Number.MIN_VALUE);
     }
 
     /**
      * Invokes a transform function on each element of a sequence and returns the maximum value.
      * @param {LzIterable<T>} source A sequence of values to determine the maximum value of.
-     * @param {(item: T) => number} selector A transform function to apply to each element.
+     * @param {SelectorFunction<T, number>} selector A transform function to apply to each element.
      * @returns {number} The maximum value in the sequence.
      */
-    public static max<T>(source: LzIterable<T>,
-                         selector: (item: T) => number = Lz.identityFunction as IdentityFunction<T, number>): number {
+    public static max<T>(source: LzIterable<T>, selector: SelectorFunction<T, number>): number;
+    public static max<T extends number>(source: LzIterable<T>, selector?: SelectorFunction<T, number>): number;
+    public static max<T>(source: LzIterable<T>, selector: SelectorFunction<T, number> = Lz.identityFunction as any): number {
         return Lz.select(source, selector).aggregate(Math.max, Number.MIN_VALUE);
     }
 
     /**
      * Invokes a transform function on each element of a sequence and returns the minimum value.
-     * @param {(item: T) => number} selector A transform function to apply to each element.
+     * @param {SelectorFunction<T, number>} selector A transform function to apply to each element.
      * @returns {number} The minimum value in the sequence.
      */
-    public min(selector: (item: T) => number = Lz.identityFunction as IdentityFunction<T, number>): number {
+    public min(selector: SelectorFunction<T, number>): number;
+    public min(selector?: SelectorFunction<number, number>): number;
+    public min(selector: SelectorFunction<any, number> = Lz.identityFunction as IdentityFunction<number>): number {
         return Lz.select(this, selector).aggregate(Math.min, Number.MAX_VALUE);
     }
 
     /**
      * Invokes a transform function on each element of a sequence and returns the minimum value.
      * @param {LzIterable<T>} source A sequence of values to determine the minimum value of.
-     * @param {(item: T) => number} selector A transform function to apply to each element.
+     * @param {SelectorFunction<T, number>} selector A transform function to apply to each element.
      * @returns {number} The minimum value in the sequence.
      */
-    public static min<T>(source: LzIterable<T>,
-                         selector: (item: T) => number = Lz.identityFunction as IdentityFunction<T, number>): number {
+    public static min<T>(source: LzIterable<T>, selector: SelectorFunction<T, number>): number;
+    public static min<T extends number>(source: LzIterable<T>, selector?: SelectorFunction<T, number>): number;
+    public static min<T>(source: LzIterable<T>, selector: SelectorFunction<T, number> = Lz.identityFunction as any): number {
         return Lz.select(source, selector).aggregate(Math.min, Number.MAX_VALUE);
     }
 
     /**
      * Computes the sum of the sequence of values that are obtained by invoking a transform function on each element of the input sequence.
-     * @param {(item: T) => number} selector A transform function to apply to each element.
+     * @param {SelectorFunction<T, number>} selector A transform function to apply to each element.
      * @returns {number} The sum of the projected values.
      */
-    public sum(selector: (item: T) => number = Lz.identityFunction as IdentityFunction<T, number>): number {
+    public sum(selector: SelectorFunction<T, number>): number;
+    public sum(selector?: SelectorFunction<number, number>): number;
+    public sum(selector: SelectorFunction<any, number> = Lz.identityFunction as IdentityFunction<number>): number {
         return Lz.select(this, selector).aggregate((acc, cur) => acc + cur, 0);
     }
 
     /**
      * Computes the sum of the sequence of values that are obtained by invoking a transform function on each element of the input sequence.
      * @param {LzIterable<T>} source A sequence of values that are used to calculate a sum.
-     * @param {(item: T) => number} selector A transform function to apply to each element.
+     * @param {SelectorFunction<T, number>} selector A transform function to apply to each element.
      * @returns {number} The sum of the projected values.
      */
-    public static sum<T>(source: LzIterable<T>,
-                         selector: (item: T) => number = Lz.identityFunction as IdentityFunction<T, number>): number {
+    public static sum<T>(source: LzIterable<T>, selector: SelectorFunction<T, number>): number;
+    public static sum<T extends number>(source: LzIterable<T>, selector?: SelectorFunction<T, number>): number;
+    public static sum<T>(source: LzIterable<T>, selector: SelectorFunction<T, number> = Lz.identityFunction as any): number {
         return Lz.select(source, selector).aggregate((acc, cur) => acc + cur, 0);
     }
 
     /**
      * Computes the average of a sequence of values that are obtained by invoking a transform function on each element of the input sequence.
-     * @param {(item: T) => number} selector A transform function to apply to each element.
+     * @param {SelectorFunction<T, number>} selector A transform function to apply to each element.
      * @returns {number} The average of the sequence of values, or 0 if the source sequence is empty.
      */
-    public average(selector: (item: T) => number = Lz.identityFunction as IdentityFunction<T, number>): number {
+    public average(selector: SelectorFunction<T, number>): number;
+    public average(selector?: SelectorFunction<number, number>): number;
+    public average(selector: SelectorFunction<any, number> = Lz.identityFunction as any): number {
         return Lz.average(this, selector);
     }
 
     /**
      * Computes the average of a sequence of values that are obtained by invoking a transform function on each element of the input sequence.
      * @param {LzIterable<T>} source A sequence of values that are used to calculate an average.
-     * @param {(item: T) => number} selector A transform function to apply to each element.
+     * @param {SelectorFunction<T, number>} selector A transform function to apply to each element.
      * @returns {number} The average of the sequence of values, or 0 if the source sequence is empty.
      */
-    public static average<T>(source: LzIterable<T>,
-                             selector: (item: T) => number = Lz.identityFunction as IdentityFunction<T, number>): number {
+    public static average<T>(source: LzIterable<T>, selector: SelectorFunction<T, number>): number;
+    public static average<T extends number>(source: LzIterable<T>, selector?: SelectorFunction<T, number>): number;
+    public static average<T>(source: LzIterable<T>, selector: SelectorFunction<T, number> = Lz.identityFunction as any): number {
         let sum = 0;
         let count = 0;
         for (const item of source) {
-            sum += selector(item);
-            count++;
+            sum += selector(item, count++);
         }
         if (count > 0) {
             return sum / count;
@@ -1139,8 +1166,8 @@ export default class Lz<T> implements IterableIterator<T> {
      * @param {PredicateFunction<T>} predicate A function to test each element for a condition.
      * @returns {number} A number that represents how many elements in the sequence satisfy the condition in the predicate function.
      */
-    public static count<T>(source: LzIterable<T>, predicate: PredicateFunction<T> = Lz.defaultPredicate): number {
-        if (Array.isArray(source) && predicate === Lz.defaultPredicate) {
+    public static count<T>(source: LzIterable<T>, predicate?: PredicateFunction<T>): number {
+        if (Array.isArray(source) && !predicate) {
             return source.length;
         }
 
@@ -1148,7 +1175,7 @@ export default class Lz<T> implements IterableIterator<T> {
         let count = 0;
 
         for (const item of source) {
-            if (predicate(item, index++)) {
+            if (predicate?.(item, index++) ?? true) {
                 count++;
             }
         }
@@ -1229,7 +1256,7 @@ export default class Lz<T> implements IterableIterator<T> {
      * in predicate, or the source sequence is empty.
      */
     public static single<T>(source: LzIterable<T>,
-                            predicate: PredicateFunction<T> = Lz.defaultPredicate): T {
+                            predicate?: PredicateFunction<T>): T {
         const iterable = Lz.whereInternal(source, predicate);
         let result = iterable.next();
         if (!result.done) {
@@ -1269,7 +1296,7 @@ export default class Lz<T> implements IterableIterator<T> {
      * @throws If more than one element satisfies the condition in predicate.
      */
     public static singleOrDefault<T>(source: LzIterable<T>, defaultValue: T,
-                                     predicate: PredicateFunction<T> = Lz.defaultPredicate): T {
+                                     predicate?: PredicateFunction<T>): T {
         const iterable = Lz.whereInternal(source, predicate);
         let result = iterable.next();
         if (!result.done) {
@@ -1301,15 +1328,15 @@ export default class Lz<T> implements IterableIterator<T> {
      * @returns {T} The first element.
      * @throws If the source sequence contains no elements or the predicate did not match any elements.
      */
-    public static first<T>(source: LzIterable<T>, predicate: PredicateFunction<T> = Lz.defaultPredicate): T {
+    public static first<T>(source: LzIterable<T>, predicate?: PredicateFunction<T>): T {
         // optimize if source is an array and using default predicate
-        if (Array.isArray(source) && predicate === Lz.defaultPredicate) {
+        if (Array.isArray(source) && !predicate) {
             return source[0];
         }
 
         let index = 0;
         for (const item of source) {
-            if (predicate(item, index++)) {
+            if (predicate?.(item, index++) ?? true) {
                 return item;
             }
         }
@@ -1335,10 +1362,10 @@ export default class Lz<T> implements IterableIterator<T> {
      * @returns {T} The first element, or a default value if the sequence contains no elements.
      */
     public static firstOrDefault<T>(source: LzIterable<T>, defaultValue: T,
-                                    predicate: PredicateFunction<T> = Lz.defaultPredicate): T {
+                                    predicate?: PredicateFunction<T>): T {
         let index = 0;
         for (const item of source) {
-            if (predicate(item, index++)) {
+            if (predicate?.(item, index++) ?? true) {
                 return item;
             }
         }
@@ -1354,15 +1381,12 @@ export default class Lz<T> implements IterableIterator<T> {
 
     /**
      * Creates a Map from an Array according to a specified key selector function.
-     * @param {(item: T) => K} keySelector A function to extract a key from each element.
-     * @param {(item: T) => U} elementSelector A function to map each source element to an element in the returned Map.
+     * @param {SelectorFunction<T, K>} keySelector A function to extract a key from each element.
+     * @param {SelectorFunction<T, U>} elementSelector A function to map each source element to an element in the returned Map.
      * @returns {Map<K, U>} A Map that contains keys and values.
      */
-    public toDictionary<K, U>(keySelector: (item: T) => K,
-                              elementSelector?: (item: T) => U): Map<K, U>;
-
-    public toDictionary<K, U>(keySelector?: (item: T) => K,
-                              elementSelector?: (item: T) => U): Map<K, U> {
+    public toDictionary<K, U>(keySelector: SelectorFunction<T, K>, elementSelector?: SelectorFunction<T, U>): Map<K, U>;
+    public toDictionary<K, U>(keySelector?: SelectorFunction<T, K>, elementSelector?: SelectorFunction<T, U>): Map<K, U> {
         return Lz.toDictionary(this, keySelector, elementSelector);
     }
 
@@ -1376,16 +1400,16 @@ export default class Lz<T> implements IterableIterator<T> {
     /**
      * Creates a Map from an Array according to a specified key selector function.
      * @param {LzIterable<T>} source The sequence to create a Map<K, T> from.
-     * @param {(item: T) => K} keySelector A function to extract a key from each element.
-     * @param {(item: T) => U} elementSelector A function to map each source element to an element in the returned Map.
+     * @param {SelectorFunction<T, K>} keySelector A function to extract a key from each element.
+     * @param {SelectorFunction<T, U>} elementSelector A function to map each source element to an element in the returned Map.
      * @returns {Map<K, U>} A Map that contains keys and values.
      */
     public static toDictionary<T, K, U>(source: LzIterable<T>,
-                                        keySelector: (item: T) => K,
-                                        elementSelector?: (item: T) => U): Map<K, U>;
+                                        keySelector: SelectorFunction<T, K>,
+                                        elementSelector?: SelectorFunction<T, U>): Map<K, U>;
     public static toDictionary<T, K, U>(source: LzIterable<T>,
-                                        keySelector?: (item: T) => K,
-                                        elementSelector?: (item: T) => U): Map<K, U> {
+                                        keySelector?: SelectorFunction<T, K>,
+                                        elementSelector?: SelectorFunction<T, U>): Map<K, U> {
         if (keySelector === undefined && elementSelector === undefined) {
             keySelector = (item: any) => item[0] as K;
             elementSelector = (item: any) => item[1] as U;
@@ -1394,8 +1418,10 @@ export default class Lz<T> implements IterableIterator<T> {
         }
 
         const map: Map<K, U> = new Map<K, U>();
+        let i = 0;
         for (const item of source) {
-            map.set(keySelector(item), elementSelector(item));
+            map.set(keySelector(item, i), elementSelector(item, i));
+            i++;
         }
         return map;
     }

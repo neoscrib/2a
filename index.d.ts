@@ -54,6 +54,13 @@ declare namespace twoa {
 
     export type ComparatorFunction<T> = (a: T, b: T) => number;
 
+    export type IdentityFunction<T> = (item: T) => T;
+    export type PredicateFunction<T> = (item: T, index: number) => boolean;
+    export type SelectorFunction<T, U> = (item: T, index: number) => U;
+    export type SelectorFunctionNoIndex<T, U> = (item: T) => U;
+    export type AccumulatorFunction<T, U> = (accumulator: U, item: T, index: number) => U;
+    export type Action<T> = SelectorFunction<T, void>;
+
     export class BinarySearch {
         public static find<T>(source: T[], index: number, length: number, item: T, comparator?: (a: T, b: T) => number): number;
     }
@@ -220,16 +227,16 @@ declare namespace twoa {
 
         /**
          * Performs the specified action on each element of the sequence.
-         * @param {(item: T) => void} action The action delegate to perform on each element of the sequence.
+         * @param {Action<T>>} action The action delegate to perform on each element of the sequence.
          */
-        public forEach(action: (item: T) => void): void;
+        public forEach(action: Action<T>): void;
 
         /**
          * Performs the specified action on each element of the sequence.
          * @param {LzIterable<T>} source The sequence whose elements to perform the specified action on.
-         * @param {(item: T) => void} action The action delegate to perform on each element of the sequence.
+         * @param {Action<T>>} action The action delegate to perform on each element of the sequence.
          */
-        public static forEach<T>(source: LzIterable<T>, action: (item: T) => void): void;
+        public static forEach<T>(source: LzIterable<T>, action: Action<T>): void;
 
         /**
          * Inserts a value into the source sequence at the specified index.
@@ -286,9 +293,9 @@ declare namespace twoa {
         /**
          * Correlates the elements of two sequences based on matching keys.
          * @param {IterableIterator<T2> | T2[]} inner The sequence to join to the first sequence.
-         * @param {(item: T1) => K} outerKeySelector A function to extract the join key from each element of the first sequence.
-         * @param {(item: T2) => K} innerKeySelector A function to extract the join key from each element of the second sequence.
-         * @param {(a: T1, b: T2) => U} resultSelector A function to create a result element from two matching elements.
+         * @param {SelectorFunction<T, K>} outerKeySelector A function to extract the join key from each element of the first sequence.
+         * @param {SelectorFunction<T2, K>} innerKeySelector A function to extract the join key from each element of the second sequence.
+         * @param {(a: T, b: T2) => U} resultSelector A function to create a result element from two matching elements.
          * @returns {Lz<U>} A sequence that has elements of type <i>U</i> that are obtained by performing an inner
          * join on two sequences.
          * @remarks
@@ -297,15 +304,16 @@ declare namespace twoa {
          * until the object is enumerated either by calling its toArray method directly or by using for...of.
          */
         public join<T2, K, U>(inner: IterableIterator<T2> | T2[],
-                              outerKeySelector: (item: T) => K, innerKeySelector: (item: T2) => K,
+                              outerKeySelector: SelectorFunction<T, K>,
+                              innerKeySelector: SelectorFunction<T2, K>,
                               resultSelector: (a: T, b: T2) => U): Lz<U>;
 
         /**
          * Correlates the elements of two sequences based on matching keys.
          * @param {IterableIterator<T1> | T1[]} outer The first sequence to join.
          * @param {IterableIterator<T2> | T2[]} inner The sequence to join to the first sequence.
-         * @param {(item: T1) => K} outerKeySelector A function to extract the join key from each element of the first sequence.
-         * @param {(item: T2) => K} innerKeySelector A function to extract the join key from each element of the second sequence.
+         * @param {SelectorFunction<T1, K>} outerKeySelector A function to extract the join key from each element of the first sequence.
+         * @param {SelectorFunction<T2, K>} innerKeySelector A function to extract the join key from each element of the second sequence.
          * @param {(a: T1, b: T2) => U} resultSelector A function to create a result element from two matching elements.
          * @returns {Lz<U>} A sequence that has elements of type <i>U</i> that are obtained by performing an inner
          * join on two sequences.
@@ -315,60 +323,61 @@ declare namespace twoa {
          * until the object is enumerated either by calling its toArray method directly or by using for...of.
          */
         public static join<T1, T2, K, U>(outer: IterableIterator<T1> | T1[], inner: IterableIterator<T2> | T2[],
-                                         outerKeySelector: (item: T1) => K, innerKeySelector: (item: T2) => K,
+                                         outerKeySelector: SelectorFunction<T1, K>,
+                                         innerKeySelector: SelectorFunction<T2, K>,
                                          resultSelector: (a: T1, b: T2) => U): Lz<U>;
 
         /**
          * Returns the last element of a sequence.
-         * @param {(item: T, index: number) => boolean} predicate A function to test each element for a condition.
+         * @param {PredicateFunction<T>} predicate A function to test each element for a condition.
          * @returns {T} The value at the last position in the source sequence.
          * @throws If the source sequence contains no elements or the predicate did not match any elements.
          */
-        public last(predicate?: (item: T, index: number) => boolean): T;
+        public last(predicate?: PredicateFunction<T>): T;
 
         /**
          * Returns the last element of a sequence.
          * @param {LzIterable<T>} source A sequence to return the last element of.
-         * @param {(item: T, index: number) => boolean} predicate A function to test each element for a condition.
+         * @param {PredicateFunction<T>} predicate A function to test each element for a condition.
          * @returns {T} The value at the last position in the source sequence.
          * @throws If the source sequence contains no elements or the predicate did not match any elements.
          */
-        public static last<T>(source: LzIterable<T>, predicate?: (item: T, index: number) => boolean): T;
+        public static last<T>(source: LzIterable<T>, predicate?: PredicateFunction<T>): T;
 
         /**
          * Returns the last element of a sequence, or a default value if no element is found.
          * @param {T} defaultValue The default value.
-         * @param {(item: T, index: number) => boolean} predicate A function to test each element for a condition.
+         * @param {PredicateFunction<T>} predicate A function to test each element for a condition.
          * @returns {T} The value at the last position in the source sequence.
          */
-        public lastOrDefault(defaultValue: T, predicate?: (item: T, index: number) => boolean): T;
+        public lastOrDefault(defaultValue: T, predicate?: PredicateFunction<T>): T;
 
         /**
          * Returns the last element of a sequence, or a default value if no element is found.
          * @param {LzIterable<T>} source A sequence to return the last element of.
          * @param {T} defaultValue The default value.
-         * @param {(item: T, index: number) => boolean} predicate A function to test each element for a condition.
+         * @param {PredicateFunction<T>} predicate A function to test each element for a condition.
          * @returns {T} The value at the last position in the source sequence.
          */
         public static lastOrDefault<T>(source: LzIterable<T>, defaultValue: T,
-                                       predicate?: (item: T, index: number) => boolean): T;
+                                       predicate?: PredicateFunction<T>): T;
 
         /**
          * Sorts the elements of a sequence in ascending order according to a key.
-         * @param {(item: T) => V} selector A function to extract a key from an element.
+         * @param {SelectorFunctionNoIndex<T, V>} selector A function to extract a key from an element.
          * @param {ComparatorFunction<V>} comparator A ComparatorFunction<V> to compare keys.
          * @returns {Lz<T>} A sequence whose elements are sorted according to a key.
          */
-        public orderBy<V>(selector: (item: T) => V, comparator?: ComparatorFunction<V>): Lz<T>;
+        public orderBy<V>(selector: SelectorFunctionNoIndex<T, V>, comparator?: ComparatorFunction<V>): Lz<T>;
 
         /**
          * Sorts the elements of a sequence in ascending order according to a key.
-         * @param {LinqIterable<T>} source A sequence of values to order.
-         * @param {(item: T) => V} selector A function to extract a key from an element.
+         * @param {LzIterable<T>} source A sequence of values to order.
+         * @param {SelectorFunctionNoIndex<T, V>} selector A function to extract a key from an element.
          * @param {ComparatorFunction<V>} comparator A ComparatorFunction<V> to compare keys.
          * @returns {Lz<T>} A sequence whose elements are sorted according to a key.
          */
-        public static orderBy<T, V>(source: LzIterable<T>, selector: (item: T) => V, comparator?: ComparatorFunction<V>): Lz<T>;
+        public static orderBy<T, V>(source: LzIterable<T>, selector: SelectorFunctionNoIndex<T, V>, comparator?: ComparatorFunction<V>): Lz<T>;
 
         /**
          * Generates a sequence of integral numbers within a specified range.
@@ -441,52 +450,52 @@ declare namespace twoa {
 
         /**
          * Filters a sequence of values based on a predicate.
-         * @param {(item: T, index?: number) => boolean} predicate A function to test each element for a condition. Return true to keep the
+         * @param {PredicateFunction<T>} predicate A function to test each element for a condition. Return true to keep the
          * element, false otherwise.
-         * @returns {IterableIterator<T>} An iterable that contains elements from the input sequence that satisfy the condition.
+         * @returns {Lz<T>} An iterable that contains elements from the input sequence that satisfy the condition.
          */
-        public where(predicate: (item: T, index?: number) => boolean): Lz<T>;
+        public where(predicate: PredicateFunction<T>): Lz<T>;
 
         /**
          * Filters a sequence of values based on a predicate.
          * @param {LzIterable<T>} source An iterable to filter.
-         * @param {(item: T, index?: number) => boolean} predicate A function to test each element for a condition. Return true to keep the
+         * @param {PredicateFunction<T>} predicate A function to test each element for a condition. Return true to keep the
          * element, false otherwise.
-         * @returns {IterableIterator<T>} An iterable that contains elements from the input sequence that satisfy the condition.
+         * @returns {Lz<T>} An iterable that contains elements from the input sequence that satisfy the condition.
          */
-        public static where<T>(source: LzIterable<T>, predicate: (item: T, index?: number) => boolean): Lz<T>;
+        public static where<T>(source: LzIterable<T>, predicate: PredicateFunction<T>): Lz<T>;
 
         /**
          * Projects each element of a sequence into a new form.
-         * @param {(item: T, index?: number) => U} selector A transform function to apply to each element.
-         * @returns {IterableIterator<U>} An iterable whose elements are the result of invoking the transform function on each element of source.
+         * @param {SelectorFunction<T, U>} selector A transform function to apply to each element.
+         * @returns {Lz<U>} An iterable whose elements are the result of invoking the transform function on each element of source.
          */
-        public select<U>(selector: (item: T, index?: number) => U): Lz<U>;
+        public select<U>(selector: SelectorFunction<T, U>): Lz<U>;
 
         /**
          * Projects each element of a sequence into a new form.
          * @param {LzIterable<T>} source An iterable of values to invoke a transform function on.
-         * @param {(item: T, index?: number) => U} selector A transform function to apply to each element.
-         * @returns {IterableIterator<U>} An iterable whose elements are the result of invoking the transform function on each element of source.
+         * @param {SelectorFunction<T, U>} selector A transform function to apply to each element.
+         * @returns {Lz<U>} An iterable whose elements are the result of invoking the transform function on each element of source.
          */
-        public static select<T, U>(source: LzIterable<T>, selector: (item: T, index?: number) => U): Lz<U>;
+        public static select<T, U>(source: LzIterable<T>, selector: SelectorFunction<T, U>): Lz<U>;
 
         /**
          * Projects each element of a sequence to an IterableIterator<U> and flattens the resulting sequences into one sequence.
-         * @param {(item: T) => (IterableIterator<U> | U[])} selector A transform function to apply to each element.
+         * @param {SelectorFunction<T, IterableIterator<U> | U[]>} selector A transform function to apply to each element.
          * @returns {Lz<U>} An sequence whose elements are the result of invoking the one-to-many transform function on each element of the
          * input sequence.
          */
-        public selectMany<U>(selector: (item: T) => IterableIterator<U> | U[]): Lz<U>;
+        public selectMany<U>(selector: SelectorFunction<T, IterableIterator<U> | U[]>): Lz<U>;
 
         /**
          * Projects each element of a sequence to an IterableIterator<U> and flattens the resulting sequences into one sequence.
          * @param {LzIterable<T>} source A sequence of values to project.
-         * @param {(item: T) => (IterableIterator<U> | U[])} selector A transform function to apply to each element.
+         * @param {SelectorFunction<T, IterableIterator<U> | U[]>} selector A transform function to apply to each element.
          * @returns {Lz<U>} An sequence whose elements are the result of invoking the one-to-many transform function on each element of the
          * input sequence.
          */
-        public static selectMany<T, U>(source: LzIterable<T>, selector: (item: T) => IterableIterator<U> | U[]): Lz<U>;
+        public static selectMany<T, U>(source: LzIterable<T>, selector: SelectorFunction<T, IterableIterator<U> | U[]>): Lz<U>;
 
         /**
          * Returns a specified number of contiguous elements from the start of a sequence.
@@ -520,78 +529,91 @@ declare namespace twoa {
 
         /**
          * Returns elements from a sequence as long as a specified condition is true.
-         * @param {(item: T) => boolean} predicate A function to test each element for a condition.
+         * @param {PredicateFunction<T>} predicate A function to test each element for a condition.
          * @returns {IterableIterator<T>} A sequence that contains the elements from the input sequence that occur before the element at which the
          * test no longer passes.
          */
-        public takeWhile(predicate: (item: T) => boolean): Lz<T>;
+        public takeWhile(predicate: PredicateFunction<T>): Lz<T>;
 
         /**
          * Returns elements from a sequence as long as a specified condition is true.
          * @param {LzIterable<T>} source A sequence to return elements from.
-         * @param {(item: T) => boolean} predicate A function to test each element for a condition.
+         * @param {PredicateFunction<T>} predicate A function to test each element for a condition.
          * @returns {IterableIterator<T>} A sequence that contains the elements from the input sequence that occur before the element at which the
          * test no longer passes.
          */
-        public static takeWhile<T>(source: LzIterable<T>, predicate: (item: T) => boolean): Lz<T>;
+        public static takeWhile<T>(source: LzIterable<T>, predicate: PredicateFunction<T>): Lz<T>;
 
         /**
          * Bypasses elements in a sequence as long as a specified condition is true and then returns the remaining elements.
-         * @param {(item: T) => boolean} predicate A function to test each element for a condition.
+         * @param {PredicateFunction<T>} predicate A function to test each element for a condition.
          * @returns {IterableIterator<T>} A sequence that contains the elements from the input sequence starting at the first element in the
          * linear series that does not pass the test specified by predicate.
          */
-        public skipWhile(predicate: (item: T) => boolean): Lz<T>;
+        public skipWhile(predicate: PredicateFunction<T>): Lz<T>;
 
         /**
          * Bypasses elements in a sequence as long as a specified condition is true and then returns the remaining elements.
          * @param {LzIterable<T>} source A sequence to return elements from.
-         * @param {(item: T) => boolean} predicate A function to test each element for a condition.
+         * @param {PredicateFunction<T>} predicate A function to test each element for a condition.
          * @returns {IterableIterator<T>} A sequence that contains the elements from the input sequence starting at the first element in the
          * linear series that does not pass the test specified by predicate.
          */
-        public static skipWhile<T>(source: LzIterable<T>, predicate: (item: T) => boolean): Lz<T>;
+        public static skipWhile<T>(source: LzIterable<T>, predicate: PredicateFunction<T>): Lz<T>;
 
         /**
          * Groups the elements of a sequence according to a specified key selector function and projects the elements for each group by using a
          * specified function.
-         * @param {(item: T) => K} keySelector A function to extract the key for each element.
+         * @param {SelectorFunction<T, K>} keySelector A function to extract the key for each element.
          * @returns {IterableIterator<[K, T[]]>} A Map where each entry contains a collection of objects of type T.
          */
-        public groupBy<K>(keySelector: (item: T) => K): Lz<[K, T[]]>;
+        public groupBy<K>(keySelector: SelectorFunction<T, K>): Lz<[K, T[]]>;
 
         /**
          * Groups the elements of a sequence according to a specified key selector function and projects the elements for each group by using a
          * specified function.
-         * @param {(item: T) => K} keySelector A function to extract the key for each element.
-         * @param {(item: T) => V} elementSelector A function to map each source element to an element in the returned Map.
+         * @param {SelectorFunction<T, K>} keySelector A function to extract the key for each element.
+         * @param {SelectorFunction<T, V>} elementSelector A function to map each source element to an element in the returned Map.
          * @returns {IterableIterator<[K, V[]]>} A Map where each entry contains a collection of objects of type V.
          */
-        public groupBy<K, V>(keySelector: (item: T) => K, elementSelector?: (item: T) => V): Lz<[K, V[]]>;
-
-        /**
-         * Groups the elements of a sequence according to a specified key selector function and projects the elements for each group by using a
-         * specified function.
-         * @param {LzIterable<T>} source The sequence whose elements to group.
-         * @param {(item: T) => K} keySelector A function to extract the key for each element.
-         * @returns {IterableIterator<[K, V[]]>} A Map where each entry contains a collection of objects of type V.
-         */
-        public static groupBy<T, K>(source: LzIterable<T>, keySelector: (item: T) => K): Lz<[K, T[]]>;
+        public groupBy<K, V>(keySelector: SelectorFunction<T, K>, elementSelector?: SelectorFunction<T, V>): Lz<[K, V[]]>;
 
         /**
          * Groups the elements of a sequence according to a specified key selector function and projects the elements for each group by using a
          * specified function.
          * @param {LzIterable<T>} source The sequence whose elements to group.
-         * @param {(item: T) => K} keySelector A function to extract the key for each element.
-         * @param {(item: T) => V} elementSelector A function to map each source element to an element in the returned Map.
+         * @param {SelectorFunction<T, K>} keySelector A function to extract the key for each element.
          * @returns {IterableIterator<[K, V[]]>} A Map where each entry contains a collection of objects of type V.
          */
-        public static groupBy<T, K, V>(source: LzIterable<T>, keySelector: (item: T) => K,
-                                       elementSelector?: (item: T) => V): Lz<[K, V[]]>;
+        public static groupBy<T, K>(source: LzIterable<T>, keySelector: SelectorFunction<T, K>): Lz<[K, T[]]>;
 
-        public partition(n: number): Lz<T[]>;
+        /**
+         * Groups the elements of a sequence according to a specified key selector function and projects the elements for each group by using a
+         * specified function.
+         * @param {LzIterable<T>} source The sequence whose elements to group.
+         * @param {SelectorFunction<T, K>} keySelector A function to extract the key for each element.
+         * @param {SelectorFunction<T, V>} elementSelector A function to map each source element to an element in the returned Map.
+         * @returns {IterableIterator<[K, V[]]>} A Map where each entry contains a collection of objects of type V.
+         */
+        public static groupBy<T, K, V>(source: LzIterable<T>, keySelector: SelectorFunction<T, K>,
+                                       elementSelector?: SelectorFunction<T, V>): Lz<[K, V[]]>;
 
-        public static partition<T>(source: LzIterable<T>, n: number): Lz<T[]>;
+        /**
+         * Partitions the sequence into arrays of specified size.
+         * @param {number} size The size of each partitioned array. The last array may be smaller if there are
+         * not enough elements in the sequence to fill it.
+         * @returns {Lz<T[]>} A sequence that contains the partitioned arrays.
+         */
+        public partition(size: number): Lz<T[]>;
+
+        /**
+         * Partitions the sequence into arrays of specified size.
+         * @param {twoa.LzIterable<T>} source The sequence whose elements to partition.
+         * @param {number} size The size of each partitioned array. The last array may be smaller if there are
+         * not enough elements in the sequence to fill it.
+         * @returns {Lz<T[]>} A sequence that contains the partitioned arrays.
+         */
+        public static partition<T>(source: LzIterable<T>, size: number): Lz<T[]>;
 
         /**
          * Produces the set union of two sequences.
@@ -616,8 +638,7 @@ declare namespace twoa {
          * the information that is required to perform the action. The query represented by this method is not executed
          * until the object is enumerated either by calling its toArray method directly or by using for...of.
          */
-        public static union<T>(first: LzIterable<T>, second: LzIterable<T>,
-                               comparator?: ComparatorFunction<T>): Lz<T>;
+        public static union<T>(first: LzIterable<T>, second: LzIterable<T>, comparator?: ComparatorFunction<T>): Lz<T>;
 
         /**
          * Applies a specified function to the corresponding elements of two sequences, producing a sequence of the results.
@@ -634,224 +655,231 @@ declare namespace twoa {
          * @param {(first: T, second: U) => V} resultSelector A function that specifies how to merge the elements from the two sequences.
          * @returns {IterableIterator<V>} A sequence that contains merged elements of two input sequences.
          */
-        public static zip<T, U, V>(first: LzIterable<T>, second: IterableIterator<U>, resultSelector: (first: T, second: U) => V)
-            : Lz<V>;
+        public static zip<T, U, V>(first: LzIterable<T>, second: IterableIterator<U>, resultSelector: (first: T, second: U) => V): Lz<V>;
 
         /**
          * Applies an accumulator function over a sequence. The specified seed value is used as the initial accumulator value.
-         * @param {(accumulator: U, current: T) => U} func An accumulator function to be invoked on each element.
+         * @param {AccumulatorFunction<T, U>} func An accumulator function to be invoked on each element.
          * @param {U} seed The initial accumulator value.
          * @returns {U} The final accumulator value.
          */
-        public aggregate<U>(func: (accumulator: U, current: T) => U, seed?: U): U;
+        public aggregate<U>(func: AccumulatorFunction<T, U>, seed?: U): U;
 
         /**
          * Applies an accumulator function over a sequence. The specified seed value is used as the initial accumulator value.
          * @param {LzIterable<T>} source The sequence to aggregate over.
-         * @param {(accumulator: U, current: T) => U} func An accumulator function to be invoked on each element.
+         * @param {AccumulatorFunction<T, U>} func An accumulator function to be invoked on each element.
          * @param {U} seed The initial accumulator value.
          * @returns {U} The final accumulator value.
          */
-        public static aggregate<T, U>(source: LzIterable<T>, func: (accumulator: U, current: T) => U, seed?: U): U;
+        public static aggregate<T, U>(source: LzIterable<T>, func: AccumulatorFunction<T, U>, seed?: U): U;
 
         /**
          * Invokes a transform function on each element of a sequence and returns the maximum value.
-         * @param {(item: T) => number} selector A transform function to apply to each element.
+         * @param {SelectorFunction<T, number>} selector A transform function to apply to each element.
          * @returns {number} The maximum value in the sequence.
          */
-        public max(selector?: (item: T) => number): number;
+        public max(selector: SelectorFunction<T, number>): number;
+        public max(selector?: SelectorFunction<number, number>): number;
 
         /**
          * Invokes a transform function on each element of a sequence and returns the maximum value.
          * @param {LzIterable<T>} source A sequence of values to determine the maximum value of.
-         * @param {(item: T) => number} selector A transform function to apply to each element.
+         * @param {SelectorFunction<T, number>} selector A transform function to apply to each element.
          * @returns {number} The maximum value in the sequence.
          */
-        public static max<T>(source: LzIterable<T>, selector?: (item: T) => number): number;
+        public static max<T>(source: LzIterable<T>, selector: SelectorFunction<T, number>): number;
+        public static max<T extends number>(source: LzIterable<T>, selector?: SelectorFunction<T, number>): number;
 
         /**
          * Invokes a transform function on each element of a sequence and returns the minimum value.
-         * @param {(item: T) => number} selector A transform function to apply to each element.
+         * @param {SelectorFunction<T, number>} selector A transform function to apply to each element.
          * @returns {number} The minimum value in the sequence.
          */
-        public min(selector?: (item: T) => number): number;
+        public min(selector: SelectorFunction<T, number>): number;
+        public min(selector?: SelectorFunction<number, number>): number;
 
         /**
          * Invokes a transform function on each element of a sequence and returns the minimum value.
          * @param {LzIterable<T>} source A sequence of values to determine the minimum value of.
-         * @param {(item: T) => number} selector A transform function to apply to each element.
+         * @param {SelectorFunction<T, number>} selector A transform function to apply to each element.
          * @returns {number} The minimum value in the sequence.
          */
-        public static min<T>(source: LzIterable<T>, selector?: (item: T) => number): number;
+        public static min<T>(source: LzIterable<T>, selector: SelectorFunction<T, number>): number;
+        public static min<T extends number>(source: LzIterable<T>, selector?: SelectorFunction<T, number>): number;
 
         /**
          * Computes the sum of the sequence of values that are obtained by invoking a transform function on each element of the input sequence.
-         * @param {(item: T) => number} selector A transform function to apply to each element.
+         * @param {SelectorFunction<T, number>} selector A transform function to apply to each element.
          * @returns {number} The sum of the projected values.
          */
-        public sum(selector?: (item: T) => number): number;
+        public sum(selector: SelectorFunction<T, number>): number;
+        public sum(selector?: SelectorFunction<number, number>): number;
 
         /**
          * Computes the sum of the sequence of values that are obtained by invoking a transform function on each element of the input sequence.
          * @param {LzIterable<T>} source A sequence of values that are used to calculate a sum.
-         * @param {(item: T) => number} selector A transform function to apply to each element.
+         * @param {SelectorFunction<T, number>} selector A transform function to apply to each element.
          * @returns {number} The sum of the projected values.
          */
-        public static sum<T>(source: LzIterable<T>, selector?: (item: T) => number): number;
+        public static sum<T>(source: LzIterable<T>, selector: SelectorFunction<T, number>): number;
+        public static sum<T extends number>(source: LzIterable<T>, selector?: SelectorFunction<T, number>): number;
 
         /**
          * Computes the average of a sequence of values that are obtained by invoking a transform function on each element of the input sequence.
-         * @param {(item: T) => number} selector A transform function to apply to each element.
+         * @param {SelectorFunction<T, number>} selector A transform function to apply to each element.
          * @returns {number} The average of the sequence of values, or 0 if the source sequence is empty.
          */
-        public average(selector?: (item: T) => number): number;
+        public average(selector: SelectorFunction<T, number>): number;
+        public average(selector?: SelectorFunction<number, number>): number;
 
         /**
          * Computes the average of a sequence of values that are obtained by invoking a transform function on each element of the input sequence.
          * @param {LzIterable<T>} source A sequence of values that are used to calculate an average.
-         * @param {(item: T) => number} selector A transform function to apply to each element.
+         * @param {SelectorFunction<T, number>} selector A transform function to apply to each element.
          * @returns {number} The average of the sequence of values, or 0 if the source sequence is empty.
          */
-        public static average<T>(source: LzIterable<T>, selector?: (item: T) => number): number;
+        public static average<T>(source: LzIterable<T>, selector: SelectorFunction<T, number>): number;
+        public static average<T extends number>(source: LzIterable<T>, selector?: SelectorFunction<T, number>): number;
 
         /**
          * Returns a number that represents how many elements in the specified sequence satisfy a condition.
-         * @param {(item: T) => boolean} predicate A function to test each element for a condition.
+         * @param {PredicateFunction<T>} predicate A function to test each element for a condition.
          * @returns {number} A number that represents how many elements in the sequence satisfy the condition in the predicate function.
          */
-        public count(predicate?: (item: T) => boolean): number;
+        public count(predicate?: PredicateFunction<T>): number;
 
         /**
          * Returns a number that represents how many elements in the specified sequence satisfy a condition.
          * @param {LzIterable<T>} source The sequence to return elements from.
-         * @param {(item: T) => boolean} predicate A function to test each element for a condition.
+         * @param {PredicateFunction<T>} predicate A function to test each element for a condition.
          * @returns {number} A number that represents how many elements in the sequence satisfy the condition in the predicate function.
          */
-        public static count<T>(source: LzIterable<T>, predicate?: (item: T) => boolean): number;
+        public static count<T>(source: LzIterable<T>, predicate?: PredicateFunction<T>): number;
 
         /**
          * Determines whether any element of a sequence satisfies a condition.
-         * @param {(item: T) => boolean} predicate A function to test each element for a condition.
+         * @param {PredicateFunction<T>} predicate A function to test each element for a condition.
          * @returns {boolean} <b>true</b> if any elements in the source sequence pass the test in the specified predicate; otherwise,
          * <b>false</b>.
          */
-        public any(predicate: (item: T) => boolean): boolean;
+        public any(predicate: PredicateFunction<T>): boolean;
 
         /**
          * Determines whether any element of a sequence satisfies a condition.
          * @param {LzIterable<T>} source The sequence whose elements to apply the predicate to.
-         * @param {(item: T) => boolean} predicate A function to test each element for a condition.
+         * @param {PredicateFunction<T>} predicate A function to test each element for a condition.
          * @returns {boolean} <b>true</b> if any elements in the source sequence pass the test in the specified predicate; otherwise,
          * <b>false</b>.
          */
-        public static any<T>(source: LzIterable<T>, predicate: (item: T) => boolean): boolean;
+        public static any<T>(source: LzIterable<T>, predicate: PredicateFunction<T>): boolean;
 
         /**
          * Determines whether all elements of a sequence satisfy a condition.
-         * @param {(item: T) => boolean} predicate A function to test each element for a condition.
+         * @param {PredicateFunction<T>} predicate A function to test each element for a condition.
          * @returns {boolean} <b>true</b> if every element of the source sequence passes the test in the specified predicate, or if the sequence
          * is empty; otherwise, <b>false</b>.
          */
-        public all(predicate: (item: T) => boolean): boolean;
+        public all(predicate: PredicateFunction<T>): boolean;
 
         /**
          * Determines whether all elements of a sequence satisfy a condition.
          * @param {LzIterable<T>} source The sequence that contains the elements to apply the predicate to.
-         * @param {(item: T) => boolean} predicate A function to test each element for a condition.
+         * @param {PredicateFunction<T>} predicate A function to test each element for a condition.
          * @returns {boolean} <b>true</b> if every element of the source sequence passes the test in the specified predicate, or if the sequence
          * is empty; otherwise, <b>false</b>.
          */
-        public static all<T>(source: LzIterable<T>, predicate: (item: T) => boolean): boolean;
+        public static all<T>(source: LzIterable<T>, predicate: PredicateFunction<T>): boolean;
 
         /**
          * Returns the only element of a sequence, and throws an exception if there is not exactly one element in the sequence.
-         * @param {(item: T) => boolean} predicate A function to test an element for a condition. Return true to keep the element,
+         * @param {PredicateFunction<T>} predicate A function to test an element for a condition. Return true to keep the element,
          * false otherwise.
          * @returns {T} The single element of the input sequence that satisfies a condition.
          * @throws If no element satisfies the condition in predicate, or more than one element satisfies the condition
          * in predicate, or the source sequence is empty.
          */
-        public single(predicate?: (item: T, index: number) => boolean): T;
+        public single(predicate?: PredicateFunction<T>): T;
 
         /**
          * Returns the only element of a sequence, and throws an exception if there is not exactly one element in the sequence.
          * @param {LzIterable<T>} source An iterable to return the single element of.
-         * @param {(item: T) => boolean} predicate A function to test an element for a condition. Return true to keep the element,
+         * @param {PredicateFunction<T>} predicate A function to test an element for a condition. Return true to keep the element,
          * false otherwise.
          * @returns {T} The single element of the input sequence that satisfies a condition.
          * @throws If no element satisfies the condition in predicate, or more than one element satisfies the condition
          * in predicate, or the source sequence is empty.
          */
         public static single<T>(source: LzIterable<T>,
-                                predicate?: (item: T, index: number) => boolean): T;
+                                predicate?: PredicateFunction<T>): T;
 
         /**
          * Returns the only element of a sequence that satisfies a specified condition or a default value if no such element
          * exists; this method throws an exception if more than one element satisfies the condition.
          * @param {T} defaultValue The default value.
-         * @param {(item: T) => boolean} predicate A function to test an element for a condition. Return true to keep the element,
+         * @param {PredicateFunction<T>} predicate A function to test an element for a condition. Return true to keep the element,
          * false otherwise.
          * @returns {T} The single element of the input sequence that satisfies a condition.
          * @throws If more than one element satisfies the condition in predicate.
          */
-        public singleOrDefault(defaultValue: T, predicate?: (item: T, index: number) => boolean): T;
+        public singleOrDefault(defaultValue: T, predicate?: PredicateFunction<T>): T;
 
         /**
          * Returns the only element of a sequence that satisfies a specified condition or a default value if no such element exists;
          * this method throws an exception if more than one element satisfies the condition.
          * @param {LzIterable<T>} source A sequence to return the single element from.
          * @param {T} defaultValue The default value.
-         * @param {(item: T) => boolean} predicate A function to test an element for a condition. Return true to keep the element,
+         * @param {PredicateFunction<T>} predicate A function to test an element for a condition. Return true to keep the element,
          * false otherwise.
          * @returns {T} The single element of the input sequence that satisfies the condition, or <i>defaultValue</i> if
          * no such element is found.
          * @throws If more than one element satisfies the condition in predicate.
          */
         public static singleOrDefault<T>(source: LzIterable<T>, defaultValue: T,
-                                         predicate?: (item: T, index: number) => boolean): T;
+                                         predicate?: PredicateFunction<T>): T;
 
         /**
          * Returns the first element of a sequence.
-         * @param {(item: T, index: number) => boolean} predicate A function to test each element for a condition.
+         * @param {PredicateFunction<T>} predicate A function to test each element for a condition.
          * @returns {T} The first element.
          * @throws If the source sequence contains no elements or the predicate did not match any elements.
          */
-        public first(predicate?: (item: T, index: number) => boolean): T;
+        public first(predicate?: PredicateFunction<T>): T;
 
         /**
          * Returns the first element of a sequence.
          * @param {LzIterable<T>} source The sequence to return an element from.
-         * @param {(item: T, index: number) => boolean} predicate A function to test each element for a condition.
+         * @param {(PredicateFunction<T>} predicate A function to test each element for a condition.
          * @returns {T} The first element.
          * @throws If the source sequence contains no elements or the predicate did not match any elements.
          */
-        public static first<T>(source: LzIterable<T>, predicate?: (item: T, index: number) => boolean): T;
+        public static first<T>(source: LzIterable<T>, predicate?: PredicateFunction<T>): T;
 
         /**
          * Returns the first element of a sequence, or a default value if the sequence contains no elements.
          * @param {T} defaultValue The default value.
-         * @param {(item: T, index: number) => boolean} predicate A function to test each element for a condition.
+         * @param {PredicateFunction<T>} predicate A function to test each element for a condition.
          * @returns {T} The first element, or a default value if the sequence contains no elements.
          */
-        public firstOrDefault(defaultValue: T, predicate?: (item: T, index: number) => boolean): T;
+        public firstOrDefault(defaultValue: T, predicate?: PredicateFunction<T>): T;
 
         /**
          * Returns the first element of a sequence, or a default value if the sequence contains no elements.
          * @param {LzIterable<T>} source The sequence to return an element from.
          * @param {T} defaultValue The default value.
-         * @param {(item: T, index: number) => boolean} predicate A function to test each element for a condition.
+         * @param {PredicateFunction<T>} predicate A function to test each element for a condition.
          * @returns {T} The first element, or a default value if the sequence contains no elements.
          */
         public static firstOrDefault<T>(source: LzIterable<T>, defaultValue: T,
-                                        predicate?: (item: T, index: number) => boolean): T;
+                                        predicate?: PredicateFunction<T>): T;
 
         /**
          * Creates a Map from an Array according to a specified key selector function.
-         * @param {(item: T) => K} keySelector A function to extract a key from each element.
-         * @param {(item: T) => U} elementSelector A function to map each source element to an element in the returned Map.
+         * @param {SelectorFunction<T, K>} keySelector A function to extract a key from each element.
+         * @param {SelectorFunction<T, U>} elementSelector A function to map each source element to an element in the returned Map.
          * @returns {Map<K, U>} A Map that contains keys and values.
          */
-        public toDictionary<K, U>(keySelector: (item: T) => K, elementSelector?: (item: T) => U): Map<K, U>;
+        public toDictionary<K, U>(keySelector: SelectorFunction<T, K>, elementSelector?: SelectorFunction<T, U>): Map<K, U>;
 
         /**
          * Creates a Map from a sequence of IterableIterator<[T1, T2]>
@@ -862,11 +890,11 @@ declare namespace twoa {
         /**
          * Creates a Map from an Array according to a specified key selector function.
          * @param {LzIterable<T>} source The sequence to create a Map<K, T> from.
-         * @param {(item: T) => K} keySelector A function to extract a key from each element.
-         * @param {(item: T) => U} elementSelector A function to map each source element to an element in the returned Map.
+         * @param {SelectorFunction<T, K>} keySelector A function to extract a key from each element.
+         * @param {SelectorFunction<T, U>} elementSelector A function to map each source element to an element in the returned Map.
          * @returns {Map<K, U>} A Map that contains keys and values.
          */
-        public static toDictionary<T, K, U>(source: LzIterable<T>, keySelector: (item: T) => K, elementSelector?: (item: T) => U)
+        public static toDictionary<T, K, U>(source: LzIterable<T>, keySelector: SelectorFunction<T, K>, elementSelector?: SelectorFunction<T, U>)
             : Map<K, U>;
 
         /**
