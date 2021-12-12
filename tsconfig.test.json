@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "moduleResolution": "node",
+        "target": "es6",
+        "lib": [ "dom", "esnext" ],
+        "jsx": "preserve",
+        "experimentalDecorators": true,
+        "allowSyntheticDefaultImports": true
+    }
+}

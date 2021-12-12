@@ -1,7 +1,9 @@
 // tslint:disable:member-ordering
+// tslint:disable:unified-signatures
 
 import BinarySearch from './BinarySearch';
 import Comparator from './Comparator';
+import SortedMap from './SortedMap';
 
 import ComparatorFunction = twoa.ComparatorFunction;
 import LzIterable = twoa.LzIterable;
@@ -17,7 +19,7 @@ export default class Lz<T> implements IterableIterator<T> {
 
     private readonly iterable: IterableIterator<T>;
 
-    private constructor(iterable: IterableIterator<T>) {
+    constructor(iterable: IterableIterator<T>) {
         this.iterable = iterable;
     }
 
@@ -441,7 +443,7 @@ export default class Lz<T> implements IterableIterator<T> {
      */
     public static last<T>(source: LzIterable<T>, predicate?: PredicateFunction<T>): T {
         // optimize if source is an array and using default predicate
-        if (Array.isArray(source) && !predicate) {
+        if (Array.isArray(source) && source.length > 0 && !predicate) {
             return source[source.length - 1];
         }
 
@@ -482,12 +484,25 @@ export default class Lz<T> implements IterableIterator<T> {
         let result: T;
         let index = 0;
         let found = false;
-        for (const item of source) {
-            if (predicate?.(item, index++) ?? true) {
-                found = true;
-                result = item;
+
+        if (Array.isArray(source)) {
+            for (let i = source.length - 1; i >= 0; i--) {
+                const item = source[i];
+                if (predicate?.(item, i) ?? true) {
+                    found = true;
+                    result = item;
+                    break;
+                }
+            }
+        } else {
+            for (const item of source) {
+                if (predicate?.(item, index++) ?? true) {
+                    found = true;
+                    result = item;
+                }
             }
         }
+
         if (!found) {
             return defaultValue;
         }
@@ -497,32 +512,81 @@ export default class Lz<T> implements IterableIterator<T> {
     /**
      * Sorts the elements of a sequence in ascending order according to a key.
      * @param {SelectorFunctionNoIndex<T, V>} selector A function to extract a key from an element.
+     * @returns {Lz<T>} A sequence whose elements are sorted according to a key.
+     */
+    public orderBy<V>(selector: SelectorFunctionNoIndex<T, V>): LzOrdered<T, V>;
+
+    /**
+     * Sorts the elements of a sequence in ascending order by using a specified comparator.
+     * @param {SelectorFunctionNoIndex<T, V>} selector A function to extract a key from an element.
      * @param {ComparatorFunction<V>} comparator A ComparatorFunction<V> to compare keys.
      * @returns {Lz<T>} A sequence whose elements are sorted according to a key.
      */
-    public orderBy<V>(selector: SelectorFunctionNoIndex<T, V>, comparator?: ComparatorFunction<V>): Lz<T> {
-        return Lz.orderBy(this, selector, comparator);
+    public orderBy<V>(selector: SelectorFunctionNoIndex<T, V>, comparator: ComparatorFunction<V>): LzOrdered<T, V>;
+
+    public orderBy<V>(selector: SelectorFunctionNoIndex<T, V>, comparator?: ComparatorFunction<V>): LzOrdered<T, V> {
+        return new LzOrdered<T, V>(this, selector, comparator);
     }
 
     /**
      * Sorts the elements of a sequence in ascending order according to a key.
      * @param {LzIterable<T>} source A sequence of values to order.
      * @param {SelectorFunctionNoIndex<T, V>} selector A function to extract a key from an element.
+     * @returns {Lz<T>} A sequence whose elements are sorted according to a key.
+     */
+    public static orderBy<T, V>(source: LzIterable<T>, selector: SelectorFunctionNoIndex<T, V>): LzOrdered<T, V>;
+
+    /**
+     * Sorts the elements of a sequence in ascending order by using a specified comparator.
+     * @param {LzIterable<T>} source A sequence of values to order.
+     * @param {SelectorFunctionNoIndex<T, V>} selector A function to extract a key from an element.
      * @param {ComparatorFunction<V>} comparator A ComparatorFunction<V> to compare keys.
      * @returns {Lz<T>} A sequence whose elements are sorted according to a key.
      */
-    public static orderBy<T, V>(source: LzIterable<T>, selector: SelectorFunctionNoIndex<T, V>, comparator?: ComparatorFunction<V>): Lz<T> {
-        return new Lz<T>(Lz.orderByInternal(source, selector, comparator));
+    public static orderBy<T, V>(source: LzIterable<T>, selector: SelectorFunctionNoIndex<T, V>, comparator: ComparatorFunction<V>): LzOrdered<T, V>;
+
+    public static orderBy<T, V>(source: LzIterable<T>, selector: SelectorFunctionNoIndex<T, V>, comparator?: ComparatorFunction<V>): LzOrdered<T, V> {
+        return new LzOrdered<T, V>(Lz.toIterable(source), selector, comparator);
     }
 
-    private static *orderByInternal<T, V>(source: LzIterable<T>, selector: SelectorFunctionNoIndex<T, V>, comparator: ComparatorFunction<V> = Comparator.defaultComparator): IterableIterator<T> {
-        const sorted: T[] = [];
-        const internalComparator = (a: T, b: T) => comparator(selector(a), selector(b));
-        for (const item of source) {
-            const index = BinarySearch.find(sorted, 0, sorted.length, item, internalComparator);
-            sorted.splice(index < 0 ? ~index : index, 0, item);
-        }
-        yield* sorted;
+    /**
+     * Sorts the elements of a sequence in descending order according to a key.
+     * @param {SelectorFunctionNoIndex<T, V>} selector A function to extract a key from an element.
+     * @returns {Lz<T>} A sequence whose elements are sorted according to a key.
+     */
+    public orderByDescending<V>(selector: SelectorFunctionNoIndex<T, V>): LzOrdered<T, V>;
+
+    /**
+     * Sorts the elements of a sequence in descending order by using a specified comparator.
+     * @param {SelectorFunctionNoIndex<T, V>} selector A function to extract a key from an element.
+     * @param {ComparatorFunction<V>} comparator A ComparatorFunction<V> to compare keys.
+     * @returns {Lz<T>} A sequence whose elements are sorted according to a key.
+     */
+    public orderByDescending<V>(selector: SelectorFunctionNoIndex<T, V>, comparator: ComparatorFunction<V>): LzOrdered<T, V>;
+
+    public orderByDescending<V>(selector: SelectorFunctionNoIndex<T, V>, comparator?: ComparatorFunction<V>): LzOrdered<T, V> {
+        return new LzOrdered<T, V>(this, selector, comparator, true);
+    }
+
+    /**
+     * Sorts the elements of a sequence in descending order according to a key.
+     * @param {LzIterable<T>} source A sequence of values to order.
+     * @param {SelectorFunctionNoIndex<T, V>} selector A function to extract a key from an element.
+     * @returns {Lz<T>} A sequence whose elements are sorted according to a key.
+     */
+    public static orderByDescending<T, V>(source: LzIterable<T>, selector: SelectorFunctionNoIndex<T, V>): LzOrdered<T, V>;
+
+    /**
+     * Sorts the elements of a sequence in descending order by using a specified comparator.
+     * @param {LzIterable<T>} source A sequence of values to order.
+     * @param {SelectorFunctionNoIndex<T, V>} selector A function to extract a key from an element.
+     * @param {ComparatorFunction<V>} comparator A ComparatorFunction<V> to compare keys.
+     * @returns {Lz<T>} A sequence whose elements are sorted according to a key.
+     */
+    public static orderByDescending<T, V>(source: LzIterable<T>, selector: SelectorFunctionNoIndex<T, V>, comparator: ComparatorFunction<V>): LzOrdered<T, V>;
+
+    public static orderByDescending<T, V>(source: LzIterable<T>, selector: SelectorFunctionNoIndex<T, V>, comparator?: ComparatorFunction<V>): LzOrdered<T, V> {
+        return new LzOrdered<T, V>(Lz.toIterable(source), selector, comparator, true);
     }
 
     /**
@@ -618,9 +682,9 @@ export default class Lz<T> implements IterableIterator<T> {
     }
 
     private static *reverseInternal<T>(source: LzIterable<T>): IterableIterator<T> {
-        const items: T[] = Array.isArray(source) ? source : [ ...source ];
-        for (let i = items.length - 1; i >= 0; i--) {
-            yield items[i];
+        const items: T[] = [ ...source ];
+        while (items.length > 0) {
+            yield items.pop();
         }
     }
 
@@ -1330,7 +1394,7 @@ export default class Lz<T> implements IterableIterator<T> {
      */
     public static first<T>(source: LzIterable<T>, predicate?: PredicateFunction<T>): T {
         // optimize if source is an array and using default predicate
-        if (Array.isArray(source) && !predicate) {
+        if (Array.isArray(source) && source.length > 0 && !predicate) {
             return source[0];
         }
 
@@ -1377,7 +1441,14 @@ export default class Lz<T> implements IterableIterator<T> {
      * Creates a Map from a sequence of IterableIterator<[T1, T2]>
      * @returns {Map<T1, T2>} A Map that contains keys and values.
      */
-    public toDictionary<T1, T2>(): Map<T1, T2>;
+    public toDictionary<T extends [T1, T2], T1, T2>(): Map<T1, T2>;
+
+    /**
+     * Creates a Map from an Array according to a specified key selector function.
+     * @param {SelectorFunction<T, K>} keySelector A function to extract a key from each element.
+     * @returns {Map<K, T>} A Map that contains keys and values.
+     */
+    public toDictionary<K, T>(keySelector: SelectorFunction<T, K>): Map<K, T>;
 
     /**
      * Creates a Map from an Array according to a specified key selector function.
@@ -1385,7 +1456,7 @@ export default class Lz<T> implements IterableIterator<T> {
      * @param {SelectorFunction<T, U>} elementSelector A function to map each source element to an element in the returned Map.
      * @returns {Map<K, U>} A Map that contains keys and values.
      */
-    public toDictionary<K, U>(keySelector: SelectorFunction<T, K>, elementSelector?: SelectorFunction<T, U>): Map<K, U>;
+    public toDictionary<K, U>(keySelector: SelectorFunction<T, K>, elementSelector: SelectorFunction<T, U>): Map<K, U>;
     public toDictionary<K, U>(keySelector?: SelectorFunction<T, K>, elementSelector?: SelectorFunction<T, U>): Map<K, U> {
         return Lz.toDictionary(this, keySelector, elementSelector);
     }
@@ -1401,12 +1472,21 @@ export default class Lz<T> implements IterableIterator<T> {
      * Creates a Map from an Array according to a specified key selector function.
      * @param {LzIterable<T>} source The sequence to create a Map<K, T> from.
      * @param {SelectorFunction<T, K>} keySelector A function to extract a key from each element.
+     * @returns {Map<K, T>} A Map that contains keys and values.
+     */
+    public static toDictionary<T, K>(source: LzIterable<T>,
+                                     keySelector: SelectorFunction<T, K>): Map<K, T>;
+
+    /**
+     * Creates a Map from an Array according to a specified key selector function.
+     * @param {LzIterable<T>} source The sequence to create a Map<K, T> from.
+     * @param {SelectorFunction<T, K>} keySelector A function to extract a key from each element.
      * @param {SelectorFunction<T, U>} elementSelector A function to map each source element to an element in the returned Map.
      * @returns {Map<K, U>} A Map that contains keys and values.
      */
     public static toDictionary<T, K, U>(source: LzIterable<T>,
                                         keySelector: SelectorFunction<T, K>,
-                                        elementSelector?: SelectorFunction<T, U>): Map<K, U>;
+                                        elementSelector: SelectorFunction<T, U>): Map<K, U>;
     public static toDictionary<T, K, U>(source: LzIterable<T>,
                                         keySelector?: SelectorFunction<T, K>,
                                         elementSelector?: SelectorFunction<T, U>): Map<K, U> {
@@ -1414,7 +1494,7 @@ export default class Lz<T> implements IterableIterator<T> {
             keySelector = (item: any) => item[0] as K;
             elementSelector = (item: any) => item[1] as U;
         } else if (elementSelector === undefined) {
-            elementSelector = Lz.identityFunction as (item: T) => U;
+            elementSelector = Lz.identityFunction;
         }
 
         const map: Map<K, U> = new Map<K, U>();
@@ -1457,5 +1537,110 @@ export default class Lz<T> implements IterableIterator<T> {
 
     public throw(e?: any): IteratorResult<T> {
         return this.iterable.throw(e);
+    }
+}
+
+// tslint:disable-next-line:max-classes-per-file
+class LzOrdered<T, K> extends Lz<T> {
+    private readonly source: LzIterable<T> | LzOrdered<T, K>;
+    private readonly selector: SelectorFunctionNoIndex<T, K>;
+    private readonly comparator?: ComparatorFunction<K>;
+    private readonly descending: boolean;
+
+    constructor(source: IterableIterator<T> | LzOrdered<T, K>, selector: SelectorFunctionNoIndex<T, K>, comparator: ComparatorFunction<K> = Comparator.defaultComparator, descending: boolean = false) {
+        super(source);
+        this.source = source;
+        this.selector = selector;
+        this.comparator = comparator;
+        this.descending = descending;
+    }
+
+    /**
+     * Performs a subsequent ordering of the elements in a sequence in ascending order according to a key.
+     * @param {SelectorFunctionNoIndex<T, V>} selector A function to extract a key from an element.
+     * @returns {LzOrdered<T, V>} A sequence whose elements are sorted according to a key.
+     */
+    public thenBy<V>(selector: SelectorFunctionNoIndex<T, V>): LzOrdered<T, V>;
+
+    /**
+     * Performs a subsequent ordering of the elements in a sequence in ascending order by using a specified comparator.
+     * @param {SelectorFunctionNoIndex<T, V>} selector A function to extract a key from an element.
+     * @param {ComparatorFunction<V>} comparator A ComparatorFunction<V> to compare keys.
+     * @returns {LzOrdered<T, V>} A sequence whose elements are sorted according to a key.
+     */
+    public thenBy<V>(selector: SelectorFunctionNoIndex<T, V>, comparator: ComparatorFunction<V>): LzOrdered<T, V>;
+    public thenBy<V>(selector: SelectorFunctionNoIndex<T, V>, comparator?: ComparatorFunction<V>): LzOrdered<T, V> {
+        return new LzOrdered<T, V>(this, selector, comparator);
+    }
+
+    /**
+     * Performs a subsequent ordering of the elements in a sequence in descending order according to a key.
+     * @param {SelectorFunctionNoIndex<T, V>} selector A function to extract a key from an element.
+     * @returns {LzOrdered<T, V>} A sequence whose elements are sorted according to a key.
+     */
+    public thenByDescending<V>(selector: SelectorFunctionNoIndex<T, V>): LzOrdered<T, V>;
+
+    /**
+     * Performs a subsequent ordering of the elements in a sequence in descending order by using a specified comparator.
+     * @param {SelectorFunctionNoIndex<T, V>} selector A function to extract a key from an element.
+     * @param {ComparatorFunction<V>} comparator A ComparatorFunction<V> to compare keys.
+     * @returns {LzOrdered<T, V>} A sequence whose elements are sorted according to a key.
+     */
+    public thenByDescending<V>(selector: SelectorFunctionNoIndex<T, V>, comparator: ComparatorFunction<V>): LzOrdered<T, V>;
+    public thenByDescending<V>(selector: SelectorFunctionNoIndex<T, V>, comparator?: ComparatorFunction<V>): LzOrdered<T, V> {
+        return new LzOrdered<T, V>(this, selector, comparator, true);
+    }
+
+    private static sort<T, K>(source: LzIterable<T>, selector: SelectorFunctionNoIndex<T, K>, comparator: ComparatorFunction<K>, descending: boolean): SortedMap<K, T[]> {
+        const comparer = (a: K, b: K) => descending ? comparator(b, a) : comparator(a, b);
+        const sorted = new SortedMap<K, T[]>(null, comparer);
+
+        for (const item of source) {
+            const key = selector(item);
+            (sorted.get(key) ?? sorted.set(key, []).get(key)).push(item);
+        }
+        return sorted;
+    }
+
+    private iterator(flag? : false): IterableIterator<T>;
+    private iterator(flag : true): IterableIterator<IterableIterator<T>>;
+    private *iterator(flag: boolean = false): IterableIterator<any> {
+        if (this.source instanceof LzOrdered) {
+            for (const items of this.source.iterator(true)) {
+                const sorted = LzOrdered.sort(items, this.selector, this.comparator, this.descending);
+                for (const values of sorted.values()) {
+                    if (flag) {
+                        yield Lz.toIterable(values);
+                    } else {
+                        yield* Lz.toIterable(values);
+                    }
+                }
+            }
+        } else {
+            const sorted = LzOrdered.sort(this.source, this.selector, this.comparator, this.descending);
+            for (const values of sorted.values()) {
+                if (flag) {
+                    yield Lz.toIterable(values);
+                } else {
+                    yield* Lz.toIterable(values);
+                }
+            }
+        }
+    }
+
+    public [Symbol.iterator](): IterableIterator<T> {
+        return this.iterator();
+    }
+
+    public next(value?: any): IteratorResult<T> {
+        return this.iterator().next(value);
+    }
+
+    public return(value?: any): IteratorResult<T> {
+        return this.iterator().return(value);
+    }
+
+    public throw(e?: any): IteratorResult<T> {
+        return this.iterator().throw(e);
     }
 }

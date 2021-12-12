@@ -2,6 +2,7 @@
 // tslint:disable:no-namespace
 // tslint:disable:ban-types
 // tslint:disable:member-ordering
+// tslint:disable:unified-signatures
 
 declare module '2a' {
     export import Lz  = twoa.Lz;
@@ -365,19 +366,66 @@ declare namespace twoa {
         /**
          * Sorts the elements of a sequence in ascending order according to a key.
          * @param {SelectorFunctionNoIndex<T, V>} selector A function to extract a key from an element.
-         * @param {ComparatorFunction<V>} comparator A ComparatorFunction<V> to compare keys.
-         * @returns {Lz<T>} A sequence whose elements are sorted according to a key.
+         * @returns {LzOrdered<T, V>} A sequence whose elements are sorted according to a key.
          */
-        public orderBy<V>(selector: SelectorFunctionNoIndex<T, V>, comparator?: ComparatorFunction<V>): Lz<T>;
+        public orderBy<V>(selector: SelectorFunctionNoIndex<T, V>): LzOrdered<T, V>;
+
+        /**
+         * Sorts the elements of a sequence in ascending order by using a specified comparator.
+         * @param {SelectorFunctionNoIndex<T, V>} selector A function to extract a key from an element.
+         * @param {ComparatorFunction<V>} comparator A ComparatorFunction<V> to compare keys.
+         * @returns {LzOrdered<T, V>} A sequence whose elements are sorted according to a key.
+         */
+        public orderBy<V>(selector: SelectorFunctionNoIndex<T, V>, comparator: ComparatorFunction<V>): LzOrdered<T, V>;
 
         /**
          * Sorts the elements of a sequence in ascending order according to a key.
          * @param {LzIterable<T>} source A sequence of values to order.
          * @param {SelectorFunctionNoIndex<T, V>} selector A function to extract a key from an element.
-         * @param {ComparatorFunction<V>} comparator A ComparatorFunction<V> to compare keys.
-         * @returns {Lz<T>} A sequence whose elements are sorted according to a key.
+         * @returns {LzOrdered<T, V>} A sequence whose elements are sorted according to a key.
          */
-        public static orderBy<T, V>(source: LzIterable<T>, selector: SelectorFunctionNoIndex<T, V>, comparator?: ComparatorFunction<V>): Lz<T>;
+        public static orderBy<T, V>(source: LzIterable<T>, selector: SelectorFunctionNoIndex<T, V>): LzOrdered<T, V>;
+
+        /**
+         * Sorts the elements of a sequence in ascending order by using a specified comparator.
+         * @param {LzIterable<T>} source A sequence of values to order.
+         * @param {SelectorFunctionNoIndex<T, V>} selector A function to extract a key from an element.
+         * @param {ComparatorFunction<V>} comparator A ComparatorFunction<V> to compare keys.
+         * @returns {LzOrdered<T, V>} A sequence whose elements are sorted according to a key.
+         */
+        public static orderBy<T, V>(source: LzIterable<T>, selector: SelectorFunctionNoIndex<T, V>, comparator: ComparatorFunction<V>): LzOrdered<T, V>;
+
+        /**
+         * Sorts the elements of a sequence in descending order according to a key.
+         * @param {SelectorFunctionNoIndex<T, V>} selector A function to extract a key from an element.
+         * @returns {LzOrdered<T, V>} A sequence whose elements are sorted according to a key.
+         */
+        public orderByDescending<V>(selector: SelectorFunctionNoIndex<T, V>): LzOrdered<T, V>;
+
+        /**
+         * Sorts the elements of a sequence in descending order by using a specified comparator.
+         * @param {SelectorFunctionNoIndex<T, V>} selector A function to extract a key from an element.
+         * @param {ComparatorFunction<V>} comparator A ComparatorFunction<V> to compare keys.
+         * @returns {LzOrdered<T, V>} A sequence whose elements are sorted according to a key.
+         */
+        public orderByDescending<V>(selector: SelectorFunctionNoIndex<T, V>, comparator: ComparatorFunction<V>): LzOrdered<T, V>;
+
+        /**
+         * Sorts the elements of a sequence in descending order according to a key.
+         * @param {LzIterable<T>} source A sequence of values to order.
+         * @param {SelectorFunctionNoIndex<T, V>} selector A function to extract a key from an element.
+         * @returns {LzOrdered<T, V>} A sequence whose elements are sorted according to a key.
+         */
+        public static orderByDescending<T, V>(source: LzIterable<T>, selector: SelectorFunctionNoIndex<T, V>): LzOrdered<T, V>;
+
+        /**
+         * Sorts the elements of a sequence in descending order by using a specified comparator.
+         * @param {LzIterable<T>} source A sequence of values to order.
+         * @param {SelectorFunctionNoIndex<T, V>} selector A function to extract a key from an element.
+         * @param {ComparatorFunction<V>} comparator A ComparatorFunction<V> to compare keys.
+         * @returns {LzOrdered<T, V>} A sequence whose elements are sorted according to a key.
+         */
+        public static orderByDescending<T, V>(source: LzIterable<T>, selector: SelectorFunctionNoIndex<T, V>, comparator: ComparatorFunction<V>): LzOrdered<T, V>;
 
         /**
          * Generates a sequence of integral numbers within a specified range.
@@ -876,16 +924,31 @@ declare namespace twoa {
         /**
          * Creates a Map from an Array according to a specified key selector function.
          * @param {SelectorFunction<T, K>} keySelector A function to extract a key from each element.
+         * @returns {Map<K, U>} A Map that contains keys and values.
+         */
+        public toDictionary<K, T>(keySelector: SelectorFunction<T, K>): Map<K, T>;
+
+        /**
+         * Creates a Map from an Array according to a specified key selector function.
+         * @param {SelectorFunction<T, K>} keySelector A function to extract a key from each element.
          * @param {SelectorFunction<T, U>} elementSelector A function to map each source element to an element in the returned Map.
          * @returns {Map<K, U>} A Map that contains keys and values.
          */
-        public toDictionary<K, U>(keySelector: SelectorFunction<T, K>, elementSelector?: SelectorFunction<T, U>): Map<K, U>;
+        public toDictionary<K, U>(keySelector: SelectorFunction<T, K>, elementSelector: SelectorFunction<T, U>): Map<K, U>;
 
         /**
          * Creates a Map from a sequence of IterableIterator<[T1, T2]>
          * @returns {Map<T1, T2>} A Map that contains keys and values.
          */
-        public toDictionary<T1, T2>(): Map<T1, T2>;
+        public toDictionary<T extends [T1, T2], T1, T2>(): Map<T1, T2>;
+
+        /**
+         * Creates a Map from an Array according to a specified key selector function.
+         * @param {LzIterable<T>} source The sequence to create a Map<K, T> from.
+         * @param {SelectorFunction<T, K>} keySelector A function to extract a key from each element.
+         * @returns {Map<K, T>} A Map that contains keys and values.
+         */
+        public static toDictionary<T, K>(source: LzIterable<T>, keySelector: SelectorFunction<T, K>): Map<K, T>;
 
         /**
          * Creates a Map from an Array according to a specified key selector function.
@@ -894,8 +957,8 @@ declare namespace twoa {
          * @param {SelectorFunction<T, U>} elementSelector A function to map each source element to an element in the returned Map.
          * @returns {Map<K, U>} A Map that contains keys and values.
          */
-        public static toDictionary<T, K, U>(source: LzIterable<T>, keySelector: SelectorFunction<T, K>, elementSelector?: SelectorFunction<T, U>)
-            : Map<K, U>;
+        public static toDictionary<T, K, U>(source: LzIterable<T>, keySelector: SelectorFunction<T, K>,
+                                            elementSelector: SelectorFunction<T, U>): Map<K, U>;
 
         /**
          * Creates a Map from a sequence of IterableIterator<[T1, T2[]]>
@@ -924,6 +987,38 @@ declare namespace twoa {
         public return(value?: any): IteratorResult<T>;
 
         public throw(e?: any): IteratorResult<T>;
+    }
+
+    export class LzOrdered<T, K> extends Lz<T> {
+        /**
+         * Performs a subsequent ordering of the elements in a sequence in ascending order according to a key.
+         * @param {SelectorFunctionNoIndex<T, V>} selector A function to extract a key from an element.
+         * @returns {LzOrdered<T, V>} A sequence whose elements are sorted according to a key.
+         */
+        public thenBy<V>(selector: SelectorFunctionNoIndex<T, V>): LzOrdered<T, V>;
+
+        /**
+         * Performs a subsequent ordering of the elements in a sequence in ascending order by using a specified comparator.
+         * @param {SelectorFunctionNoIndex<T, V>} selector A function to extract a key from an element.
+         * @param {ComparatorFunction<V>} comparator A ComparatorFunction<V> to compare keys.
+         * @returns {LzOrdered<T, V>} A sequence whose elements are sorted according to a key.
+         */
+        public thenBy<V>(selector: SelectorFunctionNoIndex<T, V>, comparator: ComparatorFunction<V>): LzOrdered<T, V>;
+
+        /**
+         * Performs a subsequent ordering of the elements in a sequence in descending order according to a key.
+         * @param {SelectorFunctionNoIndex<T, V>} selector A function to extract a key from an element.
+         * @returns {LzOrdered<T, V>} A sequence whose elements are sorted according to a key.
+         */
+        public thenByDescending<V>(selector: SelectorFunctionNoIndex<T, V>): LzOrdered<T, V>;
+
+        /**
+         * Performs a subsequent ordering of the elements in a sequence in descending order by using a specified comparator.
+         * @param {SelectorFunctionNoIndex<T, V>} selector A function to extract a key from an element.
+         * @param {ComparatorFunction<V>} comparator A ComparatorFunction<V> to compare keys.
+         * @returns {LzOrdered<T, V>} A sequence whose elements are sorted according to a key.
+         */
+        public thenByDescending<V>(selector: SelectorFunctionNoIndex<T, V>, comparator: ComparatorFunction<V>): LzOrdered<T, V>;
     }
 
     export class SortedMap<K, V> extends Map<K, V> implements IterableIterator<[K, V]> {
