@@ -4,6 +4,6 @@ set -eux
 npm run lint
 npm run build
 
-cp package.json index.d.ts LICENSE README.md dist/
+cp -r package.json index.d.ts LICENSE README.md docs dist/
 cd dist
 npm publish
