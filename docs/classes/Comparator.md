@@ -43,4 +43,4 @@
 
 #### Defined in
 
-[src/Comparator.ts:4](https://github.com/neoscrib/2a/blob/b3317a6/src/Comparator.ts#L4)
+[src/Comparator.ts:4](https://github.com/neoscrib/2a/blob/7f6e6ab/src/Comparator.ts#L4)
