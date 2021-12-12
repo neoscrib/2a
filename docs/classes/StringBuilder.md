@@ -1,4 +1,4 @@
-[2a](../README.md) / [Exports](../modules.md) / StringBuilder
+[2a](../README.md) / StringBuilder
 
 # Class: StringBuilder
 
@@ -7,11 +7,6 @@
 ### Constructors
 
 - [constructor](StringBuilder.md#constructor)
-
-### Properties
-
-- [content](StringBuilder.md#content)
-- [indentConfig](StringBuilder.md#indentconfig)
 
 ### Accessors
 
@@ -41,35 +36,7 @@
 
 #### Defined in
 
-[src/StringBuilder.ts:13](https://github.com/neoscrib/2a/blob/324b65a/src/StringBuilder.ts#L13)
-
-## Properties
-
-### content
-
-• `Private` `Readonly` **content**: `string`[] = `[]`
-
-#### Defined in
-
-[src/StringBuilder.ts:6](https://github.com/neoscrib/2a/blob/324b65a/src/StringBuilder.ts#L6)
-
-___
-
-### indentConfig
-
-• `Private` `Readonly` **indentConfig**: `Object`
-
-#### Type declaration
-
-| Name | Type |
-| :------ | :------ |
-| `content` | `string` |
-| `level` | `number` |
-| `one` | `string` |
-
-#### Defined in
-
-[src/StringBuilder.ts:7](https://github.com/neoscrib/2a/blob/324b65a/src/StringBuilder.ts#L7)
+[src/StringBuilder.ts:13](https://github.com/neoscrib/2a/blob/b3317a6/src/StringBuilder.ts#L13)
 
 ## Accessors
 
@@ -83,7 +50,7 @@ ___
 
 #### Defined in
 
-[src/StringBuilder.ts:76](https://github.com/neoscrib/2a/blob/324b65a/src/StringBuilder.ts#L76)
+[src/StringBuilder.ts:76](https://github.com/neoscrib/2a/blob/b3317a6/src/StringBuilder.ts#L76)
 
 ## Methods
 
@@ -103,7 +70,7 @@ ___
 
 #### Defined in
 
-[src/StringBuilder.ts:22](https://github.com/neoscrib/2a/blob/324b65a/src/StringBuilder.ts#L22)
+[src/StringBuilder.ts:22](https://github.com/neoscrib/2a/blob/b3317a6/src/StringBuilder.ts#L22)
 
 ___
 
@@ -123,7 +90,7 @@ ___
 
 #### Defined in
 
-[src/StringBuilder.ts:27](https://github.com/neoscrib/2a/blob/324b65a/src/StringBuilder.ts#L27)
+[src/StringBuilder.ts:27](https://github.com/neoscrib/2a/blob/b3317a6/src/StringBuilder.ts#L27)
 
 ___
 
@@ -137,7 +104,7 @@ ___
 
 #### Defined in
 
-[src/StringBuilder.ts:36](https://github.com/neoscrib/2a/blob/324b65a/src/StringBuilder.ts#L36)
+[src/StringBuilder.ts:36](https://github.com/neoscrib/2a/blob/b3317a6/src/StringBuilder.ts#L36)
 
 ___
 
@@ -157,7 +124,7 @@ ___
 
 #### Defined in
 
-[src/StringBuilder.ts:64](https://github.com/neoscrib/2a/blob/324b65a/src/StringBuilder.ts#L64)
+[src/StringBuilder.ts:64](https://github.com/neoscrib/2a/blob/b3317a6/src/StringBuilder.ts#L64)
 
 ___
 
@@ -171,7 +138,7 @@ ___
 
 #### Defined in
 
-[src/StringBuilder.ts:51](https://github.com/neoscrib/2a/blob/324b65a/src/StringBuilder.ts#L51)
+[src/StringBuilder.ts:51](https://github.com/neoscrib/2a/blob/b3317a6/src/StringBuilder.ts#L51)
 
 ___
 
@@ -185,4 +152,4 @@ ___
 
 #### Defined in
 
-[src/StringBuilder.ts:72](https://github.com/neoscrib/2a/blob/324b65a/src/StringBuilder.ts#L72)
+[src/StringBuilder.ts:72](https://github.com/neoscrib/2a/blob/b3317a6/src/StringBuilder.ts#L72)

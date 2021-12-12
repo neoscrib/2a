@@ -1,4 +1,4 @@
-[2a](../README.md) / [Exports](../modules.md) / BinarySearch
+[2a](../README.md) / BinarySearch
 
 # Class: BinarySearch
 
@@ -46,4 +46,4 @@
 
 #### Defined in
 
-[src/BinarySearch.ts:4](https://github.com/neoscrib/2a/blob/324b65a/src/BinarySearch.ts#L4)
+[src/BinarySearch.ts:4](https://github.com/neoscrib/2a/blob/b3317a6/src/BinarySearch.ts#L4)

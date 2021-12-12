@@ -1,4 +1,4 @@
-[2a](../README.md) / [Exports](../modules.md) / FilenameUtils
+[2a](../README.md) / FilenameUtils
 
 # Class: FilenameUtils
 
@@ -71,42 +71,20 @@ Origin of code: Excalibur, Alexandria, Tomcat, Commons-Utils.
 
 ## Table of contents
 
-### Constructors
-
-- [constructor](FilenameUtils.md#constructor)
-
 ### Properties
 
-- [BASE\_16](FilenameUtils.md#base_16)
-- [EMPTY\_STRING](FilenameUtils.md#empty_string)
-- [EMPTY\_STRING\_ARRAY](FilenameUtils.md#empty_string_array)
 - [EXTENSION\_SEPARATOR](FilenameUtils.md#extension_separator)
 - [EXTENSION\_SEPARATOR\_STR](FilenameUtils.md#extension_separator_str)
-- [IPV4\_MAX\_OCTET\_VALUE](FilenameUtils.md#ipv4_max_octet_value)
-- [IPV4\_PATTERN](FilenameUtils.md#ipv4_pattern)
-- [IPV6\_MAX\_HEX\_DIGITS\_PER\_GROUP](FilenameUtils.md#ipv6_max_hex_digits_per_group)
-- [IPV6\_MAX\_HEX\_GROUPS](FilenameUtils.md#ipv6_max_hex_groups)
-- [MAX\_UNSIGNED\_SHORT](FilenameUtils.md#max_unsigned_short)
-- [NOT\_FOUND](FilenameUtils.md#not_found)
-- [OTHER\_SEPARATOR](FilenameUtils.md#other_separator)
-- [REG\_NAME\_PART\_PATTERN](FilenameUtils.md#reg_name_part_pattern)
-- [SYSTEM\_NAME\_SEPARATOR](FilenameUtils.md#system_name_separator)
-- [UNIX\_NAME\_SEPARATOR](FilenameUtils.md#unix_name_separator)
-- [WINDOWS\_NAME\_SEPARATOR](FilenameUtils.md#windows_name_separator)
 
 ### Methods
 
 - [concat](FilenameUtils.md#concat)
 - [directoryContains](FilenameUtils.md#directorycontains)
-- [doGetFullPath](FilenameUtils.md#dogetfullpath)
-- [doGetPath](FilenameUtils.md#dogetpath)
-- [doNormalize](FilenameUtils.md#donormalize)
 - [equals](FilenameUtils.md#equals)
 - [equalsNormalized](FilenameUtils.md#equalsnormalized)
 - [equalsNormalizedOnSystem](FilenameUtils.md#equalsnormalizedonsystem)
 - [equalsOnSystem](FilenameUtils.md#equalsonsystem)
 - [flipSeparator](FilenameUtils.md#flipseparator)
-- [getAdsCriticalOffset](FilenameUtils.md#getadscriticaloffset)
 - [getBaseName](FilenameUtils.md#getbasename)
 - [getExtension](FilenameUtils.md#getextension)
 - [getFullPath](FilenameUtils.md#getfullpath)
@@ -118,68 +96,16 @@ Origin of code: Excalibur, Alexandria, Tomcat, Commons-Utils.
 - [getPrefixLength](FilenameUtils.md#getprefixlength)
 - [indexOfExtension](FilenameUtils.md#indexofextension)
 - [indexOfLastSeparator](FilenameUtils.md#indexoflastseparator)
-- [isEmpty](FilenameUtils.md#isempty)
 - [isExtension](FilenameUtils.md#isextension)
-- [isIPv4Address](FilenameUtils.md#isipv4address)
-- [isIPv6Address](FilenameUtils.md#isipv6address)
-- [isRFC3986HostName](FilenameUtils.md#isrfc3986hostname)
-- [isSeparator](FilenameUtils.md#isseparator)
-- [isSystemWindows](FilenameUtils.md#issystemwindows)
-- [isValidHostName](FilenameUtils.md#isvalidhostname)
 - [normalize](FilenameUtils.md#normalize)
 - [normalizeNoEndSeparator](FilenameUtils.md#normalizenoendseparator)
 - [removeExtension](FilenameUtils.md#removeextension)
-- [requireNonNullChars](FilenameUtils.md#requirenonnullchars)
 - [separatorsToSystem](FilenameUtils.md#separatorstosystem)
 - [separatorsToUnix](FilenameUtils.md#separatorstounix)
 - [separatorsToWindows](FilenameUtils.md#separatorstowindows)
-- [splitOnTokens](FilenameUtils.md#splitontokens)
-- [toSeparator](FilenameUtils.md#toseparator)
 - [wildcardMatch](FilenameUtils.md#wildcardmatch)
 
-## Constructors
-
-### constructor
-
-• `Private` **new FilenameUtils**()
-
-Instances should NOT be constructed in standard programming.
-
-#### Defined in
-
-[src/FilenameUtils.ts:1518](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L1518)
-
 ## Properties
-
-### BASE\_16
-
-▪ `Static` `Private` `Readonly` **BASE\_16**: ``16``
-
-#### Defined in
-
-[src/FilenameUtils.ts:144](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L144)
-
-___
-
-### EMPTY\_STRING
-
-▪ `Static` `Private` `Readonly` **EMPTY\_STRING**: ``""``
-
-#### Defined in
-
-[src/FilenameUtils.ts:98](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L98)
-
-___
-
-### EMPTY\_STRING\_ARRAY
-
-▪ `Static` `Private` `Readonly` **EMPTY\_STRING\_ARRAY**: `string`[] = `[]`
-
-#### Defined in
-
-[src/FilenameUtils.ts:96](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L96)
-
-___
 
 ### EXTENSION\_SEPARATOR
 
@@ -191,7 +117,7 @@ The extension separator character.
 
 #### Defined in
 
-[src/FilenameUtils.ts:106](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L106)
+[src/FilenameUtils.ts:106](https://github.com/neoscrib/2a/blob/b3317a6/src/FilenameUtils.ts#L106)
 
 ___
 
@@ -205,125 +131,7 @@ The extension separator String.
 
 #### Defined in
 
-[src/FilenameUtils.ts:112](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L112)
-
-___
-
-### IPV4\_MAX\_OCTET\_VALUE
-
-▪ `Static` `Private` `Readonly` **IPV4\_MAX\_OCTET\_VALUE**: ``255``
-
-#### Defined in
-
-[src/FilenameUtils.ts:136](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L136)
-
-___
-
-### IPV4\_PATTERN
-
-▪ `Static` `Private` `Readonly` **IPV4\_PATTERN**: `RegExp`
-
-#### Defined in
-
-[src/FilenameUtils.ts:134](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L134)
-
-___
-
-### IPV6\_MAX\_HEX\_DIGITS\_PER\_GROUP
-
-▪ `Static` `Private` `Readonly` **IPV6\_MAX\_HEX\_DIGITS\_PER\_GROUP**: ``4``
-
-#### Defined in
-
-[src/FilenameUtils.ts:140](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L140)
-
-___
-
-### IPV6\_MAX\_HEX\_GROUPS
-
-▪ `Static` `Private` `Readonly` **IPV6\_MAX\_HEX\_GROUPS**: ``8``
-
-#### Defined in
-
-[src/FilenameUtils.ts:138](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L138)
-
-___
-
-### MAX\_UNSIGNED\_SHORT
-
-▪ `Static` `Private` `Readonly` **MAX\_UNSIGNED\_SHORT**: ``65535``
-
-#### Defined in
-
-[src/FilenameUtils.ts:142](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L142)
-
-___
-
-### NOT\_FOUND
-
-▪ `Static` `Private` `Readonly` **NOT\_FOUND**: ``-1``
-
-#### Defined in
-
-[src/FilenameUtils.ts:100](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L100)
-
-___
-
-### OTHER\_SEPARATOR
-
-▪ `Static` `Private` `Readonly` **OTHER\_SEPARATOR**: `string`
-
-The separator character that is the opposite of the system separator.
-
-#### Defined in
-
-[src/FilenameUtils.ts:132](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L132)
-
-___
-
-### REG\_NAME\_PART\_PATTERN
-
-▪ `Static` `Private` `Readonly` **REG\_NAME\_PART\_PATTERN**: `RegExp`
-
-#### Defined in
-
-[src/FilenameUtils.ts:146](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L146)
-
-___
-
-### SYSTEM\_NAME\_SEPARATOR
-
-▪ `Static` `Private` `Readonly` **SYSTEM\_NAME\_SEPARATOR**: ``"/"``
-
-The system separator character.
-
-#### Defined in
-
-[src/FilenameUtils.ts:127](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L127)
-
-___
-
-### UNIX\_NAME\_SEPARATOR
-
-▪ `Static` `Private` `Readonly` **UNIX\_NAME\_SEPARATOR**: ``"/"``
-
-The Unix separator character.
-
-#### Defined in
-
-[src/FilenameUtils.ts:117](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L117)
-
-___
-
-### WINDOWS\_NAME\_SEPARATOR
-
-▪ `Static` `Private` `Readonly` **WINDOWS\_NAME\_SEPARATOR**: ``"\\"``
-
-The Windows separator character.
-
-#### Defined in
-
-[src/FilenameUtils.ts:122](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L122)
+[src/FilenameUtils.ts:112](https://github.com/neoscrib/2a/blob/b3317a6/src/FilenameUtils.ts#L112)
 
 ## Methods
 
@@ -389,7 +197,7 @@ the concatenated path, or null if invalid.  Null bytes inside string will be rem
 
 #### Defined in
 
-[src/FilenameUtils.ts:196](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L196)
+[src/FilenameUtils.ts:196](https://github.com/neoscrib/2a/blob/b3317a6/src/FilenameUtils.ts#L196)
 
 ___
 
@@ -428,83 +236,7 @@ true is the candidate leaf is under by the specified composite. False otherwise.
 
 #### Defined in
 
-[src/FilenameUtils.ts:239](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L239)
-
-___
-
-### doGetFullPath
-
-▸ `Static` `Private` **doGetFullPath**(`fileName`, `includeSeparator`): `string`
-
-Does the work of getting the path.
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `fileName` | `string` | the fileName |
-| `includeSeparator` | `boolean` | true to include the end separator |
-
-#### Returns
-
-`string`
-
-the path
-
-#### Defined in
-
-[src/FilenameUtils.ts:261](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L261)
-
-___
-
-### doGetPath
-
-▸ `Static` `Private` **doGetPath**(`fileName`, `separatorAdd`): `string`
-
-Does the work of getting the path.
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `fileName` | `string` | the fileName |
-| `separatorAdd` | `number` | 0 to omit the end separator, 1 to return it |
-
-#### Returns
-
-`string`
-
-the path. Null bytes inside string will be removed
-
-#### Defined in
-
-[src/FilenameUtils.ts:293](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L293)
-
-___
-
-### doNormalize
-
-▸ `Static` `Private` **doNormalize**(`fileName`, `separator`, `keepSeparator`): `string`
-
-Internal method to perform the normalization.
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `fileName` | `string` | the fileName |
-| `separator` | `string` | The separator character to use |
-| `keepSeparator` | `boolean` | true to keep the final separator |
-
-#### Returns
-
-`string`
-
-the normalized fileName. Null bytes inside string will be removed.
-
-#### Defined in
-
-[src/FilenameUtils.ts:318](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L318)
+[src/FilenameUtils.ts:239](https://github.com/neoscrib/2a/blob/b3317a6/src/FilenameUtils.ts#L239)
 
 ___
 
@@ -533,7 +265,7 @@ true if the fileNames are equal, null equals null
 
 #### Defined in
 
-[src/FilenameUtils.ts:432](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L432)
+[src/FilenameUtils.ts:432](https://github.com/neoscrib/2a/blob/b3317a6/src/FilenameUtils.ts#L432)
 
 ___
 
@@ -562,7 +294,7 @@ true if the fileNames are equal, null equals null
 
 #### Defined in
 
-[src/FilenameUtils.ts:460](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L460)
+[src/FilenameUtils.ts:460](https://github.com/neoscrib/2a/blob/b3317a6/src/FilenameUtils.ts#L460)
 
 ___
 
@@ -593,7 +325,7 @@ true if the fileNames are equal, null equals null
 
 #### Defined in
 
-[src/FilenameUtils.ts:477](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L477)
+[src/FilenameUtils.ts:477](https://github.com/neoscrib/2a/blob/b3317a6/src/FilenameUtils.ts#L477)
 
 ___
 
@@ -622,7 +354,7 @@ true if the fileNames are equal, null equals null
 
 #### Defined in
 
-[src/FilenameUtils.ts:492](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L492)
+[src/FilenameUtils.ts:492](https://github.com/neoscrib/2a/blob/b3317a6/src/FilenameUtils.ts#L492)
 
 ___
 
@@ -646,31 +378,7 @@ The Windows or Linux name separator.
 
 #### Defined in
 
-[src/FilenameUtils.ts:502](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L502)
-
-___
-
-### getAdsCriticalOffset
-
-▸ `Static` `Private` **getAdsCriticalOffset**(`fileName`): `number`
-
-Special handling for NTFS ADS: Don't accept colon in the fileName.
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `fileName` | `string` | a file name |
-
-#### Returns
-
-`number`
-
-ADS offsets.
-
-#### Defined in
-
-[src/FilenameUtils.ts:518](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L518)
+[src/FilenameUtils.ts:502](https://github.com/neoscrib/2a/blob/b3317a6/src/FilenameUtils.ts#L502)
 
 ___
 
@@ -708,7 +416,7 @@ will be removed
 
 #### Defined in
 
-[src/FilenameUtils.ts:554](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L554)
+[src/FilenameUtils.ts:554](https://github.com/neoscrib/2a/blob/b3317a6/src/FilenameUtils.ts#L554)
 
 ___
 
@@ -757,7 +465,7 @@ if the fileName is {@code null}.
 
 #### Defined in
 
-[src/FilenameUtils.ts:588](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L588)
+[src/FilenameUtils.ts:588](https://github.com/neoscrib/2a/blob/b3317a6/src/FilenameUtils.ts#L588)
 
 ___
 
@@ -802,7 +510,7 @@ the path of the file, an empty string if none exists, null if invalid
 
 #### Defined in
 
-[src/FilenameUtils.ts:626](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L626)
+[src/FilenameUtils.ts:626](https://github.com/neoscrib/2a/blob/b3317a6/src/FilenameUtils.ts#L626)
 
 ___
 
@@ -848,7 +556,7 @@ the path of the file, an empty string if none exists, null if invalid
 
 #### Defined in
 
-[src/FilenameUtils.ts:658](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L658)
+[src/FilenameUtils.ts:658](https://github.com/neoscrib/2a/blob/b3317a6/src/FilenameUtils.ts#L658)
 
 ___
 
@@ -886,7 +594,7 @@ Null bytes inside string will be removed
 
 #### Defined in
 
-[src/FilenameUtils.ts:682](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L682)
+[src/FilenameUtils.ts:682](https://github.com/neoscrib/2a/blob/b3317a6/src/FilenameUtils.ts#L682)
 
 ___
 
@@ -930,7 +638,7 @@ Null bytes inside string will be removed
 
 #### Defined in
 
-[src/FilenameUtils.ts:715](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L715)
+[src/FilenameUtils.ts:715](https://github.com/neoscrib/2a/blob/b3317a6/src/FilenameUtils.ts#L715)
 
 ___
 
@@ -975,7 +683,7 @@ Null bytes inside string will be removed
 
 #### Defined in
 
-[src/FilenameUtils.ts:746](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L746)
+[src/FilenameUtils.ts:746](https://github.com/neoscrib/2a/blob/b3317a6/src/FilenameUtils.ts#L746)
 
 ___
 
@@ -1024,7 +732,7 @@ the prefix of the file, null if invalid. Null bytes inside string will be remove
 
 #### Defined in
 
-[src/FilenameUtils.ts:781](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L781)
+[src/FilenameUtils.ts:781](https://github.com/neoscrib/2a/blob/b3317a6/src/FilenameUtils.ts#L781)
 
 ___
 
@@ -1085,7 +793,7 @@ the length of the prefix, -1 if invalid or null
 
 #### Defined in
 
-[src/FilenameUtils.ts:840](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L840)
+[src/FilenameUtils.ts:840](https://github.com/neoscrib/2a/blob/b3317a6/src/FilenameUtils.ts#L840)
 
 ___
 
@@ -1125,7 +833,7 @@ the index of the last extension separator character, or -1 if there is no such c
 
 #### Defined in
 
-[src/FilenameUtils.ts:920](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L920)
+[src/FilenameUtils.ts:920](https://github.com/neoscrib/2a/blob/b3317a6/src/FilenameUtils.ts#L920)
 
 ___
 
@@ -1155,27 +863,7 @@ is no such character
 
 #### Defined in
 
-[src/FilenameUtils.ts:942](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L942)
-
-___
-
-### isEmpty
-
-▸ `Static` `Private` **isEmpty**(`s`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `s` | `string` |
-
-#### Returns
-
-`boolean`
-
-#### Defined in
-
-[src/FilenameUtils.ts:958](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L958)
+[src/FilenameUtils.ts:942](https://github.com/neoscrib/2a/blob/b3317a6/src/FilenameUtils.ts#L942)
 
 ___
 
@@ -1206,7 +894,7 @@ true if the fileName is one of the extensions
 
 #### Defined in
 
-[src/FilenameUtils.ts:974](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L974)
+[src/FilenameUtils.ts:974](https://github.com/neoscrib/2a/blob/b3317a6/src/FilenameUtils.ts#L974)
 
 ▸ `Static` **isExtension**(`fileName`, `extension`): `boolean`
 
@@ -1233,7 +921,7 @@ true if the fileName has the specified extension
 
 #### Defined in
 
-[src/FilenameUtils.ts:989](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L989)
+[src/FilenameUtils.ts:989](https://github.com/neoscrib/2a/blob/b3317a6/src/FilenameUtils.ts#L989)
 
 ▸ `Static` **isExtension**(`fileName`, ...`extensions`): `boolean`
 
@@ -1260,155 +948,7 @@ true if the fileName is one of the extensions
 
 #### Defined in
 
-[src/FilenameUtils.ts:1003](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L1003)
-
-___
-
-### isIPv4Address
-
-▸ `Static` `Private` **isIPv4Address**(`name`): `boolean`
-
-Checks whether a given string represents a valid IPv4 address.
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `name` | `string` | the name to validate |
-
-#### Returns
-
-`boolean`
-
-true if the given name is a valid IPv4 address
-
-#### Defined in
-
-[src/FilenameUtils.ts:1037](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L1037)
-
-___
-
-### isIPv6Address
-
-▸ `Static` `Private` **isIPv6Address**(`inet6Address`): `boolean`
-
-Checks whether a given string represents a valid IPv6 address.
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `inet6Address` | `string` | the name to validate |
-
-#### Returns
-
-`boolean`
-
-true if the given name is a valid IPv6 address
-
-#### Defined in
-
-[src/FilenameUtils.ts:1067](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L1067)
-
-___
-
-### isRFC3986HostName
-
-▸ `Static` `Private` **isRFC3986HostName**(`name`): `boolean`
-
-Checks whether a given string is a valid host name according to
-RFC 3986 - not accepting IP addresses.
-
-**`see`** "https://tools.ietf.org/html/rfc3986#section-3.2.2"
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `name` | `string` | the hostname to validate |
-
-#### Returns
-
-`boolean`
-
-true if the given name is a valid host name
-
-#### Defined in
-
-[src/FilenameUtils.ts:1135](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L1135)
-
-___
-
-### isSeparator
-
-▸ `Static` `Private` **isSeparator**(`ch`): `boolean`
-
-Checks if the character is a separator.
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `ch` | `string` | the character to check |
-
-#### Returns
-
-`boolean`
-
-true if it is a separator character
-
-#### Defined in
-
-[src/FilenameUtils.ts:1155](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L1155)
-
-___
-
-### isSystemWindows
-
-▸ `Static` `Protected` **isSystemWindows**(): `boolean`
-
-Determines if Windows file system is in use.
-
-#### Returns
-
-`boolean`
-
-true if the system is Windows
-
-#### Defined in
-
-[src/FilenameUtils.ts:1164](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L1164)
-
-___
-
-### isValidHostName
-
-▸ `Static` `Private` **isValidHostName**(`name`): `boolean`
-
-Checks whether a given string is a valid host name according to
-RFC 3986.
-
-<p>Accepted are IP addresses (v4 and v6) as well as what the
-RFC calls a "reg-name". Percent encoded names don't seem to be
-valid names in UNC paths.</p>
-
-**`see`** "https://tools.ietf.org/html/rfc3986#section-3.2.2"
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `name` | `string` | the hostname to validate |
-
-#### Returns
-
-`boolean`
-
-true if the given name is a valid host name
-
-#### Defined in
-
-[src/FilenameUtils.ts:1181](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L1181)
+[src/FilenameUtils.ts:1003](https://github.com/neoscrib/2a/blob/b3317a6/src/FilenameUtils.ts#L1003)
 
 ___
 
@@ -1470,7 +1010,7 @@ the normalized fileName, or null if invalid. Null bytes inside string will be re
 
 #### Defined in
 
-[src/FilenameUtils.ts:1229](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L1229)
+[src/FilenameUtils.ts:1229](https://github.com/neoscrib/2a/blob/b3317a6/src/FilenameUtils.ts#L1229)
 
 ___
 
@@ -1531,7 +1071,7 @@ the normalized fileName, or null if invalid. Null bytes inside string will be re
 
 #### Defined in
 
-[src/FilenameUtils.ts:1280](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L1280)
+[src/FilenameUtils.ts:1280](https://github.com/neoscrib/2a/blob/b3317a6/src/FilenameUtils.ts#L1280)
 
 ___
 
@@ -1566,33 +1106,7 @@ the fileName minus the extension
 
 #### Defined in
 
-[src/FilenameUtils.ts:1305](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L1305)
-
-___
-
-### requireNonNullChars
-
-▸ `Static` `Private` **requireNonNullChars**(`path`): `string`
-
-Checks the input for null bytes, a sign of unsanitized data being passed to to file level functions.
-
-This may be used for poison byte attacks.
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `path` | `string` | the path to check |
-
-#### Returns
-
-`string`
-
-The input
-
-#### Defined in
-
-[src/FilenameUtils.ts:1326](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L1326)
+[src/FilenameUtils.ts:1305](https://github.com/neoscrib/2a/blob/b3317a6/src/FilenameUtils.ts#L1305)
 
 ___
 
@@ -1616,7 +1130,7 @@ the updated path.
 
 #### Defined in
 
-[src/FilenameUtils.ts:1340](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L1340)
+[src/FilenameUtils.ts:1340](https://github.com/neoscrib/2a/blob/b3317a6/src/FilenameUtils.ts#L1340)
 
 ___
 
@@ -1640,7 +1154,7 @@ the new path.
 
 #### Defined in
 
-[src/FilenameUtils.ts:1351](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L1351)
+[src/FilenameUtils.ts:1351](https://github.com/neoscrib/2a/blob/b3317a6/src/FilenameUtils.ts#L1351)
 
 ___
 
@@ -1664,57 +1178,7 @@ the updated path.
 
 #### Defined in
 
-[src/FilenameUtils.ts:1362](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L1362)
-
-___
-
-### splitOnTokens
-
-▸ `Static` `Protected` **splitOnTokens**(`text`): `string`[]
-
-Splits a string into a number of tokens.
-The text is split by '?' and '*'.
-Where multiple '*' occur consecutively they are collapsed into a single '*'.
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `text` | `string` | the text to split |
-
-#### Returns
-
-`string`[]
-
-the array of tokens, never null
-
-#### Defined in
-
-[src/FilenameUtils.ts:1375](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L1375)
-
-___
-
-### toSeparator
-
-▸ `Static` `Private` **toSeparator**(`unixSeparator`): `string`
-
-Returns '/' if given true, '\\' otherwise.
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `unixSeparator` | `boolean` | which separator to return. |
-
-#### Returns
-
-`string`
-
-'/' if given true, '\\' otherwise.
-
-#### Defined in
-
-[src/FilenameUtils.ts:1416](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L1416)
+[src/FilenameUtils.ts:1362](https://github.com/neoscrib/2a/blob/b3317a6/src/FilenameUtils.ts#L1362)
 
 ___
 
@@ -1753,4 +1217,4 @@ true if the fileName matches the wildcard string
 
 #### Defined in
 
-[src/FilenameUtils.ts:1441](https://github.com/neoscrib/2a/blob/324b65a/src/FilenameUtils.ts#L1441)
+[src/FilenameUtils.ts:1441](https://github.com/neoscrib/2a/blob/b3317a6/src/FilenameUtils.ts#L1441)

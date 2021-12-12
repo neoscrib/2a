@@ -1,4 +1,4 @@
-[2a](../README.md) / [Exports](../modules.md) / Comparator
+[2a](../README.md) / Comparator
 
 # Class: Comparator
 
@@ -7,10 +7,6 @@
 ### Constructors
 
 - [constructor](Comparator.md#constructor)
-
-### Properties
-
-- [defaultCollator](Comparator.md#defaultcollator)
 
 ### Methods
 
@@ -21,16 +17,6 @@
 ### constructor
 
 • **new Comparator**()
-
-## Properties
-
-### defaultCollator
-
-▪ `Static` `Private` `Readonly` **defaultCollator**: `Collator`
-
-#### Defined in
-
-[src/Comparator.ts:2](https://github.com/neoscrib/2a/blob/324b65a/src/Comparator.ts#L2)
 
 ## Methods
 
@@ -57,4 +43,4 @@
 
 #### Defined in
 
-[src/Comparator.ts:4](https://github.com/neoscrib/2a/blob/324b65a/src/Comparator.ts#L4)
+[src/Comparator.ts:4](https://github.com/neoscrib/2a/blob/b3317a6/src/Comparator.ts#L4)

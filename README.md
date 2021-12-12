@@ -1,3 +1,1 @@
-2a / [Exports](docs/modules.md)
-
-# 2a
+2a / [Exports](docs/README.md)

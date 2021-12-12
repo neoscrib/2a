@@ -1,4 +1,4 @@
-[2a](../README.md) / [Exports](../modules.md) / SortedMap
+[2a](../README.md) / SortedMap
 
 # Class: SortedMap<K, V\>
 
@@ -28,36 +28,27 @@
 ### Properties
 
 - [[Symbol.toStringTag]](SortedMap.md#[symbol.tostringtag])
-- [comparator](SortedMap.md#comparator)
 - [size](SortedMap.md#size)
-- [sorted](SortedMap.md#sorted)
-- [sortedKeys](SortedMap.md#sortedkeys)
 - [[Symbol.species]](SortedMap.md#[symbol.species])
 
 ### Methods
 
 - [[Symbol.iterator]](SortedMap.md#[symbol.iterator])
 - [clear](SortedMap.md#clear)
-- [compare](SortedMap.md#compare)
 - [delete](SortedMap.md#delete)
 - [entries](SortedMap.md#entries)
 - [firstKey](SortedMap.md#firstkey)
 - [forEach](SortedMap.md#foreach)
 - [get](SortedMap.md#get)
-- [getSortedKeys](SortedMap.md#getsortedkeys)
 - [has](SortedMap.md#has)
 - [headMap](SortedMap.md#headmap)
-- [headMapInternal](SortedMap.md#headmapinternal)
 - [keys](SortedMap.md#keys)
-- [keysFrom](SortedMap.md#keysfrom)
-- [keysTo](SortedMap.md#keysto)
 - [lastKey](SortedMap.md#lastkey)
 - [next](SortedMap.md#next)
 - [return](SortedMap.md#return)
 - [set](SortedMap.md#set)
 - [subMap](SortedMap.md#submap)
 - [tailMap](SortedMap.md#tailmap)
-- [tailMapInternal](SortedMap.md#tailmapinternal)
 - [throw](SortedMap.md#throw)
 - [values](SortedMap.md#values)
 
@@ -80,7 +71,7 @@ Map&lt;K, V\&gt;.constructor
 
 #### Defined in
 
-[src/SortedMap.ts:9](https://github.com/neoscrib/2a/blob/324b65a/src/SortedMap.ts#L9)
+[src/SortedMap.ts:9](https://github.com/neoscrib/2a/blob/b3317a6/src/SortedMap.ts#L9)
 
 • **new SortedMap**<`K`, `V`\>(`entries?`, `comparator?`)
 
@@ -104,7 +95,7 @@ Map&lt;K, V\&gt;.constructor
 
 #### Defined in
 
-[src/SortedMap.ts:10](https://github.com/neoscrib/2a/blob/324b65a/src/SortedMap.ts#L10)
+[src/SortedMap.ts:10](https://github.com/neoscrib/2a/blob/b3317a6/src/SortedMap.ts#L10)
 
 ## Properties
 
@@ -122,33 +113,6 @@ node_modules/typescript/lib/lib.es2015.symbol.wellknown.d.ts:130
 
 ___
 
-### comparator
-
-• `Private` `Readonly` **comparator**: (`a`: `K`, `b`: `K`, `c?`: `V`, `d?`: `V`) => `number`
-
-#### Type declaration
-
-▸ (`a`, `b`, `c?`, `d?`): `number`
-
-##### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `a` | `K` |
-| `b` | `K` |
-| `c?` | `V` |
-| `d?` | `V` |
-
-##### Returns
-
-`number`
-
-#### Defined in
-
-[src/SortedMap.ts:5](https://github.com/neoscrib/2a/blob/324b65a/src/SortedMap.ts#L5)
-
-___
-
 ### size
 
 • `Readonly` **size**: `number`
@@ -160,26 +124,6 @@ Map.size
 #### Defined in
 
 node_modules/typescript/lib/lib.es2015.collection.d.ts:28
-
-___
-
-### sorted
-
-• `Private` **sorted**: `boolean` = `false`
-
-#### Defined in
-
-[src/SortedMap.ts:6](https://github.com/neoscrib/2a/blob/324b65a/src/SortedMap.ts#L6)
-
-___
-
-### sortedKeys
-
-• `Private` **sortedKeys**: `K`[] = `[]`
-
-#### Defined in
-
-[src/SortedMap.ts:7](https://github.com/neoscrib/2a/blob/324b65a/src/SortedMap.ts#L7)
 
 ___
 
@@ -215,7 +159,7 @@ Map.\_\_@iterator
 
 #### Defined in
 
-[src/SortedMap.ts:95](https://github.com/neoscrib/2a/blob/324b65a/src/SortedMap.ts#L95)
+[src/SortedMap.ts:95](https://github.com/neoscrib/2a/blob/b3317a6/src/SortedMap.ts#L95)
 
 ___
 
@@ -233,30 +177,7 @@ Map.clear
 
 #### Defined in
 
-[src/SortedMap.ts:67](https://github.com/neoscrib/2a/blob/324b65a/src/SortedMap.ts#L67)
-
-___
-
-### compare
-
-▸ `Private` **compare**(`a`, `b`, `c?`, `d?`): `number`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `a` | `K` |
-| `b` | `K` |
-| `c` | `V` |
-| `d` | `V` |
-
-#### Returns
-
-`number`
-
-#### Defined in
-
-[src/SortedMap.ts:22](https://github.com/neoscrib/2a/blob/324b65a/src/SortedMap.ts#L22)
+[src/SortedMap.ts:67](https://github.com/neoscrib/2a/blob/b3317a6/src/SortedMap.ts#L67)
 
 ___
 
@@ -280,7 +201,7 @@ Map.delete
 
 #### Defined in
 
-[src/SortedMap.ts:72](https://github.com/neoscrib/2a/blob/324b65a/src/SortedMap.ts#L72)
+[src/SortedMap.ts:72](https://github.com/neoscrib/2a/blob/b3317a6/src/SortedMap.ts#L72)
 
 ___
 
@@ -298,7 +219,7 @@ Map.entries
 
 #### Defined in
 
-[src/SortedMap.ts:99](https://github.com/neoscrib/2a/blob/324b65a/src/SortedMap.ts#L99)
+[src/SortedMap.ts:99](https://github.com/neoscrib/2a/blob/b3317a6/src/SortedMap.ts#L99)
 
 ___
 
@@ -312,7 +233,7 @@ ___
 
 #### Defined in
 
-[src/SortedMap.ts:26](https://github.com/neoscrib/2a/blob/324b65a/src/SortedMap.ts#L26)
+[src/SortedMap.ts:26](https://github.com/neoscrib/2a/blob/b3317a6/src/SortedMap.ts#L26)
 
 ___
 
@@ -337,7 +258,7 @@ Map.forEach
 
 #### Defined in
 
-[src/SortedMap.ts:149](https://github.com/neoscrib/2a/blob/324b65a/src/SortedMap.ts#L149)
+[src/SortedMap.ts:149](https://github.com/neoscrib/2a/blob/b3317a6/src/SortedMap.ts#L149)
 
 ___
 
@@ -362,20 +283,6 @@ Map.get
 #### Defined in
 
 node_modules/typescript/lib/lib.es2015.collection.d.ts:25
-
-___
-
-### getSortedKeys
-
-▸ `Private` **getSortedKeys**(): `K`[]
-
-#### Returns
-
-`K`[]
-
-#### Defined in
-
-[src/SortedMap.ts:111](https://github.com/neoscrib/2a/blob/324b65a/src/SortedMap.ts#L111)
 
 ___
 
@@ -419,27 +326,7 @@ ___
 
 #### Defined in
 
-[src/SortedMap.ts:57](https://github.com/neoscrib/2a/blob/324b65a/src/SortedMap.ts#L57)
-
-___
-
-### headMapInternal
-
-▸ `Private` **headMapInternal**(`toKey`): `IterableIterator`<[`K`, `V`]\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `toKey` | `K` |
-
-#### Returns
-
-`IterableIterator`<[`K`, `V`]\>
-
-#### Defined in
-
-[src/SortedMap.ts:61](https://github.com/neoscrib/2a/blob/324b65a/src/SortedMap.ts#L61)
+[src/SortedMap.ts:57](https://github.com/neoscrib/2a/blob/b3317a6/src/SortedMap.ts#L57)
 
 ___
 
@@ -457,47 +344,7 @@ Map.keys
 
 #### Defined in
 
-[src/SortedMap.ts:105](https://github.com/neoscrib/2a/blob/324b65a/src/SortedMap.ts#L105)
-
-___
-
-### keysFrom
-
-▸ `Private` **keysFrom**(`fromKey`): `IterableIterator`<`K`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `fromKey` | `K` |
-
-#### Returns
-
-`IterableIterator`<`K`\>
-
-#### Defined in
-
-[src/SortedMap.ts:119](https://github.com/neoscrib/2a/blob/324b65a/src/SortedMap.ts#L119)
-
-___
-
-### keysTo
-
-▸ `Private` **keysTo**(`toKey`): `IterableIterator`<`K`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `toKey` | `K` |
-
-#### Returns
-
-`IterableIterator`<`K`\>
-
-#### Defined in
-
-[src/SortedMap.ts:131](https://github.com/neoscrib/2a/blob/324b65a/src/SortedMap.ts#L131)
+[src/SortedMap.ts:105](https://github.com/neoscrib/2a/blob/b3317a6/src/SortedMap.ts#L105)
 
 ___
 
@@ -511,7 +358,7 @@ ___
 
 #### Defined in
 
-[src/SortedMap.ts:34](https://github.com/neoscrib/2a/blob/324b65a/src/SortedMap.ts#L34)
+[src/SortedMap.ts:34](https://github.com/neoscrib/2a/blob/b3317a6/src/SortedMap.ts#L34)
 
 ___
 
@@ -535,7 +382,7 @@ IterableIterator.next
 
 #### Defined in
 
-[src/SortedMap.ts:155](https://github.com/neoscrib/2a/blob/324b65a/src/SortedMap.ts#L155)
+[src/SortedMap.ts:155](https://github.com/neoscrib/2a/blob/b3317a6/src/SortedMap.ts#L155)
 
 ___
 
@@ -559,7 +406,7 @@ IterableIterator.return
 
 #### Defined in
 
-[src/SortedMap.ts:159](https://github.com/neoscrib/2a/blob/324b65a/src/SortedMap.ts#L159)
+[src/SortedMap.ts:159](https://github.com/neoscrib/2a/blob/b3317a6/src/SortedMap.ts#L159)
 
 ___
 
@@ -584,7 +431,7 @@ Map.set
 
 #### Defined in
 
-[src/SortedMap.ts:77](https://github.com/neoscrib/2a/blob/324b65a/src/SortedMap.ts#L77)
+[src/SortedMap.ts:77](https://github.com/neoscrib/2a/blob/b3317a6/src/SortedMap.ts#L77)
 
 ___
 
@@ -605,7 +452,7 @@ ___
 
 #### Defined in
 
-[src/SortedMap.ts:53](https://github.com/neoscrib/2a/blob/324b65a/src/SortedMap.ts#L53)
+[src/SortedMap.ts:53](https://github.com/neoscrib/2a/blob/b3317a6/src/SortedMap.ts#L53)
 
 ___
 
@@ -625,27 +472,7 @@ ___
 
 #### Defined in
 
-[src/SortedMap.ts:43](https://github.com/neoscrib/2a/blob/324b65a/src/SortedMap.ts#L43)
-
-___
-
-### tailMapInternal
-
-▸ `Private` **tailMapInternal**(`fromKey`): `IterableIterator`<[`K`, `V`]\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `fromKey` | `K` |
-
-#### Returns
-
-`IterableIterator`<[`K`, `V`]\>
-
-#### Defined in
-
-[src/SortedMap.ts:47](https://github.com/neoscrib/2a/blob/324b65a/src/SortedMap.ts#L47)
+[src/SortedMap.ts:43](https://github.com/neoscrib/2a/blob/b3317a6/src/SortedMap.ts#L43)
 
 ___
 
@@ -669,7 +496,7 @@ IterableIterator.throw
 
 #### Defined in
 
-[src/SortedMap.ts:163](https://github.com/neoscrib/2a/blob/324b65a/src/SortedMap.ts#L163)
+[src/SortedMap.ts:163](https://github.com/neoscrib/2a/blob/b3317a6/src/SortedMap.ts#L163)
 
 ___
 
@@ -687,4 +514,4 @@ Map.values
 
 #### Defined in
 
-[src/SortedMap.ts:143](https://github.com/neoscrib/2a/blob/324b65a/src/SortedMap.ts#L143)
+[src/SortedMap.ts:143](https://github.com/neoscrib/2a/blob/b3317a6/src/SortedMap.ts#L143)
