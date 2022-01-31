@@ -1,21 +1,27 @@
 import Reflect from '../Reflect';
-import { createUrl } from '../util';
 import { IClientOptions } from './client';
 import { ClientConstants } from './constants';
 import { IQueryParamOptions } from './queryParam';
+import { v4 } from 'uuid';
+
+import CustomFetchResponse = twoa.client.CustomFetchResponse;
 
 interface IMappingOptions {
     method: string;
     value: string;
     blob?: boolean;
+    stream?: boolean;
     produces?: string;
     interceptors?: (() => RequestInit)[];
+    before?(init: RequestInit, id: string): void;
+    after?(response: Response | CustomFetchResponse<any> | Error, id: string): void;
+    fetch?<T>(input: RequestInfo, init?: RequestInit): Promise<CustomFetchResponse<T>>;
 }
 
-export default ({ method, value, blob, produces, interceptors }: IMappingOptions): MethodDecorator => (t: any, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<any>) => {
+export default ({ method, value, blob, stream, produces, interceptors, before, after, fetch }: IMappingOptions): MethodDecorator => (t: any, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<any>) => {
     const target = t.prototype ?? t;
     // tslint:disable-next-line:cyclomatic-complexity
-    descriptor.value = async <T>(...args: any[]): Promise<T | Blob> => {
+    descriptor.value = async <T>(...args: any[]): Promise<T | Blob | ReadableStream<Uint8Array>> => {
         const clientOptions: IClientOptions = Reflect.getMetadata(ClientConstants.ClientOptions, target);
         if (!clientOptions) {
             throw new Error(`Client options not defined for ${target}`);
@@ -23,15 +29,16 @@ export default ({ method, value, blob, produces, interceptors }: IMappingOptions
 
         let path = value;
         let body;
-        const form = new FormData();
         const query: Record<string, any> = {};
         const headers = new Headers();
+        const inits: RequestInit[] = [];
 
         const pathParams: Map<number, string> = Reflect.getMetadata(ClientConstants.PathParams, target, propertyKey);
         const queryParams: Map<number, string | IQueryParamOptions> = Reflect.getMetadata(ClientConstants.QueryParams, target, propertyKey);
         const headerParams: Map<number, string> = Reflect.getMetadata(ClientConstants.HeaderParams, target, propertyKey);
         const formParams: Map<number, string> = Reflect.getMetadata(ClientConstants.FormParams, target, propertyKey);
         const bodyParams: Set<number> = Reflect.getMetadata(ClientConstants.BodyParams, target, propertyKey);
+        const initOptions: Set<number> = Reflect.getMetadata(ClientConstants.InitOptions, target, propertyKey);
 
         if (bodyParams?.size > 1) {
             throw new Error('Only a single body param may be used.');
@@ -72,9 +79,9 @@ export default ({ method, value, blob, produces, interceptors }: IMappingOptions
             }
 
             if (formParams?.has(i)) {
-                body = form;
+                body = new FormData();
                 const name = formParams.get(i);
-                form.append(name, current);
+                body.append(name, current);
 
                 const contentType = produces ?? 'multipart/form-data';
                 if (!headers.has('content-type')) {
@@ -106,6 +113,10 @@ export default ({ method, value, blob, produces, interceptors }: IMappingOptions
                     headers.set('content-type', contentType);
                 }
             }
+
+            if (initOptions?.has(i) && current) {
+                inits.push(current);
+            }
         }
 
         if (headers.get('content-type') === 'multipart/form-data' && body instanceof FormData) {
@@ -113,18 +124,46 @@ export default ({ method, value, blob, produces, interceptors }: IMappingOptions
             headers.delete('content-type');
         }
 
-        const url = createUrl(clientOptions.baseUrl(), path, query);
+        const url = new URL(path, clientOptions.baseUrl());
+        for (const [ name, value ] of Object.entries(query)) {
+            url.searchParams.append(name, value);
+        }
 
         const init = [ ...interceptors ?? [], ...clientOptions.interceptors ?? [] ]
             .map(item => item())
+            .concat(...inits)
             .reduce((acc: RequestInit, cur: RequestInit) => ({ ...acc, ...cur, headers: mergeHeaders(acc.headers, cur.headers) }),
                 { method, headers, body });
 
-        const response = await window.fetch(url, init);
+        const id = v4();
+        before?.(init, id);
+        clientOptions.before?.(init, id);
 
+        const f = fetch ?? clientOptions.fetch ?? window.fetch;
+        if (f !== window.fetch) {
+            // copy headers to a plain object when using a custom fetch function
+            init.headers = [ ...init.headers as unknown as IterableIterator<[string, string]> ].reduce((acc, [ key, value ]) => ({ ...acc, [key]: value }), {});
+        }
+
+        let response: Response | CustomFetchResponse<T>;
+        try {
+            response = await f(url.toString(), init);
+        } catch (error) {
+            after?.(error, id);
+            clientOptions.after?.(error, id);
+            throw error;
+        }
+
+        after?.(response, id);
+        clientOptions.after?.(response, id);
         const isJson = response.headers.get('content-type')?.includes('application/json');
         if (response.ok || response.redirected) {
-            return blob ? response.blob() : isJson ? response.json() : response.text();
+            if (f !== window.fetch) {
+                return (response as CustomFetchResponse<T>).data;
+            } else {
+                const body = response as Body;
+                return blob ? body.blob() : stream ? body.body : isJson ? body.json() : body.text();
+            }
         } else {
             throw response;
         }

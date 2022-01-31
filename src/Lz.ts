@@ -749,7 +749,7 @@ export default class Lz<T> implements IterableIterator<T> {
     private static *whereInternal<T>(source: LzIterable<T>, predicate?: PredicateFunction<T>): IterableIterator<T> {
         let index = 0;
         for (const item of source) {
-            if (predicate?.(item, index++) ?? true) {
+            if (typeof predicate === 'function' ? predicate(item, index++) : true) {
                 yield item;
             }
         }

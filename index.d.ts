@@ -29,6 +29,7 @@ declare module '2a/client' {
     export import pathParam = twoa.client.pathParam;
     export import formParam = twoa.client.formParam;
     export import queryParam = twoa.client.queryParam;
+    export import init = twoa.client.init;
 }
 
 declare module '2a/di' {
@@ -1727,9 +1728,14 @@ declare namespace twoa {
     }
 
     export namespace client {
+        export type CustomFetchResponse<T> = Omit<Response, keyof Body | 'clone' | 'trailer' | 'type'> & { data: T };
+
         export interface IClientOptions {
             baseUrl(): string;
             interceptors?: (() => RequestInit)[];
+            before?(init: RequestInit, id: string): void;
+            after?(response: Response | CustomFetchResponse<any> | Error, id: string): void;
+            fetch?<T>(input: string, init?: RequestInit): Promise<CustomFetchResponse<T>>;
         }
 
         export interface IMappingOptions {
@@ -1738,6 +1744,9 @@ declare namespace twoa {
             blob?: boolean;
             produces?: string;
             interceptors?: (() => RequestInit)[];
+            before?(init: RequestInit, id: string): void;
+            after?(response: Response | Error, id: string): void;
+            fetch?<T>(input: string, init?: RequestInit): Promise<CustomFetchResponse<T>>;
         }
 
         export interface IQueryParamOptions {
@@ -1745,7 +1754,9 @@ declare namespace twoa {
             required?: boolean;
         }
 
-        export function bodyParam(target: any, propertyKey: string | symbol, parameterIndex: number): void;
+        export const bodyParam: ParameterDecorator;
+
+        export const init: ParameterDecorator;
 
         export function client(options: IClientOptions): ClassDecorator;
 
@@ -1768,7 +1779,8 @@ declare namespace twoa {
             public static getService<T>(name: string): T;
         }
 
-        export function autowire(name: string): PropertyDecorator | ParameterDecorator;
+        export function autowire(name: string): ParameterDecorator;
+        export function autowire(name: string): PropertyDecorator;
         export function autowire(target: Object, propertyKey: string | symbol): void;
 
         /**
@@ -1776,10 +1788,8 @@ declare namespace twoa {
          * @description Dependency injection is similar to using the @service decorator except that classes decorated with @inject
          * are not singletons and are not instantiated automatically when the application starts. Instead, the developer can create instances
          * of classes decorated with @inject at any time and they will be injected with their appropriate autowired dependencies
-         * @param {T} target The class to receive autowired dependencies
-         * @returns {{new(...args: any[]): any, prototype: {}}} Wrapped class which injects autowired dependencies upon instantiation
          */
-        export function inject<T extends new(...args: any[]) => any>(target: T): T;
+        export const inject: ClassDecorator;
 
         export function service(name: string): ClassDecorator;
     }

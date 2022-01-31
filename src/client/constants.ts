@@ -4,5 +4,6 @@ export enum ClientConstants {
     HeaderParams = '2a:decorators:header-params',
     FormParams = '2a:decorators:form-params',
     BodyParams = '2a:decorators:body-params',
-    ClientOptions = '2a:decorators:client-options'
+    ClientOptions = '2a:decorators:client-options',
+    InitOptions = '2a:decorators:init-options'
 }
