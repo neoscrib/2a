@@ -1739,13 +1739,13 @@ declare namespace twoa {
         }
 
         export interface IMappingOptions {
-            method: string;
+            method?: 'GET' | 'HEAD' | 'POST' | 'PUT' | 'PATCH' | 'DELETE' | 'OPTIONS' | 'TRACE';
             value: string;
             blob?: boolean;
             produces?: string;
             interceptors?: (() => RequestInit)[];
             before?(init: RequestInit, id: string): void;
-            after?(response: Response | Error, id: string): void;
+            after?(response: Response | CustomFetchResponse<any> | Error, id: string): void;
             fetch?<T>(input: string, init?: RequestInit): Promise<CustomFetchResponse<T>>;
         }
 
@@ -1777,10 +1777,17 @@ declare namespace twoa {
             public static getTargets(): ReadonlyMap<string, new(...args: any[]) => any>;
             public static getServices(): ReadonlyMap<string, any>;
             public static getService<T>(name: string): T;
+
+            /**
+             * Used to override (or add) service entries. Useful for injecting mock interfaces for unit tests, for example.
+             * @param {string} name Name of the service.
+             * @param {T} target Instance of the service to register.
+             */
+            public static registerService<T>(name: string, target: T): void;
         }
 
         export function autowire(name: string): ParameterDecorator;
-        export function autowire(name: string): PropertyDecorator;
+        export function autowire(options: { name: string; }): PropertyDecorator;
         export function autowire(target: Object, propertyKey: string | symbol): void;
 
         /**

@@ -2,11 +2,12 @@
 import Reflect from '../Reflect';
 import { DiConstants } from './constants';
 
-function autowire(name: string): any;
+function autowire(name: string): ParameterDecorator;
+function autowire(options: { name: string; }): PropertyDecorator;
 function autowire(target: Object, propertyKey: string | symbol): void;
 function autowire(target: any, propertyKey?: string | symbol): PropertyDecorator | ParameterDecorator | void {
-    if (typeof target === 'string') {
-        const name = target;
+    if (typeof target === 'string' || (typeof target?.name === 'string' && !propertyKey)) {
+        const name = target?.name ?? target;
         return (target: any, propertyKey: string | symbol, parameterIndex?: number) => {
             if (typeof parameterIndex === 'number') {
                 // only parameter decorator will have parameterIndex

@@ -69,6 +69,12 @@ export default class Application {
         return Application.getServicesInternal().get(name);
     }
 
+    public static registerService<T>(name: string, target: T) {
+        const map = Reflect.getMetadata(DiConstants.Services, Application);
+        map.set(name, target);
+        Reflect.defineMetadata(DiConstants.Services, map, Application);
+    }
+
     public static inject(instance: any, target: any): void {
         const dependencyPropsMap: Map<string, string> = Reflect.getMetadata(DiConstants.AutowiredProps, target) ?? new Map();
         const props = [ ...dependencyPropsMap.entries() ]
