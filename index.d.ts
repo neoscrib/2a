@@ -695,7 +695,7 @@ declare namespace twoa {
          * @param {(first: T, second: U) => V} resultSelector A function that specifies how to merge the elements from the two sequences.
          * @returns {IterableIterator<V>} A sequence that contains merged elements of two input sequences.
          */
-        public zip<U, V>(second: IterableIterator<U>, resultSelector: (first: T, second: U) => V): Lz<V>;
+        public zip<U, V>(second: LzIterable<U>, resultSelector: (first: T, second: U) => V): Lz<V>;
 
         /**
          * Applies a specified function to the corresponding elements of two sequences, producing a sequence of the results.
@@ -704,7 +704,7 @@ declare namespace twoa {
          * @param {(first: T, second: U) => V} resultSelector A function that specifies how to merge the elements from the two sequences.
          * @returns {IterableIterator<V>} A sequence that contains merged elements of two input sequences.
          */
-        public static zip<T, U, V>(first: LzIterable<T>, second: IterableIterator<U>, resultSelector: (first: T, second: U) => V): Lz<V>;
+        public static zip<T, U, V>(first: LzIterable<T>, second: LzIterable<U>, resultSelector: (first: T, second: U) => V): Lz<V>;
 
         /**
          * Applies an accumulator function over a sequence. The specified seed value is used as the initial accumulator value.

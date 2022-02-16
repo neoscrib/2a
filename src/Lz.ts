@@ -262,11 +262,10 @@ export default class Lz<T> implements IterableIterator<T> {
 
     private static *exceptInternal<T>(first: LzIterable<T>, second: LzIterable<T>,
                                       comparator: ComparatorFunction<T> = Comparator.defaultComparator): IterableIterator<T> {
-        const set: T[] = [ ...Lz.distinctInternal(second, comparator) ].sort(comparator);
+        const set = Lz.distinct(second, comparator).toArray().sort(comparator);
 
-        for (const item of first) {
-            const index: number = BinarySearch.find(set, 0, set.length, item, comparator);
-            if (index < 0) {
+        for (const item of Lz.distinct(first)) {
+            if (BinarySearch.find(set, 0, set.length, item, comparator) < 0) {
                 yield item;
             }
         }
@@ -359,11 +358,10 @@ export default class Lz<T> implements IterableIterator<T> {
 
     private static *intersectInternal<T>(first: LzIterable<T>, second: LzIterable<T>,
                                          comparator: ComparatorFunction<T> = Comparator.defaultComparator): IterableIterator<T> {
-        const set: T[] = [ ...Lz.distinctInternal(second, comparator) ].sort(comparator);
+        const set = Lz.distinct(second, comparator).toArray().sort(comparator);
 
-        for (const item of first) {
-            const index: number = BinarySearch.find(set, 0, set.length, item, comparator);
-            if (index >= 0) {
+        for (const item of Lz.distinct(first)) {
+            if (BinarySearch.find(set, 0, set.length, item, comparator) >= 0) {
                 yield item;
             }
         }
@@ -451,7 +449,7 @@ export default class Lz<T> implements IterableIterator<T> {
         let index = 0;
         let found = false;
         for (const item of source) {
-            if (predicate?.(item, index++) ?? true) {
+            if (typeof predicate === 'function' ? predicate(item, index++) : true) {
                 found = true;
                 result = item;
             }
@@ -488,7 +486,7 @@ export default class Lz<T> implements IterableIterator<T> {
         if (Array.isArray(source)) {
             for (let i = source.length - 1; i >= 0; i--) {
                 const item = source[i];
-                if (predicate?.(item, i) ?? true) {
+                if (typeof predicate === 'function' ? predicate(item, i) : true) {
                     found = true;
                     result = item;
                     break;
@@ -496,7 +494,7 @@ export default class Lz<T> implements IterableIterator<T> {
             }
         } else {
             for (const item of source) {
-                if (predicate?.(item, index++) ?? true) {
+                if (typeof predicate === 'function' ? predicate(item, index++) : true) {
                     found = true;
                     result = item;
                 }
@@ -889,7 +887,7 @@ export default class Lz<T> implements IterableIterator<T> {
     private static *takeWhileInternal<T>(source: LzIterable<T>, predicate?: PredicateFunction<T>): IterableIterator<T> {
         let index = 0;
         for (const item of source) {
-            if (predicate?.(item, index++) ?? true) {
+            if (typeof predicate === 'function' ? predicate(item, index++) : true) {
                 yield item;
                 continue;
             }
@@ -920,9 +918,13 @@ export default class Lz<T> implements IterableIterator<T> {
 
     private static *skipWhileInternal<T>(source: LzIterable<T>, predicate?: PredicateFunction<T>): IterableIterator<T> {
         let index = 0;
+        let flag = false;
         for (const item of source) {
-            if (predicate?.(item, index++) ?? true) {
-                continue;
+            if (!flag) {
+                if (typeof predicate === 'function' ? predicate(item, index++) : true) {
+                    continue;
+                }
+                flag = true;
             }
             yield item;
         }
@@ -1059,7 +1061,7 @@ export default class Lz<T> implements IterableIterator<T> {
      * @param {(first: T, second: U) => V} resultSelector A function that specifies how to merge the elements from the two sequences.
      * @returns {IterableIterator<V>} A sequence that contains merged elements of two input sequences.
      */
-    public zip<U, V>(second: IterableIterator<U>, resultSelector: (first: T, second: U) => V)
+    public zip<U, V>(second: LzIterable<U>, resultSelector: (first: T, second: U) => V)
         : Lz<V> {
         return Lz.zip(this, second, resultSelector);
     }
@@ -1071,12 +1073,12 @@ export default class Lz<T> implements IterableIterator<T> {
      * @param {(first: T, second: U) => V} resultSelector A function that specifies how to merge the elements from the two sequences.
      * @returns {IterableIterator<V>} A sequence that contains merged elements of two input sequences.
      */
-    public static zip<T, U, V>(first: LzIterable<T>, second: IterableIterator<U>, resultSelector: (first: T, second: U) => V)
+    public static zip<T, U, V>(first: LzIterable<T>, second: LzIterable<U>, resultSelector: (first: T, second: U) => V)
         : Lz<V> {
         return new Lz<V>(Lz.zipInternal(first, second, resultSelector));
     }
 
-    private static *zipInternal<T, U, V>(first: LzIterable<T>, second: IterableIterator<U>, resultSelector: (first: T, second: U) => V)
+    private static *zipInternal<T, U, V>(first: LzIterable<T>, second: LzIterable<U>, resultSelector: (first: T, second: U) => V)
         : IterableIterator<V> {
         const other: IterableIterator<U> = Lz.toIterable(second);
         for (const a of first) {
@@ -1122,7 +1124,7 @@ export default class Lz<T> implements IterableIterator<T> {
     public max(selector: SelectorFunction<T, number>): number;
     public max(selector?: SelectorFunction<number, number>): number;
     public max(selector: SelectorFunction<any, number> = Lz.identityFunction as IdentityFunction<number>): number {
-        return Lz.select(this, selector).aggregate(Math.max, Number.MIN_VALUE);
+        return Lz.select(this, selector).aggregate((acc, cur) => Math.max(acc, cur), -Infinity);
     }
 
     /**
@@ -1134,7 +1136,7 @@ export default class Lz<T> implements IterableIterator<T> {
     public static max<T>(source: LzIterable<T>, selector: SelectorFunction<T, number>): number;
     public static max<T extends number>(source: LzIterable<T>, selector?: SelectorFunction<T, number>): number;
     public static max<T>(source: LzIterable<T>, selector: SelectorFunction<T, number> = Lz.identityFunction as any): number {
-        return Lz.select(source, selector).aggregate(Math.max, Number.MIN_VALUE);
+        return Lz.select(source, selector).aggregate((acc, cur) => Math.max(acc, cur), -Infinity);
     }
 
     /**
@@ -1145,7 +1147,7 @@ export default class Lz<T> implements IterableIterator<T> {
     public min(selector: SelectorFunction<T, number>): number;
     public min(selector?: SelectorFunction<number, number>): number;
     public min(selector: SelectorFunction<any, number> = Lz.identityFunction as IdentityFunction<number>): number {
-        return Lz.select(this, selector).aggregate(Math.min, Number.MAX_VALUE);
+        return Lz.select(this, selector).aggregate((acc, cur) => Math.min(acc, cur), Infinity);
     }
 
     /**
@@ -1157,7 +1159,7 @@ export default class Lz<T> implements IterableIterator<T> {
     public static min<T>(source: LzIterable<T>, selector: SelectorFunction<T, number>): number;
     public static min<T extends number>(source: LzIterable<T>, selector?: SelectorFunction<T, number>): number;
     public static min<T>(source: LzIterable<T>, selector: SelectorFunction<T, number> = Lz.identityFunction as any): number {
-        return Lz.select(source, selector).aggregate(Math.min, Number.MAX_VALUE);
+        return Lz.select(source, selector).aggregate((acc, cur) => Math.min(acc, cur), Infinity);
     }
 
     /**
@@ -1239,7 +1241,7 @@ export default class Lz<T> implements IterableIterator<T> {
         let count = 0;
 
         for (const item of source) {
-            if (predicate?.(item, index++) ?? true) {
+            if (typeof predicate === 'function' ? predicate(item, index++) : true) {
                 count++;
             }
         }
@@ -1400,7 +1402,7 @@ export default class Lz<T> implements IterableIterator<T> {
 
         let index = 0;
         for (const item of source) {
-            if (predicate?.(item, index++) ?? true) {
+            if (typeof predicate === 'function' ? predicate(item, index++) : true) {
                 return item;
             }
         }
@@ -1429,7 +1431,7 @@ export default class Lz<T> implements IterableIterator<T> {
                                     predicate?: PredicateFunction<T>): T {
         let index = 0;
         for (const item of source) {
-            if (predicate?.(item, index++) ?? true) {
+            if (typeof predicate === 'function' ? predicate(item, index++) : true) {
                 return item;
             }
         }
