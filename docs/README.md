@@ -10,5 +10,6 @@
 - [Comparator](classes/Comparator.md)
 - [FilenameUtils](classes/FilenameUtils.md)
 - [Lz](classes/Lz.md)
+- [LzGrouped](classes/LzGrouped.md)
 - [SortedMap](classes/SortedMap.md)
 - [StringBuilder](classes/StringBuilder.md)

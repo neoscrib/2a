@@ -3,7 +3,7 @@
 
 import { expect } from 'chai';
 import 'mocha';
-import Lz from '../src/Lz';
+import Lz, { LzGrouped } from '../src/Lz';
 
 describe('Lz', () => {
     describe('append', () => {
@@ -685,6 +685,12 @@ describe('Lz', () => {
                 { type: 'x', items: [ 'g', 'h', 'i' ] },
                 { type: 'y', items: [ 'j', 'k', 'l' ] }
             ];
+
+            const group = Lz.toIterable([
+                [ 'x', [ 'a', 'b', 'c' ] ],
+                [ 'y', [ 'd', 'e', 'f' ] ]
+            ]).toDictionary();
+
             const actual = Lz.groupBy(items, item => item.type, item => item.items).toDictionary();
             const expected = new Map([
                 [ 'x', [ [ 'a', 'b', 'c' ], [ 'g', 'h', 'i' ] ] ],

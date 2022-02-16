@@ -936,7 +936,7 @@ export default class Lz<T> implements IterableIterator<T> {
      * @param {SelectorFunction<T, K>} keySelector A function to extract the key for each element.
      * @returns {Lz<[K, T[]]>} A Map where each entry contains a collection of objects of type T.
      */
-    public groupBy<K>(keySelector: SelectorFunction<T, K>): Lz<[K, T[]]>;
+    public groupBy<K>(keySelector: SelectorFunction<T, K>): LzGrouped<K, T[]>;
     /**
      * Groups the elements of a sequence according to a specified key selector function and projects the elements for each group by using a
      * specified function.
@@ -944,8 +944,8 @@ export default class Lz<T> implements IterableIterator<T> {
      * @param {SelectorFunction<T, V>} elementSelector A function to map each source element to an element in the returned Map.
      * @returns {Lz<[K, V[]]>} A Map where each entry contains a collection of objects of type V.
      */
-    public groupBy<K, V>(keySelector: SelectorFunction<T, K>, elementSelector?: SelectorFunction<T, V>): Lz<[K, V[]]>;
-    public groupBy<K, V>(keySelector: SelectorFunction<T, K>, elementSelector: SelectorFunction<T, V> = Lz.identityFunction as SelectorFunction<T, V>): Lz<[K, V[]]> {
+    public groupBy<K, V>(keySelector: SelectorFunction<T, K>, elementSelector?: SelectorFunction<T, V>): LzGrouped<K, V[]>;
+    public groupBy<K, V>(keySelector: SelectorFunction<T, K>, elementSelector: SelectorFunction<T, V> = Lz.identityFunction as SelectorFunction<T, V>): LzGrouped<K, V[]> {
         return Lz.groupBy(this, keySelector, elementSelector);
     }
 
@@ -956,7 +956,7 @@ export default class Lz<T> implements IterableIterator<T> {
      * @param {SelectorFunction<T, K>} keySelector A function to extract the key for each element.
      * @returns {Lz<[K, V[]]>} A Map where each entry contains a collection of objects of type V.
      */
-    public static groupBy<T, K>(source: LzIterable<T>, keySelector: SelectorFunction<T, K>): Lz<[K, T[]]>;
+    public static groupBy<T, K>(source: LzIterable<T>, keySelector: SelectorFunction<T, K>): LzGrouped<K, T[]>;
 
     /**
      * Groups the elements of a sequence according to a specified key selector function and projects the elements for each group by using a
@@ -966,11 +966,11 @@ export default class Lz<T> implements IterableIterator<T> {
      * @param {SelectorFunction<T, V>} elementSelector A function to map each source element to an element in the returned Map.
      * @returns {Lz<[K, V[]]>} A Map where each entry contains a collection of objects of type V.
      */
-    public static groupBy<T, K, V>(source: LzIterable<T>, keySelector: SelectorFunction<T, K>, elementSelector?: SelectorFunction<T, V>): Lz<[K, V[]]>;
+    public static groupBy<T, K, V>(source: LzIterable<T>, keySelector: SelectorFunction<T, K>, elementSelector?: SelectorFunction<T, V>): LzGrouped<K, V[]>;
 
     public static groupBy<T, K, V>(source: LzIterable<T>, keySelector: SelectorFunction<T, K>,
-                                   elementSelector: SelectorFunction<T, V> = Lz.identityFunction as SelectorFunction<T, V>): Lz<[K, V[]]> {
-        return new Lz<[K, V[]]>(Lz.groupByInternal(source, keySelector, elementSelector));
+                                   elementSelector: SelectorFunction<T, V> = Lz.identityFunction as SelectorFunction<T, V>): LzGrouped<K, V[]> {
+        return new Lz(Lz.groupByInternal(source, keySelector, elementSelector));
     }
 
     private static *groupByInternal<T, K, V>(source: LzIterable<T>, keySelector: SelectorFunction<T, K>, elementSelector: SelectorFunction<T, V>): IterableIterator<[K, V[]]> {
@@ -1443,7 +1443,7 @@ export default class Lz<T> implements IterableIterator<T> {
      * Creates a Map from a sequence of IterableIterator<[T1, T2]>
      * @returns {Map<T1, T2>} A Map that contains keys and values.
      */
-    public toDictionary<T extends [T1, T2], T1, T2>(): Map<T1, T2>;
+    public toDictionary<T1, T2, T extends [T1, T2]>(): Map<T1, T2>;
 
     /**
      * Creates a Map from an Array according to a specified key selector function.
@@ -1465,10 +1465,10 @@ export default class Lz<T> implements IterableIterator<T> {
 
     /**
      * Creates a Map from a sequence of IterableIterator<[T1, T2]>
-     * @param {LzIterable<T>} source The sequence to create a Map<K, T> from.
+     * @param {LzIterable<[T1, T2]>} source The sequence to create a Map<K, T> from.
      * @returns {Map<T1, T2>} A Map that contains keys and values.
      */
-    public static toDictionary<T extends [T1, T2], T1, T2>(source: LzIterable<T>): Map<T1, T2>;
+    public static toDictionary<T1, T2>(source: LzIterable<[T1, T2]>): Map<T1, T2>;
 
     /**
      * Creates a Map from an Array according to a specified key selector function.
@@ -1539,6 +1539,24 @@ export default class Lz<T> implements IterableIterator<T> {
 
     public throw(e?: any): IteratorResult<T> {
         return this.iterable.throw(e);
+    }
+}
+
+// tslint:disable-next-line:max-classes-per-file
+export abstract class LzGrouped<T1, T2> extends Lz<[T1, T2]> {
+    /**
+     * Creates a Map from a sequence of IterableIterator<[T1, T2]>
+     * @returns {Map<T1, T2>} A Map that contains keys and values.
+     */
+    public abstract toDictionary(): Map<T1, T2>;
+
+    /**
+     * Creates a Map from a sequence of IterableIterator<[T1, T2]>
+     * @param {LzIterable<[T1, T2]>} source The sequence to create a Map<T1, T2> from.
+     * @returns {Map<T1, T2>} A Map that contains keys and values.
+     */
+    public static toDictionary<T1, T2>(source: LzIterable<[T1, T2]>): Map<T1, T2> {
+        return Lz.toDictionary(source);
     }
 }
 

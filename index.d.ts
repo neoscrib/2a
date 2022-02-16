@@ -616,7 +616,7 @@ declare namespace twoa {
          * @param {SelectorFunction<T, K>} keySelector A function to extract the key for each element.
          * @returns {IterableIterator<[K, T[]]>} A Map where each entry contains a collection of objects of type T.
          */
-        public groupBy<K>(keySelector: SelectorFunction<T, K>): Lz<[K, T[]]>;
+        public groupBy<K>(keySelector: SelectorFunction<T, K>): LzGrouped<K, T[]>;
 
         /**
          * Groups the elements of a sequence according to a specified key selector function and projects the elements for each group by using a
@@ -625,7 +625,7 @@ declare namespace twoa {
          * @param {SelectorFunction<T, V>} elementSelector A function to map each source element to an element in the returned Map.
          * @returns {IterableIterator<[K, V[]]>} A Map where each entry contains a collection of objects of type V.
          */
-        public groupBy<K, V>(keySelector: SelectorFunction<T, K>, elementSelector?: SelectorFunction<T, V>): Lz<[K, V[]]>;
+        public groupBy<K, V>(keySelector: SelectorFunction<T, K>, elementSelector?: SelectorFunction<T, V>): LzGrouped<K, V[]>;
 
         /**
          * Groups the elements of a sequence according to a specified key selector function and projects the elements for each group by using a
@@ -634,7 +634,7 @@ declare namespace twoa {
          * @param {SelectorFunction<T, K>} keySelector A function to extract the key for each element.
          * @returns {IterableIterator<[K, V[]]>} A Map where each entry contains a collection of objects of type V.
          */
-        public static groupBy<T, K>(source: LzIterable<T>, keySelector: SelectorFunction<T, K>): Lz<[K, T[]]>;
+        public static groupBy<T, K>(source: LzIterable<T>, keySelector: SelectorFunction<T, K>): LzGrouped<K, T[]>;
 
         /**
          * Groups the elements of a sequence according to a specified key selector function and projects the elements for each group by using a
@@ -645,7 +645,7 @@ declare namespace twoa {
          * @returns {IterableIterator<[K, V[]]>} A Map where each entry contains a collection of objects of type V.
          */
         public static groupBy<T, K, V>(source: LzIterable<T>, keySelector: SelectorFunction<T, K>,
-                                       elementSelector?: SelectorFunction<T, V>): Lz<[K, V[]]>;
+                                       elementSelector?: SelectorFunction<T, V>): LzGrouped<K, V[]>;
 
         /**
          * Partitions the sequence into arrays of specified size.
@@ -941,7 +941,7 @@ declare namespace twoa {
          * Creates a Map from a sequence of IterableIterator<[T1, T2]>
          * @returns {Map<T1, T2>} A Map that contains keys and values.
          */
-        public toDictionary<T extends [T1, T2], T1, T2>(): Map<T1, T2>;
+        public toDictionary<T1, T2, T extends [T1, T2]>(): Map<T1, T2>;
 
         /**
          * Creates a Map from an Array according to a specified key selector function.
@@ -964,9 +964,9 @@ declare namespace twoa {
         /**
          * Creates a Map from a sequence of IterableIterator<[T1, T2[]]>
          * @param {LzIterable<T>} source The sequence to create a Map<K, T> from.
-         * @returns {Map<T1, T2[]>} A Map that contains keys and values.
+         * @returns {Map<T1, T2>} A Map that contains keys and values.
          */
-        public static toDictionary<T extends [T1, T2[]], T1, T2>(source: LzIterable<T>): Map<T1, T2[]>;
+        public static toDictionary<T1, T2>(source: LzIterable<[T1, T2]>): Map<T1, T2>;
 
         /**
          * Creates an array from a IterableIterator<T>.
@@ -988,6 +988,21 @@ declare namespace twoa {
         public return(value?: any): IteratorResult<T>;
 
         public throw(e?: any): IteratorResult<T>;
+    }
+
+    export class LzGrouped<T1, T2> extends Lz<[T1, T2]> {
+        /**
+         * Creates a Map from a sequence of IterableIterator<[T1, T2]>
+         * @returns {Map<T1, T2>} A Map that contains keys and values.
+         */
+        public toDictionary(): Map<T1, T2>;
+
+        /**
+         * Creates a Map from a sequence of IterableIterator<[T1, T2]>
+         * @param {LzIterable<[T1, T2]>} source The sequence to create a Map<T1, T2> from.
+         * @returns {Map<T1, T2>} A Map that contains keys and values.
+         */
+        public static toDictionary<T1, T2>(source: LzIterable<[T1, T2]>): Map<T1, T2>;
     }
 
     export class LzOrdered<T, K> extends Lz<T> {

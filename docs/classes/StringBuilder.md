@@ -36,7 +36,7 @@
 
 #### Defined in
 
-[src/StringBuilder.ts:13](https://github.com/neoscrib/2a/blob/0de6cc7/src/StringBuilder.ts#L13)
+[src/StringBuilder.ts:13](https://github.com/neoscrib/2a/blob/c557db4/src/StringBuilder.ts#L13)
 
 ## Accessors
 
@@ -50,7 +50,7 @@
 
 #### Defined in
 
-[src/StringBuilder.ts:76](https://github.com/neoscrib/2a/blob/0de6cc7/src/StringBuilder.ts#L76)
+[src/StringBuilder.ts:76](https://github.com/neoscrib/2a/blob/c557db4/src/StringBuilder.ts#L76)
 
 ## Methods
 
@@ -70,7 +70,7 @@
 
 #### Defined in
 
-[src/StringBuilder.ts:22](https://github.com/neoscrib/2a/blob/0de6cc7/src/StringBuilder.ts#L22)
+[src/StringBuilder.ts:22](https://github.com/neoscrib/2a/blob/c557db4/src/StringBuilder.ts#L22)
 
 ___
 
@@ -90,7 +90,7 @@ ___
 
 #### Defined in
 
-[src/StringBuilder.ts:27](https://github.com/neoscrib/2a/blob/0de6cc7/src/StringBuilder.ts#L27)
+[src/StringBuilder.ts:27](https://github.com/neoscrib/2a/blob/c557db4/src/StringBuilder.ts#L27)
 
 ___
 
@@ -104,7 +104,7 @@ ___
 
 #### Defined in
 
-[src/StringBuilder.ts:36](https://github.com/neoscrib/2a/blob/0de6cc7/src/StringBuilder.ts#L36)
+[src/StringBuilder.ts:36](https://github.com/neoscrib/2a/blob/c557db4/src/StringBuilder.ts#L36)
 
 ___
 
@@ -124,7 +124,7 @@ ___
 
 #### Defined in
 
-[src/StringBuilder.ts:64](https://github.com/neoscrib/2a/blob/0de6cc7/src/StringBuilder.ts#L64)
+[src/StringBuilder.ts:64](https://github.com/neoscrib/2a/blob/c557db4/src/StringBuilder.ts#L64)
 
 ___
 
@@ -138,7 +138,7 @@ ___
 
 #### Defined in
 
-[src/StringBuilder.ts:51](https://github.com/neoscrib/2a/blob/0de6cc7/src/StringBuilder.ts#L51)
+[src/StringBuilder.ts:51](https://github.com/neoscrib/2a/blob/c557db4/src/StringBuilder.ts#L51)
 
 ___
 
@@ -152,4 +152,4 @@ ___
 
 #### Defined in
 
-[src/StringBuilder.ts:72](https://github.com/neoscrib/2a/blob/0de6cc7/src/StringBuilder.ts#L72)
+[src/StringBuilder.ts:72](https://github.com/neoscrib/2a/blob/c557db4/src/StringBuilder.ts#L72)

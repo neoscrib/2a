@@ -1,145 +1,147 @@
-[2a](../README.md) / Lz
+[2a](../README.md) / LzGrouped
 
-# Class: Lz<T\>
+# Class: LzGrouped<T1, T2\>
 
 ## Type parameters
 
 | Name |
 | :------ |
-| `T` |
+| `T1` |
+| `T2` |
 
 ## Hierarchy
 
-- **`Lz`**
+- [`Lz`](Lz.md)<[`T1`, `T2`]\>
 
-  ↳ [`LzGrouped`](LzGrouped.md)
-
-## Implements
-
-- `IterableIterator`<`T`\>
+  ↳ **`LzGrouped`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](Lz.md#constructor)
+- [constructor](LzGrouped.md#constructor)
 
 ### Properties
 
-- [identityFunction](Lz.md#identityfunction)
+- [identityFunction](LzGrouped.md#identityfunction)
 
 ### Methods
 
-- [[iterator]](Lz.md#[iterator])
-- [aggregate](Lz.md#aggregate)
-- [all](Lz.md#all)
-- [any](Lz.md#any)
-- [append](Lz.md#append)
-- [average](Lz.md#average)
-- [concat](Lz.md#concat)
-- [count](Lz.md#count)
-- [defaultIfEmpty](Lz.md#defaultifempty)
-- [distinct](Lz.md#distinct)
-- [except](Lz.md#except)
-- [first](Lz.md#first)
-- [firstOrDefault](Lz.md#firstordefault)
-- [forEach](Lz.md#foreach)
-- [groupBy](Lz.md#groupby)
-- [insert](Lz.md#insert)
-- [intersect](Lz.md#intersect)
-- [join](Lz.md#join)
-- [last](Lz.md#last)
-- [lastOrDefault](Lz.md#lastordefault)
-- [max](Lz.md#max)
-- [min](Lz.md#min)
-- [next](Lz.md#next)
-- [orderBy](Lz.md#orderby)
-- [orderByDescending](Lz.md#orderbydescending)
-- [partition](Lz.md#partition)
-- [prepend](Lz.md#prepend)
-- [return](Lz.md#return)
-- [reverse](Lz.md#reverse)
-- [select](Lz.md#select)
-- [selectMany](Lz.md#selectmany)
-- [sequenceEqual](Lz.md#sequenceequal)
-- [single](Lz.md#single)
-- [singleOrDefault](Lz.md#singleordefault)
-- [skip](Lz.md#skip)
-- [skipWhile](Lz.md#skipwhile)
-- [sum](Lz.md#sum)
-- [take](Lz.md#take)
-- [takeWhile](Lz.md#takewhile)
-- [throw](Lz.md#throw)
-- [toArray](Lz.md#toarray)
-- [toDictionary](Lz.md#todictionary)
-- [toIterable](Lz.md#toiterable)
-- [union](Lz.md#union)
-- [where](Lz.md#where)
-- [zip](Lz.md#zip)
-- [aggregate](Lz.md#aggregate)
-- [all](Lz.md#all)
-- [any](Lz.md#any)
-- [append](Lz.md#append)
-- [average](Lz.md#average)
-- [concat](Lz.md#concat)
-- [count](Lz.md#count)
-- [defaultIfEmpty](Lz.md#defaultifempty)
-- [distinct](Lz.md#distinct)
-- [empty](Lz.md#empty)
-- [except](Lz.md#except)
-- [first](Lz.md#first)
-- [firstOrDefault](Lz.md#firstordefault)
-- [forEach](Lz.md#foreach)
-- [groupBy](Lz.md#groupby)
-- [insert](Lz.md#insert)
-- [intersect](Lz.md#intersect)
-- [join](Lz.md#join)
-- [last](Lz.md#last)
-- [lastOrDefault](Lz.md#lastordefault)
-- [max](Lz.md#max)
-- [min](Lz.md#min)
-- [orderBy](Lz.md#orderby)
-- [orderByDescending](Lz.md#orderbydescending)
-- [partition](Lz.md#partition)
-- [prepend](Lz.md#prepend)
-- [range](Lz.md#range)
-- [repeat](Lz.md#repeat)
-- [repeatAction](Lz.md#repeataction)
-- [reverse](Lz.md#reverse)
-- [select](Lz.md#select)
-- [selectMany](Lz.md#selectmany)
-- [sequenceEqual](Lz.md#sequenceequal)
-- [single](Lz.md#single)
-- [singleOrDefault](Lz.md#singleordefault)
-- [skip](Lz.md#skip)
-- [skipWhile](Lz.md#skipwhile)
-- [sum](Lz.md#sum)
-- [take](Lz.md#take)
-- [takeWhile](Lz.md#takewhile)
-- [toArray](Lz.md#toarray)
-- [toDictionary](Lz.md#todictionary)
-- [toIterable](Lz.md#toiterable)
-- [union](Lz.md#union)
-- [where](Lz.md#where)
-- [zip](Lz.md#zip)
+- [[iterator]](LzGrouped.md#[iterator])
+- [aggregate](LzGrouped.md#aggregate)
+- [all](LzGrouped.md#all)
+- [any](LzGrouped.md#any)
+- [append](LzGrouped.md#append)
+- [average](LzGrouped.md#average)
+- [concat](LzGrouped.md#concat)
+- [count](LzGrouped.md#count)
+- [defaultIfEmpty](LzGrouped.md#defaultifempty)
+- [distinct](LzGrouped.md#distinct)
+- [except](LzGrouped.md#except)
+- [first](LzGrouped.md#first)
+- [firstOrDefault](LzGrouped.md#firstordefault)
+- [forEach](LzGrouped.md#foreach)
+- [groupBy](LzGrouped.md#groupby)
+- [insert](LzGrouped.md#insert)
+- [intersect](LzGrouped.md#intersect)
+- [join](LzGrouped.md#join)
+- [last](LzGrouped.md#last)
+- [lastOrDefault](LzGrouped.md#lastordefault)
+- [max](LzGrouped.md#max)
+- [min](LzGrouped.md#min)
+- [next](LzGrouped.md#next)
+- [orderBy](LzGrouped.md#orderby)
+- [orderByDescending](LzGrouped.md#orderbydescending)
+- [partition](LzGrouped.md#partition)
+- [prepend](LzGrouped.md#prepend)
+- [return](LzGrouped.md#return)
+- [reverse](LzGrouped.md#reverse)
+- [select](LzGrouped.md#select)
+- [selectMany](LzGrouped.md#selectmany)
+- [sequenceEqual](LzGrouped.md#sequenceequal)
+- [single](LzGrouped.md#single)
+- [singleOrDefault](LzGrouped.md#singleordefault)
+- [skip](LzGrouped.md#skip)
+- [skipWhile](LzGrouped.md#skipwhile)
+- [sum](LzGrouped.md#sum)
+- [take](LzGrouped.md#take)
+- [takeWhile](LzGrouped.md#takewhile)
+- [throw](LzGrouped.md#throw)
+- [toArray](LzGrouped.md#toarray)
+- [toDictionary](LzGrouped.md#todictionary)
+- [toIterable](LzGrouped.md#toiterable)
+- [union](LzGrouped.md#union)
+- [where](LzGrouped.md#where)
+- [zip](LzGrouped.md#zip)
+- [aggregate](LzGrouped.md#aggregate)
+- [all](LzGrouped.md#all)
+- [any](LzGrouped.md#any)
+- [append](LzGrouped.md#append)
+- [average](LzGrouped.md#average)
+- [concat](LzGrouped.md#concat)
+- [count](LzGrouped.md#count)
+- [defaultIfEmpty](LzGrouped.md#defaultifempty)
+- [distinct](LzGrouped.md#distinct)
+- [empty](LzGrouped.md#empty)
+- [except](LzGrouped.md#except)
+- [first](LzGrouped.md#first)
+- [firstOrDefault](LzGrouped.md#firstordefault)
+- [forEach](LzGrouped.md#foreach)
+- [groupBy](LzGrouped.md#groupby)
+- [insert](LzGrouped.md#insert)
+- [intersect](LzGrouped.md#intersect)
+- [join](LzGrouped.md#join)
+- [last](LzGrouped.md#last)
+- [lastOrDefault](LzGrouped.md#lastordefault)
+- [max](LzGrouped.md#max)
+- [min](LzGrouped.md#min)
+- [orderBy](LzGrouped.md#orderby)
+- [orderByDescending](LzGrouped.md#orderbydescending)
+- [partition](LzGrouped.md#partition)
+- [prepend](LzGrouped.md#prepend)
+- [range](LzGrouped.md#range)
+- [repeat](LzGrouped.md#repeat)
+- [repeatAction](LzGrouped.md#repeataction)
+- [reverse](LzGrouped.md#reverse)
+- [select](LzGrouped.md#select)
+- [selectMany](LzGrouped.md#selectmany)
+- [sequenceEqual](LzGrouped.md#sequenceequal)
+- [single](LzGrouped.md#single)
+- [singleOrDefault](LzGrouped.md#singleordefault)
+- [skip](LzGrouped.md#skip)
+- [skipWhile](LzGrouped.md#skipwhile)
+- [sum](LzGrouped.md#sum)
+- [take](LzGrouped.md#take)
+- [takeWhile](LzGrouped.md#takewhile)
+- [toArray](LzGrouped.md#toarray)
+- [toDictionary](LzGrouped.md#todictionary)
+- [toIterable](LzGrouped.md#toiterable)
+- [union](LzGrouped.md#union)
+- [where](LzGrouped.md#where)
+- [zip](LzGrouped.md#zip)
 
 ## Constructors
 
 ### constructor
 
-• **new Lz**<`T`\>(`iterable`)
+• **new LzGrouped**<`T1`, `T2`\>(`iterable`)
 
 #### Type parameters
 
 | Name |
 | :------ |
-| `T` |
+| `T1` |
+| `T2` |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `iterable` | `IterableIterator`<`T`\> |
+| `iterable` | `IterableIterator`<[`T1`, `T2`]\> |
+
+#### Inherited from
+
+[Lz](Lz.md).[constructor](Lz.md#constructor)
 
 #### Defined in
 
@@ -151,6 +153,10 @@
 
 ▪ `Static` `Readonly` **identityFunction**: `IdentityFunction`<`any`\>
 
+#### Inherited from
+
+[Lz](Lz.md).[identityFunction](Lz.md#identityfunction)
+
 #### Defined in
 
 [src/Lz.ts:18](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L18)
@@ -159,15 +165,15 @@
 
 ### [iterator]
 
-▸ **[iterator]**(): `IterableIterator`<`T`\>
+▸ **[iterator]**(): `IterableIterator`<[`T1`, `T2`]\>
 
 #### Returns
 
-`IterableIterator`<`T`\>
+`IterableIterator`<[`T1`, `T2`]\>
 
-#### Implementation of
+#### Inherited from
 
-IterableIterator.\_\_@iterator@78
+[Lz](Lz.md).[[iterator]](Lz.md#[iterator])
 
 #### Defined in
 
@@ -191,7 +197,7 @@ Applies an accumulator function over a sequence. The specified seed value is use
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `func` | `AccumulatorFunction`<`T`, `U`\> | An accumulator function to be invoked on each element. |
+| `func` | `AccumulatorFunction`<[`T1`, `T2`], `U`\> | An accumulator function to be invoked on each element. |
 | `seed?` | `U` | The initial accumulator value. |
 
 #### Returns
@@ -199,6 +205,10 @@ Applies an accumulator function over a sequence. The specified seed value is use
 `U`
 
 The final accumulator value.
+
+#### Inherited from
+
+[Lz](Lz.md).[aggregate](Lz.md#aggregate)
 
 #### Defined in
 
@@ -216,7 +226,7 @@ Determines whether all elements of a sequence satisfy a condition.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `predicate` | `PredicateFunction`<`T`\> | A function to test each element for a condition. |
+| `predicate` | `PredicateFunction`<[`T1`, `T2`]\> | A function to test each element for a condition. |
 
 #### Returns
 
@@ -224,6 +234,10 @@ Determines whether all elements of a sequence satisfy a condition.
 
 <b>true</b> if every element of the source sequence passes the test in the specified predicate, or if the sequence is empty;
 otherwise, <b>false</b>.
+
+#### Inherited from
+
+[Lz](Lz.md).[all](Lz.md#all)
 
 #### Defined in
 
@@ -241,13 +255,17 @@ Determines whether any element of a sequence satisfies a condition.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `predicate` | `PredicateFunction`<`T`\> | A function to test each element for a condition. |
+| `predicate` | `PredicateFunction`<[`T1`, `T2`]\> | A function to test each element for a condition. |
 
 #### Returns
 
 `boolean`
 
 <b>true</b> if any elements in the source sequence pass the test in the specified predicate; otherwise, <b>false</b>.
+
+#### Inherited from
+
+[Lz](Lz.md).[any](Lz.md#any)
 
 #### Defined in
 
@@ -257,7 +275,7 @@ ___
 
 ### append
 
-▸ **append**(...`elements`): [`Lz`](Lz.md)<`T`\>
+▸ **append**(...`elements`): [`Lz`](Lz.md)<[`T1`, `T2`]\>
 
 Appends a value to the end of the sequence.
 
@@ -270,13 +288,17 @@ until the object is enumerated either by calling its toArray method directly or 
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `...elements` | `T`[] | The value(s) to append to source. |
+| `...elements` | [`T1`, `T2`][] | The value(s) to append to source. |
 
 #### Returns
 
-[`Lz`](Lz.md)<`T`\>
+[`Lz`](Lz.md)<[`T1`, `T2`]\>
 
 A new sequence that ends with element.
+
+#### Inherited from
+
+[Lz](Lz.md).[append](Lz.md#append)
 
 #### Defined in
 
@@ -294,13 +316,17 @@ Computes the average of a sequence of values that are obtained by invoking a tra
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `selector` | `SelectorFunction`<`T`, `number`\> | A transform function to apply to each element. |
+| `selector` | `SelectorFunction`<[`T1`, `T2`], `number`\> | A transform function to apply to each element. |
 
 #### Returns
 
 `number`
 
 The average of the sequence of values, or 0 if the source sequence is empty.
+
+#### Inherited from
+
+[Lz](Lz.md).[average](Lz.md#average)
 
 #### Defined in
 
@@ -318,6 +344,10 @@ The average of the sequence of values, or 0 if the source sequence is empty.
 
 `number`
 
+#### Inherited from
+
+[Lz](Lz.md).[average](Lz.md#average)
+
 #### Defined in
 
 [src/Lz.ts:1194](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1194)
@@ -326,7 +356,7 @@ ___
 
 ### concat
 
-▸ **concat**(`second`): [`Lz`](Lz.md)<`T`\>
+▸ **concat**(`second`): [`Lz`](Lz.md)<[`T1`, `T2`]\>
 
 Concatenates two sequences.
 
@@ -334,13 +364,17 @@ Concatenates two sequences.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `second` | `LzIterable`<`T`\> | The sequence to concatenate to the first sequence. |
+| `second` | `LzIterable`<[`T1`, `T2`]\> | The sequence to concatenate to the first sequence. |
 
 #### Returns
 
-[`Lz`](Lz.md)<`T`\>
+[`Lz`](Lz.md)<[`T1`, `T2`]\>
 
 A sequence that contains the concatenated elements of the two input sequences.
+
+#### Inherited from
+
+[Lz](Lz.md).[concat](Lz.md#concat)
 
 #### Defined in
 
@@ -358,13 +392,17 @@ Returns a number that represents how many elements in the specified sequence sat
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `predicate?` | `PredicateFunction`<`T`\> | A function to test each element for a condition. |
+| `predicate?` | `PredicateFunction`<[`T1`, `T2`]\> | A function to test each element for a condition. |
 
 #### Returns
 
 `number`
 
 A number that represents how many elements in the sequence satisfy the condition in the predicate function.
+
+#### Inherited from
+
+[Lz](Lz.md).[count](Lz.md#count)
 
 #### Defined in
 
@@ -374,7 +412,7 @@ ___
 
 ### defaultIfEmpty
 
-▸ **defaultIfEmpty**(`defaultValue`): [`Lz`](Lz.md)<`T`\>
+▸ **defaultIfEmpty**(`defaultValue`): [`Lz`](Lz.md)<[`T1`, `T2`]\>
 
 Returns the elements of the specified sequence or the specified value as a singleton collection if the
 sequence is empty.
@@ -388,14 +426,18 @@ until the object is enumerated either by calling its toArray method directly or 
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `defaultValue` | `T` | The value to return if the sequence is empty. |
+| `defaultValue` | [`T1`, `T2`] | The value to return if the sequence is empty. |
 
 #### Returns
 
-[`Lz`](Lz.md)<`T`\>
+[`Lz`](Lz.md)<[`T1`, `T2`]\>
 
 A sequence that contains <i>defaultValue</i> if <i>source</i> is empty; otherwise,
 <i>source</i>
+
+#### Inherited from
+
+[Lz](Lz.md).[defaultIfEmpty](Lz.md#defaultifempty)
 
 #### Defined in
 
@@ -405,7 +447,7 @@ ___
 
 ### distinct
 
-▸ **distinct**(`comparator?`): [`Lz`](Lz.md)<`T`\>
+▸ **distinct**(`comparator?`): [`Lz`](Lz.md)<[`T1`, `T2`]\>
 
 Returns distinct elements from a sequence by using a specified ComparatorFunction<T> to compare values.
 
@@ -418,13 +460,17 @@ until the object is enumerated either by calling its toArray method directly or 
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `comparator?` | `ComparatorFunction`<`T`\> | Optional. A ComparatorFunction<T> to compare values. |
+| `comparator?` | `ComparatorFunction`<[`T1`, `T2`]\> | Optional. A ComparatorFunction<T> to compare values. |
 
 #### Returns
 
-[`Lz`](Lz.md)<`T`\>
+[`Lz`](Lz.md)<[`T1`, `T2`]\>
 
 A sequence that contains distinct elements from the source sequence.
+
+#### Inherited from
+
+[Lz](Lz.md).[distinct](Lz.md#distinct)
 
 #### Defined in
 
@@ -434,7 +480,7 @@ ___
 
 ### except
 
-▸ **except**(`second`, `comparator?`): [`Lz`](Lz.md)<`T`\>
+▸ **except**(`second`, `comparator?`): [`Lz`](Lz.md)<[`T1`, `T2`]\>
 
 Produces the set difference of two sequences by using the specified <i>ComparatorFunction<T></i> to compare
 values.
@@ -448,14 +494,18 @@ until the object is enumerated either by calling its toArray method directly or 
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `second` | `LzIterable`<`T`\> | A sequence whose elements that also occur in the first sequence will cause those elements to be removed from the returned sequence. |
-| `comparator?` | `ComparatorFunction`<`T`\> | Optional. A ComparatorFunction<T> to compare values. |
+| `second` | `LzIterable`<[`T1`, `T2`]\> | A sequence whose elements that also occur in the first sequence will cause those elements to be removed from the returned sequence. |
+| `comparator?` | `ComparatorFunction`<[`T1`, `T2`]\> | Optional. A ComparatorFunction<T> to compare values. |
 
 #### Returns
 
-[`Lz`](Lz.md)<`T`\>
+[`Lz`](Lz.md)<[`T1`, `T2`]\>
 
 A sequence that contains the set difference of the elements of two sequences.
+
+#### Inherited from
+
+[Lz](Lz.md).[except](Lz.md#except)
 
 #### Defined in
 
@@ -465,7 +515,7 @@ ___
 
 ### first
 
-▸ **first**(`predicate?`): `T`
+▸ **first**(`predicate?`): [`T1`, `T2`]
 
 Returns the first element of a sequence.
 
@@ -475,13 +525,17 @@ Returns the first element of a sequence.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `predicate?` | `PredicateFunction`<`T`\> | A function to test each element for a condition. |
+| `predicate?` | `PredicateFunction`<[`T1`, `T2`]\> | A function to test each element for a condition. |
 
 #### Returns
 
-`T`
+[`T1`, `T2`]
 
 The first element.
+
+#### Inherited from
+
+[Lz](Lz.md).[first](Lz.md#first)
 
 #### Defined in
 
@@ -491,7 +545,7 @@ ___
 
 ### firstOrDefault
 
-▸ **firstOrDefault**(`defaultValue`, `predicate?`): `T`
+▸ **firstOrDefault**(`defaultValue`, `predicate?`): [`T1`, `T2`]
 
 Returns the first element of a sequence, or a default value if the sequence contains no elements.
 
@@ -499,14 +553,18 @@ Returns the first element of a sequence, or a default value if the sequence cont
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `defaultValue` | `T` | The default value. |
-| `predicate?` | `PredicateFunction`<`T`\> | A function to test each element for a condition. |
+| `defaultValue` | [`T1`, `T2`] | The default value. |
+| `predicate?` | `PredicateFunction`<[`T1`, `T2`]\> | A function to test each element for a condition. |
 
 #### Returns
 
-`T`
+[`T1`, `T2`]
 
 The first element, or a default value if the sequence contains no elements.
+
+#### Inherited from
+
+[Lz](Lz.md).[firstOrDefault](Lz.md#firstordefault)
 
 #### Defined in
 
@@ -524,11 +582,15 @@ Performs the specified action on each element of the sequence.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `action` | `Action`<`T`\> | The action delegate to perform on each element of the sequence. |
+| `action` | `Action`<[`T1`, `T2`]\> | The action delegate to perform on each element of the sequence. |
 
 #### Returns
 
 `void`
+
+#### Inherited from
+
+[Lz](Lz.md).[forEach](Lz.md#foreach)
 
 #### Defined in
 
@@ -538,7 +600,7 @@ ___
 
 ### groupBy
 
-▸ **groupBy**<`K`\>(`keySelector`): [`LzGrouped`](LzGrouped.md)<`K`, `T`[]\>
+▸ **groupBy**<`K`\>(`keySelector`): [`LzGrouped`](LzGrouped.md)<`K`, [`T1`, `T2`][]\>
 
 Groups the elements of a sequence according to a specified key selector function and projects the elements for each group by using a
 specified function.
@@ -553,13 +615,17 @@ specified function.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `keySelector` | `SelectorFunction`<`T`, `K`\> | A function to extract the key for each element. |
+| `keySelector` | `SelectorFunction`<[`T1`, `T2`], `K`\> | A function to extract the key for each element. |
 
 #### Returns
 
-[`LzGrouped`](LzGrouped.md)<`K`, `T`[]\>
+[`LzGrouped`](LzGrouped.md)<`K`, [`T1`, `T2`][]\>
 
 A Map where each entry contains a collection of objects of type T.
+
+#### Inherited from
+
+[Lz](Lz.md).[groupBy](Lz.md#groupby)
 
 #### Defined in
 
@@ -581,14 +647,18 @@ specified function.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `keySelector` | `SelectorFunction`<`T`, `K`\> | A function to extract the key for each element. |
-| `elementSelector?` | `SelectorFunction`<`T`, `V`\> | A function to map each source element to an element in the returned Map. |
+| `keySelector` | `SelectorFunction`<[`T1`, `T2`], `K`\> | A function to extract the key for each element. |
+| `elementSelector?` | `SelectorFunction`<[`T1`, `T2`], `V`\> | A function to map each source element to an element in the returned Map. |
 
 #### Returns
 
 [`LzGrouped`](LzGrouped.md)<`K`, `V`[]\>
 
 A Map where each entry contains a collection of objects of type V.
+
+#### Inherited from
+
+[Lz](Lz.md).[groupBy](Lz.md#groupby)
 
 #### Defined in
 
@@ -598,7 +668,7 @@ ___
 
 ### insert
 
-▸ **insert**(`element`, `index`): [`Lz`](Lz.md)<`T`\>
+▸ **insert**(`element`, `index`): [`Lz`](Lz.md)<[`T1`, `T2`]\>
 
 Inserts a value into the source sequence at the specified index.
 
@@ -611,14 +681,18 @@ until the object is enumerated either by calling its toArray method directly or 
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `element` | `T` | The value to insert to <i>source</i>. |
+| `element` | [`T1`, `T2`] | The value to insert to <i>source</i>. |
 | `index` | `number` | The index at which to insert <i>element</i>. |
 
 #### Returns
 
-[`Lz`](Lz.md)<`T`\>
+[`Lz`](Lz.md)<[`T1`, `T2`]\>
 
 A new sequence that contains <i>element</i> at <i>index</i>.
+
+#### Inherited from
+
+[Lz](Lz.md).[insert](Lz.md#insert)
 
 #### Defined in
 
@@ -628,7 +702,7 @@ ___
 
 ### intersect
 
-▸ **intersect**(`second`, `comparator?`): [`Lz`](Lz.md)<`T`\>
+▸ **intersect**(`second`, `comparator?`): [`Lz`](Lz.md)<[`T1`, `T2`]\>
 
 Produces the set intersection of two sequences.
 
@@ -641,14 +715,18 @@ until the object is enumerated either by calling its toArray method directly or 
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `second` | `LzIterable`<`T`\> | A sequence whose distinct elements that also appear in the first sequence will be returned. |
-| `comparator?` | `ComparatorFunction`<`T`\> | A ComparatorFunction<T> to compare values. |
+| `second` | `LzIterable`<[`T1`, `T2`]\> | A sequence whose distinct elements that also appear in the first sequence will be returned. |
+| `comparator?` | `ComparatorFunction`<[`T1`, `T2`]\> | A ComparatorFunction<T> to compare values. |
 
 #### Returns
 
-[`Lz`](Lz.md)<`T`\>
+[`Lz`](Lz.md)<[`T1`, `T2`]\>
 
 A sequence that contains the elements that form the set intersection of two sequences.
+
+#### Inherited from
+
+[Lz](Lz.md).[intersect](Lz.md#intersect)
 
 #### Defined in
 
@@ -680,9 +758,9 @@ until the object is enumerated either by calling its toArray method directly or 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `inner` | `IterableIterator`<`T2`\> \| `T2`[] | The sequence to join to the first sequence. |
-| `outerKeySelector` | `SelectorFunction`<`T`, `K`\> | A function to extract the join key from each element of the first sequence. |
+| `outerKeySelector` | `SelectorFunction`<[`T1`, `T2`], `K`\> | A function to extract the join key from each element of the first sequence. |
 | `innerKeySelector` | `SelectorFunction`<`T2`, `K`\> | A function to extract the join key from each element of the second sequence. |
-| `resultSelector` | (`a`: `T`, `b`: `T2`) => `U` | A function to create a result element from two matching elements. |
+| `resultSelector` | (`a`: [`T1`, `T2`], `b`: `T2`) => `U` | A function to create a result element from two matching elements. |
 
 #### Returns
 
@@ -690,6 +768,10 @@ until the object is enumerated either by calling its toArray method directly or 
 
 A sequence that has elements of type <i>U</i> that are obtained by performing an inner
 join on two sequences.
+
+#### Inherited from
+
+[Lz](Lz.md).[join](Lz.md#join)
 
 #### Defined in
 
@@ -699,7 +781,7 @@ ___
 
 ### last
 
-▸ **last**(`predicate?`): `T`
+▸ **last**(`predicate?`): [`T1`, `T2`]
 
 Returns the last element of a sequence.
 
@@ -709,13 +791,17 @@ Returns the last element of a sequence.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `predicate?` | `PredicateFunction`<`T`\> | A function to test each element for a condition. |
+| `predicate?` | `PredicateFunction`<[`T1`, `T2`]\> | A function to test each element for a condition. |
 
 #### Returns
 
-`T`
+[`T1`, `T2`]
 
 The value at the last position in the source sequence.
+
+#### Inherited from
+
+[Lz](Lz.md).[last](Lz.md#last)
 
 #### Defined in
 
@@ -725,7 +811,7 @@ ___
 
 ### lastOrDefault
 
-▸ **lastOrDefault**(`defaultValue`, `predicate?`): `T`
+▸ **lastOrDefault**(`defaultValue`, `predicate?`): [`T1`, `T2`]
 
 Returns the last element of a sequence, or a default value if no element is found.
 
@@ -733,14 +819,18 @@ Returns the last element of a sequence, or a default value if no element is foun
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `defaultValue` | `T` | The default value. |
-| `predicate?` | `PredicateFunction`<`T`\> | A function to test each element for a condition. |
+| `defaultValue` | [`T1`, `T2`] | The default value. |
+| `predicate?` | `PredicateFunction`<[`T1`, `T2`]\> | A function to test each element for a condition. |
 
 #### Returns
 
-`T`
+[`T1`, `T2`]
 
 The value at the last position in the source sequence.
+
+#### Inherited from
+
+[Lz](Lz.md).[lastOrDefault](Lz.md#lastordefault)
 
 #### Defined in
 
@@ -758,13 +848,17 @@ Invokes a transform function on each element of a sequence and returns the maxim
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `selector` | `SelectorFunction`<`T`, `number`\> | A transform function to apply to each element. |
+| `selector` | `SelectorFunction`<[`T1`, `T2`], `number`\> | A transform function to apply to each element. |
 
 #### Returns
 
 `number`
 
 The maximum value in the sequence.
+
+#### Inherited from
+
+[Lz](Lz.md).[max](Lz.md#max)
 
 #### Defined in
 
@@ -782,6 +876,10 @@ The maximum value in the sequence.
 
 `number`
 
+#### Inherited from
+
+[Lz](Lz.md).[max](Lz.md#max)
+
 #### Defined in
 
 [src/Lz.ts:1125](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1125)
@@ -798,13 +896,17 @@ Invokes a transform function on each element of a sequence and returns the minim
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `selector` | `SelectorFunction`<`T`, `number`\> | A transform function to apply to each element. |
+| `selector` | `SelectorFunction`<[`T1`, `T2`], `number`\> | A transform function to apply to each element. |
 
 #### Returns
 
 `number`
 
 The minimum value in the sequence.
+
+#### Inherited from
+
+[Lz](Lz.md).[min](Lz.md#min)
 
 #### Defined in
 
@@ -822,6 +924,10 @@ The minimum value in the sequence.
 
 `number`
 
+#### Inherited from
+
+[Lz](Lz.md).[min](Lz.md#min)
+
 #### Defined in
 
 [src/Lz.ts:1148](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1148)
@@ -830,7 +936,7 @@ ___
 
 ### next
 
-▸ **next**(`value?`): `IteratorResult`<`T`, `any`\>
+▸ **next**(`value?`): `IteratorResult`<[`T1`, `T2`], `any`\>
 
 #### Parameters
 
@@ -840,11 +946,11 @@ ___
 
 #### Returns
 
-`IteratorResult`<`T`, `any`\>
+`IteratorResult`<[`T1`, `T2`], `any`\>
 
-#### Implementation of
+#### Inherited from
 
-IterableIterator.next
+[Lz](Lz.md).[next](Lz.md#next)
 
 #### Defined in
 
@@ -854,7 +960,7 @@ ___
 
 ### orderBy
 
-▸ **orderBy**<`V`\>(`selector`): `LzOrdered`<`T`, `V`\>
+▸ **orderBy**<`V`\>(`selector`): `LzOrdered`<[`T1`, `T2`], `V`\>
 
 Sorts the elements of a sequence in ascending order according to a key.
 
@@ -868,19 +974,23 @@ Sorts the elements of a sequence in ascending order according to a key.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `selector` | `SelectorFunctionNoIndex`<`T`, `V`\> | A function to extract a key from an element. |
+| `selector` | `SelectorFunctionNoIndex`<[`T1`, `T2`], `V`\> | A function to extract a key from an element. |
 
 #### Returns
 
-`LzOrdered`<`T`, `V`\>
+`LzOrdered`<[`T1`, `T2`], `V`\>
 
 A sequence whose elements are sorted according to a key.
+
+#### Inherited from
+
+[Lz](Lz.md).[orderBy](Lz.md#orderby)
 
 #### Defined in
 
 [src/Lz.ts:515](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L515)
 
-▸ **orderBy**<`V`\>(`selector`, `comparator`): `LzOrdered`<`T`, `V`\>
+▸ **orderBy**<`V`\>(`selector`, `comparator`): `LzOrdered`<[`T1`, `T2`], `V`\>
 
 Sorts the elements of a sequence in ascending order by using a specified comparator.
 
@@ -894,14 +1004,18 @@ Sorts the elements of a sequence in ascending order by using a specified compara
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `selector` | `SelectorFunctionNoIndex`<`T`, `V`\> | A function to extract a key from an element. |
+| `selector` | `SelectorFunctionNoIndex`<[`T1`, `T2`], `V`\> | A function to extract a key from an element. |
 | `comparator` | `ComparatorFunction`<`V`\> | A ComparatorFunction<V> to compare keys. |
 
 #### Returns
 
-`LzOrdered`<`T`, `V`\>
+`LzOrdered`<[`T1`, `T2`], `V`\>
 
 A sequence whose elements are sorted according to a key.
+
+#### Inherited from
+
+[Lz](Lz.md).[orderBy](Lz.md#orderby)
 
 #### Defined in
 
@@ -911,7 +1025,7 @@ ___
 
 ### orderByDescending
 
-▸ **orderByDescending**<`V`\>(`selector`): `LzOrdered`<`T`, `V`\>
+▸ **orderByDescending**<`V`\>(`selector`): `LzOrdered`<[`T1`, `T2`], `V`\>
 
 Sorts the elements of a sequence in descending order according to a key.
 
@@ -925,19 +1039,23 @@ Sorts the elements of a sequence in descending order according to a key.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `selector` | `SelectorFunctionNoIndex`<`T`, `V`\> | A function to extract a key from an element. |
+| `selector` | `SelectorFunctionNoIndex`<[`T1`, `T2`], `V`\> | A function to extract a key from an element. |
 
 #### Returns
 
-`LzOrdered`<`T`, `V`\>
+`LzOrdered`<[`T1`, `T2`], `V`\>
 
 A sequence whose elements are sorted according to a key.
+
+#### Inherited from
+
+[Lz](Lz.md).[orderByDescending](Lz.md#orderbydescending)
 
 #### Defined in
 
 [src/Lz.ts:555](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L555)
 
-▸ **orderByDescending**<`V`\>(`selector`, `comparator`): `LzOrdered`<`T`, `V`\>
+▸ **orderByDescending**<`V`\>(`selector`, `comparator`): `LzOrdered`<[`T1`, `T2`], `V`\>
 
 Sorts the elements of a sequence in descending order by using a specified comparator.
 
@@ -951,14 +1069,18 @@ Sorts the elements of a sequence in descending order by using a specified compar
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `selector` | `SelectorFunctionNoIndex`<`T`, `V`\> | A function to extract a key from an element. |
+| `selector` | `SelectorFunctionNoIndex`<[`T1`, `T2`], `V`\> | A function to extract a key from an element. |
 | `comparator` | `ComparatorFunction`<`V`\> | A ComparatorFunction<V> to compare keys. |
 
 #### Returns
 
-`LzOrdered`<`T`, `V`\>
+`LzOrdered`<[`T1`, `T2`], `V`\>
 
 A sequence whose elements are sorted according to a key.
+
+#### Inherited from
+
+[Lz](Lz.md).[orderByDescending](Lz.md#orderbydescending)
 
 #### Defined in
 
@@ -968,7 +1090,7 @@ ___
 
 ### partition
 
-▸ **partition**(`size`): [`Lz`](Lz.md)<`T`[]\>
+▸ **partition**(`size`): [`Lz`](Lz.md)<[`T1`, `T2`][]\>
 
 Partitions the sequence into arrays of specified size.
 
@@ -980,9 +1102,13 @@ Partitions the sequence into arrays of specified size.
 
 #### Returns
 
-[`Lz`](Lz.md)<`T`[]\>
+[`Lz`](Lz.md)<[`T1`, `T2`][]\>
 
 A sequence that contains the partitioned arrays.
+
+#### Inherited from
+
+[Lz](Lz.md).[partition](Lz.md#partition)
 
 #### Defined in
 
@@ -992,7 +1118,7 @@ ___
 
 ### prepend
 
-▸ **prepend**(...`elements`): [`Lz`](Lz.md)<`T`\>
+▸ **prepend**(...`elements`): [`Lz`](Lz.md)<[`T1`, `T2`]\>
 
 Adds a value to the beginning of the sequence.
 
@@ -1005,13 +1131,17 @@ until the object is enumerated either by calling its toArray method directly or 
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `...elements` | `T`[] | The value(s) to prepend to <i>source</i>. |
+| `...elements` | [`T1`, `T2`][] | The value(s) to prepend to <i>source</i>. |
 
 #### Returns
 
-[`Lz`](Lz.md)<`T`\>
+[`Lz`](Lz.md)<[`T1`, `T2`]\>
 
 A new sequence that begins with <i>element</i>.
+
+#### Inherited from
+
+[Lz](Lz.md).[prepend](Lz.md#prepend)
 
 #### Defined in
 
@@ -1021,7 +1151,7 @@ ___
 
 ### return
 
-▸ **return**(`value?`): `IteratorResult`<`T`, `any`\>
+▸ **return**(`value?`): `IteratorResult`<[`T1`, `T2`], `any`\>
 
 #### Parameters
 
@@ -1031,11 +1161,11 @@ ___
 
 #### Returns
 
-`IteratorResult`<`T`, `any`\>
+`IteratorResult`<[`T1`, `T2`], `any`\>
 
-#### Implementation of
+#### Inherited from
 
-IterableIterator.return
+[Lz](Lz.md).[return](Lz.md#return)
 
 #### Defined in
 
@@ -1045,15 +1175,19 @@ ___
 
 ### reverse
 
-▸ **reverse**(): [`Lz`](Lz.md)<`T`\>
+▸ **reverse**(): [`Lz`](Lz.md)<[`T1`, `T2`]\>
 
 Inverts the order of the elements in a sequence.
 
 #### Returns
 
-[`Lz`](Lz.md)<`T`\>
+[`Lz`](Lz.md)<[`T1`, `T2`]\>
 
 A sequence whose elements correspond to those of the input sequence in reverse order.
+
+#### Inherited from
+
+[Lz](Lz.md).[reverse](Lz.md#reverse)
 
 #### Defined in
 
@@ -1077,13 +1211,17 @@ Projects each element of a sequence into a new form.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `selector` | `SelectorFunction`<`T`, `U`\> | A transform function to apply to each element. |
+| `selector` | `SelectorFunction`<[`T1`, `T2`], `U`\> | A transform function to apply to each element. |
 
 #### Returns
 
 [`Lz`](Lz.md)<`U`\>
 
 An iterable whose elements are the result of invoking the transform function on each element of source.
+
+#### Inherited from
+
+[Lz](Lz.md).[select](Lz.md#select)
 
 #### Defined in
 
@@ -1107,7 +1245,7 @@ Projects each element of a sequence to an IterableIterator<U> and flattens the r
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `selector` | `SelectorFunction`<`T`, `IterableIterator`<`U`\> \| `U`[]\> | A transform function to apply to each element. |
+| `selector` | `SelectorFunction`<[`T1`, `T2`], `IterableIterator`<`U`\> \| `U`[]\> | A transform function to apply to each element. |
 
 #### Returns
 
@@ -1115,6 +1253,10 @@ Projects each element of a sequence to an IterableIterator<U> and flattens the r
 
 An sequence whose elements are the result of invoking the one-to-many transform function on each element of the input
 sequence.
+
+#### Inherited from
+
+[Lz](Lz.md).[selectMany](Lz.md#selectmany)
 
 #### Defined in
 
@@ -1133,8 +1275,8 @@ ComparatorFunction<T>.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `second` | `LzIterable`<`T`\> | A sequence to compare to the first sequence. |
-| `comparator?` | `ComparatorFunction`<`T`\> | A ComparatorFunction<T> to use to compare elements. |
+| `second` | `LzIterable`<[`T1`, `T2`]\> | A sequence to compare to the first sequence. |
+| `comparator?` | `ComparatorFunction`<[`T1`, `T2`]\> | A ComparatorFunction<T> to use to compare elements. |
 
 #### Returns
 
@@ -1142,6 +1284,10 @@ ComparatorFunction<T>.
 
 <i>true</i> if the two source sequences are of equal length and their corresponding elements
 compare equal according to <i>comparator</i>; otherwise, <i>false</i>.
+
+#### Inherited from
+
+[Lz](Lz.md).[sequenceEqual](Lz.md#sequenceequal)
 
 #### Defined in
 
@@ -1151,7 +1297,7 @@ ___
 
 ### single
 
-▸ **single**(`predicate?`): `T`
+▸ **single**(`predicate?`): [`T1`, `T2`]
 
 Returns the only element of a sequence, and throws an exception if there is not exactly one element in the sequence.
 
@@ -1162,13 +1308,17 @@ in predicate, or the source sequence is empty.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `predicate?` | `PredicateFunction`<`T`\> | A function to test an element for a condition. Return true to keep the element, false otherwise. |
+| `predicate?` | `PredicateFunction`<[`T1`, `T2`]\> | A function to test an element for a condition. Return true to keep the element, false otherwise. |
 
 #### Returns
 
-`T`
+[`T1`, `T2`]
 
 The single element of the input sequence that satisfies a condition.
+
+#### Inherited from
+
+[Lz](Lz.md).[single](Lz.md#single)
 
 #### Defined in
 
@@ -1178,7 +1328,7 @@ ___
 
 ### singleOrDefault
 
-▸ **singleOrDefault**(`defaultValue`, `predicate?`): `T`
+▸ **singleOrDefault**(`defaultValue`, `predicate?`): [`T1`, `T2`]
 
 Returns the only element of a sequence that satisfies a specified condition or a default value if no such element
 exists; this method throws an exception if more than one element satisfies the condition.
@@ -1189,14 +1339,18 @@ exists; this method throws an exception if more than one element satisfies the c
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `defaultValue` | `T` | The default value. |
-| `predicate?` | `PredicateFunction`<`T`\> | A function to test an element for a condition. Return true to keep the element, false otherwise. |
+| `defaultValue` | [`T1`, `T2`] | The default value. |
+| `predicate?` | `PredicateFunction`<[`T1`, `T2`]\> | A function to test an element for a condition. Return true to keep the element, false otherwise. |
 
 #### Returns
 
-`T`
+[`T1`, `T2`]
 
 The single element of the input sequence that satisfies a condition.
+
+#### Inherited from
+
+[Lz](Lz.md).[singleOrDefault](Lz.md#singleordefault)
 
 #### Defined in
 
@@ -1206,7 +1360,7 @@ ___
 
 ### skip
 
-▸ **skip**(`count`): [`Lz`](Lz.md)<`T`\>
+▸ **skip**(`count`): [`Lz`](Lz.md)<[`T1`, `T2`]\>
 
 Bypasses a specified number of elements in a sequence and then returns the remaining elements.
 
@@ -1218,9 +1372,13 @@ Bypasses a specified number of elements in a sequence and then returns the remai
 
 #### Returns
 
-[`Lz`](Lz.md)<`T`\>
+[`Lz`](Lz.md)<[`T1`, `T2`]\>
 
 An iterable that contains the elements that occur after the specified index in the input sequence.
+
+#### Inherited from
+
+[Lz](Lz.md).[skip](Lz.md#skip)
 
 #### Defined in
 
@@ -1230,7 +1388,7 @@ ___
 
 ### skipWhile
 
-▸ **skipWhile**(`predicate`): [`Lz`](Lz.md)<`T`\>
+▸ **skipWhile**(`predicate`): [`Lz`](Lz.md)<[`T1`, `T2`]\>
 
 Bypasses elements in a sequence as long as a specified condition is true and then returns the remaining elements.
 
@@ -1238,14 +1396,18 @@ Bypasses elements in a sequence as long as a specified condition is true and the
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `predicate` | `PredicateFunction`<`T`\> | A function to test each element for a condition. |
+| `predicate` | `PredicateFunction`<[`T1`, `T2`]\> | A function to test each element for a condition. |
 
 #### Returns
 
-[`Lz`](Lz.md)<`T`\>
+[`Lz`](Lz.md)<[`T1`, `T2`]\>
 
 A sequence that contains the elements from the input sequence starting at the first element in the linear series
 that does not pass the test specified by predicate.
+
+#### Inherited from
+
+[Lz](Lz.md).[skipWhile](Lz.md#skipwhile)
 
 #### Defined in
 
@@ -1263,13 +1425,17 @@ Computes the sum of the sequence of values that are obtained by invoking a trans
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `selector` | `SelectorFunction`<`T`, `number`\> | A transform function to apply to each element. |
+| `selector` | `SelectorFunction`<[`T1`, `T2`], `number`\> | A transform function to apply to each element. |
 
 #### Returns
 
 `number`
 
 The sum of the projected values.
+
+#### Inherited from
+
+[Lz](Lz.md).[sum](Lz.md#sum)
 
 #### Defined in
 
@@ -1287,6 +1453,10 @@ The sum of the projected values.
 
 `number`
 
+#### Inherited from
+
+[Lz](Lz.md).[sum](Lz.md#sum)
+
 #### Defined in
 
 [src/Lz.ts:1171](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1171)
@@ -1295,7 +1465,7 @@ ___
 
 ### take
 
-▸ **take**(`count`): [`Lz`](Lz.md)<`T`\>
+▸ **take**(`count`): [`Lz`](Lz.md)<[`T1`, `T2`]\>
 
 Returns a specified number of contiguous elements from the start of a sequence.
 
@@ -1307,9 +1477,13 @@ Returns a specified number of contiguous elements from the start of a sequence.
 
 #### Returns
 
-[`Lz`](Lz.md)<`T`\>
+[`Lz`](Lz.md)<[`T1`, `T2`]\>
 
 An iterable that contains the specified number of elements from the start of the input sequence.
+
+#### Inherited from
+
+[Lz](Lz.md).[take](Lz.md#take)
 
 #### Defined in
 
@@ -1319,7 +1493,7 @@ ___
 
 ### takeWhile
 
-▸ **takeWhile**(`predicate`): [`Lz`](Lz.md)<`T`\>
+▸ **takeWhile**(`predicate`): [`Lz`](Lz.md)<[`T1`, `T2`]\>
 
 Returns elements from a sequence as long as a specified condition is true.
 
@@ -1327,14 +1501,18 @@ Returns elements from a sequence as long as a specified condition is true.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `predicate` | `PredicateFunction`<`T`\> | A function to test each element for a condition. |
+| `predicate` | `PredicateFunction`<[`T1`, `T2`]\> | A function to test each element for a condition. |
 
 #### Returns
 
-[`Lz`](Lz.md)<`T`\>
+[`Lz`](Lz.md)<[`T1`, `T2`]\>
 
 A sequence that contains the elements from the input sequence that occur before the element at which the test no
 longer passes.
+
+#### Inherited from
+
+[Lz](Lz.md).[takeWhile](Lz.md#takewhile)
 
 #### Defined in
 
@@ -1344,7 +1522,7 @@ ___
 
 ### throw
 
-▸ **throw**(`e?`): `IteratorResult`<`T`, `any`\>
+▸ **throw**(`e?`): `IteratorResult`<[`T1`, `T2`], `any`\>
 
 #### Parameters
 
@@ -1354,11 +1532,11 @@ ___
 
 #### Returns
 
-`IteratorResult`<`T`, `any`\>
+`IteratorResult`<[`T1`, `T2`], `any`\>
 
-#### Implementation of
+#### Inherited from
 
-IterableIterator.throw
+[Lz](Lz.md).[throw](Lz.md#throw)
 
 #### Defined in
 
@@ -1368,15 +1546,19 @@ ___
 
 ### toArray
 
-▸ **toArray**(): `T`[]
+▸ **toArray**(): [`T1`, `T2`][]
 
 Creates an array from a IterableIterator<T>.
 
 #### Returns
 
-`T`[]
+[`T1`, `T2`][]
 
 An array that contains the elements from the input sequence.
+
+#### Inherited from
+
+[Lz](Lz.md).[toArray](Lz.md#toarray)
 
 #### Defined in
 
@@ -1386,17 +1568,9 @@ ___
 
 ### toDictionary
 
-▸ **toDictionary**<`T1`, `T2`, `T`\>(): `Map`<`T1`, `T2`\>
+▸ `Abstract` **toDictionary**(): `Map`<`T1`, `T2`\>
 
 Creates a Map from a sequence of IterableIterator<[T1, T2]>
-
-#### Type parameters
-
-| Name | Type |
-| :------ | :------ |
-| `T1` | `T1` |
-| `T2` | `T2` |
-| `T` | extends [`T1`, `T2`] |
 
 #### Returns
 
@@ -1404,78 +1578,31 @@ Creates a Map from a sequence of IterableIterator<[T1, T2]>
 
 A Map that contains keys and values.
 
-#### Defined in
+#### Overrides
 
-[src/Lz.ts:1446](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1446)
-
-▸ **toDictionary**<`K`, `T`\>(`keySelector`): `Map`<`K`, `T`\>
-
-Creates a Map from an Array according to a specified key selector function.
-
-#### Type parameters
-
-| Name |
-| :------ |
-| `K` |
-| `T` |
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `keySelector` | `SelectorFunction`<`T`, `K`\> | A function to extract a key from each element. |
-
-#### Returns
-
-`Map`<`K`, `T`\>
-
-A Map that contains keys and values.
+[Lz](Lz.md).[toDictionary](Lz.md#todictionary)
 
 #### Defined in
 
-[src/Lz.ts:1453](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1453)
-
-▸ **toDictionary**<`K`, `U`\>(`keySelector`, `elementSelector`): `Map`<`K`, `U`\>
-
-Creates a Map from an Array according to a specified key selector function.
-
-#### Type parameters
-
-| Name |
-| :------ |
-| `K` |
-| `U` |
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `keySelector` | `SelectorFunction`<`T`, `K`\> | A function to extract a key from each element. |
-| `elementSelector` | `SelectorFunction`<`T`, `U`\> | A function to map each source element to an element in the returned Map. |
-
-#### Returns
-
-`Map`<`K`, `U`\>
-
-A Map that contains keys and values.
-
-#### Defined in
-
-[src/Lz.ts:1461](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1461)
+[src/Lz.ts:1551](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1551)
 
 ___
 
 ### toIterable
 
-▸ **toIterable**(): [`Lz`](Lz.md)<`T`\>
+▸ **toIterable**(): [`Lz`](Lz.md)<[`T1`, `T2`]\>
 
 Returns the input typed as LzIterable<T>.
 
 #### Returns
 
-[`Lz`](Lz.md)<`T`\>
+[`Lz`](Lz.md)<[`T1`, `T2`]\>
 
 The input sequence typed as LzIterable<T>.
+
+#### Inherited from
+
+[Lz](Lz.md).[toIterable](Lz.md#toiterable)
 
 #### Defined in
 
@@ -1485,7 +1612,7 @@ ___
 
 ### union
 
-▸ **union**(`second`, `comparator?`): [`Lz`](Lz.md)<`T`\>
+▸ **union**(`second`, `comparator?`): [`Lz`](Lz.md)<[`T1`, `T2`]\>
 
 Produces the set union of two sequences.
 
@@ -1498,14 +1625,18 @@ until the object is enumerated either by calling its toArray method directly or 
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `second` | `LzIterable`<`T`\> | A sequence whose distinct elements form the second set for the union. |
-| `comparator?` | `ComparatorFunction`<`T`\> | The ComparatorFunction<T> to compare values. |
+| `second` | `LzIterable`<[`T1`, `T2`]\> | A sequence whose distinct elements form the second set for the union. |
+| `comparator?` | `ComparatorFunction`<[`T1`, `T2`]\> | The ComparatorFunction<T> to compare values. |
 
 #### Returns
 
-[`Lz`](Lz.md)<`T`\>
+[`Lz`](Lz.md)<[`T1`, `T2`]\>
 
 A sequence that contains the elements from both input sequences, excluding duplicates.
+
+#### Inherited from
+
+[Lz](Lz.md).[union](Lz.md#union)
 
 #### Defined in
 
@@ -1515,7 +1646,7 @@ ___
 
 ### where
 
-▸ **where**(`predicate`): [`Lz`](Lz.md)<`T`\>
+▸ **where**(`predicate`): [`Lz`](Lz.md)<[`T1`, `T2`]\>
 
 Filters a sequence of values based on a predicate.
 
@@ -1523,13 +1654,17 @@ Filters a sequence of values based on a predicate.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `predicate` | `PredicateFunction`<`T`\> | A function to test each element for a condition. Return true to keep the element, false otherwise. |
+| `predicate` | `PredicateFunction`<[`T1`, `T2`]\> | A function to test each element for a condition. Return true to keep the element, false otherwise. |
 
 #### Returns
 
-[`Lz`](Lz.md)<`T`\>
+[`Lz`](Lz.md)<[`T1`, `T2`]\>
 
 An iterable that contains elements from the input sequence that satisfy the condition.
+
+#### Inherited from
+
+[Lz](Lz.md).[where](Lz.md#where)
 
 #### Defined in
 
@@ -1555,13 +1690,17 @@ Applies a specified function to the corresponding elements of two sequences, pro
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `second` | `LzIterable`<`U`\> | The second sequence to merge. |
-| `resultSelector` | (`first`: `T`, `second`: `U`) => `V` | A function that specifies how to merge the elements from the two sequences. |
+| `resultSelector` | (`first`: [`T1`, `T2`], `second`: `U`) => `V` | A function that specifies how to merge the elements from the two sequences. |
 
 #### Returns
 
 [`Lz`](Lz.md)<`V`\>
 
 A sequence that contains merged elements of two input sequences.
+
+#### Inherited from
+
+[Lz](Lz.md).[zip](Lz.md#zip)
 
 #### Defined in
 
@@ -1596,6 +1735,10 @@ Applies an accumulator function over a sequence. The specified seed value is use
 
 The final accumulator value.
 
+#### Inherited from
+
+[Lz](Lz.md).[aggregate](Lz.md#aggregate)
+
 #### Defined in
 
 [src/Lz.ts:1110](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1110)
@@ -1628,6 +1771,10 @@ Determines whether all elements of a sequence satisfy a condition.
 <b>true</b> if every element of the source sequence passes the test in the specified predicate, or if the sequence is empty;
 otherwise, <b>false</b>.
 
+#### Inherited from
+
+[Lz](Lz.md).[all](Lz.md#all)
+
 #### Defined in
 
 [src/Lz.ts:1293](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1293)
@@ -1658,6 +1805,10 @@ Determines whether any element of a sequence satisfies a condition.
 `boolean`
 
 <b>true</b> if any elements in the source sequence pass the test in the specified predicate; otherwise, <b>false</b>.
+
+#### Inherited from
+
+[Lz](Lz.md).[any](Lz.md#any)
 
 #### Defined in
 
@@ -1695,6 +1846,10 @@ until the object is enumerated either by calling its toArray method directly or 
 
 A new sequence that ends with element.
 
+#### Inherited from
+
+[Lz](Lz.md).[append](Lz.md#append)
+
 #### Defined in
 
 [src/Lz.ts:70](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L70)
@@ -1726,6 +1881,10 @@ Computes the average of a sequence of values that are obtained by invoking a tra
 
 The average of the sequence of values, or 0 if the source sequence is empty.
 
+#### Inherited from
+
+[Lz](Lz.md).[average](Lz.md#average)
+
 #### Defined in
 
 [src/Lz.ts:1205](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1205)
@@ -1748,6 +1907,10 @@ The average of the sequence of values, or 0 if the source sequence is empty.
 #### Returns
 
 `number`
+
+#### Inherited from
+
+[Lz](Lz.md).[average](Lz.md#average)
 
 #### Defined in
 
@@ -1780,6 +1943,10 @@ Concatenates two sequences.
 
 A sequence that contains the concatenated elements of the two input sequences.
 
+#### Inherited from
+
+[Lz](Lz.md).[concat](Lz.md#concat)
+
 #### Defined in
 
 [src/Lz.ts:126](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L126)
@@ -1810,6 +1977,10 @@ Returns a number that represents how many elements in the specified sequence sat
 `number`
 
 A number that represents how many elements in the sequence satisfy the condition in the predicate function.
+
+#### Inherited from
+
+[Lz](Lz.md).[count](Lz.md#count)
 
 #### Defined in
 
@@ -1849,6 +2020,10 @@ until the object is enumerated either by calling its toArray method directly or 
 A sequence that contains <i>defaultValue</i> if <i>source</i> is empty; otherwise,
 <i>source</i>.
 
+#### Inherited from
+
+[Lz](Lz.md).[defaultIfEmpty](Lz.md#defaultifempty)
+
 #### Defined in
 
 [src/Lz.ts:162](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L162)
@@ -1885,6 +2060,10 @@ until the object is enumerated either by calling its toArray method directly or 
 
 A sequence that contains distinct elements from the source sequence.
 
+#### Inherited from
+
+[Lz](Lz.md).[distinct](Lz.md#distinct)
+
 #### Defined in
 
 [src/Lz.ts:201](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L201)
@@ -1908,6 +2087,10 @@ Returns an empty sequence that has the specified type argument.
 [`Lz`](Lz.md)<`T`\>
 
 An empty sequence whose type argument is <i>T</i>.
+
+#### Inherited from
+
+[Lz](Lz.md).[empty](Lz.md#empty)
 
 #### Defined in
 
@@ -1947,6 +2130,10 @@ until the object is enumerated either by calling its toArray method directly or 
 
 A sequence that contains the set difference of the elements of two sequences.
 
+#### Inherited from
+
+[Lz](Lz.md).[except](Lz.md#except)
+
 #### Defined in
 
 [src/Lz.ts:258](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L258)
@@ -1980,6 +2167,10 @@ Returns the first element of a sequence.
 
 The first element.
 
+#### Inherited from
+
+[Lz](Lz.md).[first](Lz.md#first)
+
 #### Defined in
 
 [src/Lz.ts:1397](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1397)
@@ -2012,6 +2203,10 @@ Returns the first element of a sequence, or a default value if the sequence cont
 
 The first element, or a default value if the sequence contains no elements.
 
+#### Inherited from
+
+[Lz](Lz.md).[firstOrDefault](Lz.md#firstordefault)
+
 #### Defined in
 
 [src/Lz.ts:1430](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1430)
@@ -2038,6 +2233,10 @@ ___
 #### Returns
 
 `void`
+
+#### Inherited from
+
+[Lz](Lz.md).[forEach](Lz.md#foreach)
 
 #### Defined in
 
@@ -2072,6 +2271,10 @@ specified function.
 
 A Map where each entry contains a collection of objects of type V.
 
+#### Inherited from
+
+[Lz](Lz.md).[groupBy](Lz.md#groupby)
+
 #### Defined in
 
 [src/Lz.ts:959](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L959)
@@ -2102,6 +2305,10 @@ specified function.
 [`LzGrouped`](LzGrouped.md)<`K`, `V`[]\>
 
 A Map where each entry contains a collection of objects of type V.
+
+#### Inherited from
+
+[Lz](Lz.md).[groupBy](Lz.md#groupby)
 
 #### Defined in
 
@@ -2140,6 +2347,10 @@ until the object is enumerated either by calling its toArray method directly or 
 
 A new sequence that contains <i>element</i> at <i>index</i>.
 
+#### Inherited from
+
+[Lz](Lz.md).[insert](Lz.md#insert)
+
 #### Defined in
 
 [src/Lz.ts:314](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L314)
@@ -2176,6 +2387,10 @@ until the object is enumerated either by calling its toArray method directly or 
 [`Lz`](Lz.md)<`T`\>
 
 A sequence that contains the elements that form the set intersection of two sequences.
+
+#### Inherited from
+
+[Lz](Lz.md).[intersect](Lz.md#intersect)
 
 #### Defined in
 
@@ -2220,6 +2435,10 @@ until the object is enumerated either by calling its toArray method directly or 
 A sequence that has elements of type <i>U</i> that are obtained by performing an inner
 join on two sequences.
 
+#### Inherited from
+
+[Lz](Lz.md).[join](Lz.md#join)
+
 #### Defined in
 
 [src/Lz.ts:404](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L404)
@@ -2253,6 +2472,10 @@ Returns the last element of a sequence.
 
 The value at the last position in the source sequence.
 
+#### Inherited from
+
+[Lz](Lz.md).[last](Lz.md#last)
+
 #### Defined in
 
 [src/Lz.ts:442](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L442)
@@ -2285,6 +2508,10 @@ Returns the last element of a sequence, or a default value if no element is foun
 
 The value at the last position in the source sequence.
 
+#### Inherited from
+
+[Lz](Lz.md).[lastOrDefault](Lz.md#lastordefault)
+
 #### Defined in
 
 [src/Lz.ts:480](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L480)
@@ -2316,6 +2543,10 @@ Invokes a transform function on each element of a sequence and returns the maxim
 
 The maximum value in the sequence.
 
+#### Inherited from
+
+[Lz](Lz.md).[max](Lz.md#max)
+
 #### Defined in
 
 [src/Lz.ts:1136](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1136)
@@ -2338,6 +2569,10 @@ The maximum value in the sequence.
 #### Returns
 
 `number`
+
+#### Inherited from
+
+[Lz](Lz.md).[max](Lz.md#max)
 
 #### Defined in
 
@@ -2370,6 +2605,10 @@ Invokes a transform function on each element of a sequence and returns the minim
 
 The minimum value in the sequence.
 
+#### Inherited from
+
+[Lz](Lz.md).[min](Lz.md#min)
+
 #### Defined in
 
 [src/Lz.ts:1159](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1159)
@@ -2392,6 +2631,10 @@ The minimum value in the sequence.
 #### Returns
 
 `number`
+
+#### Inherited from
+
+[Lz](Lz.md).[min](Lz.md#min)
 
 #### Defined in
 
@@ -2425,6 +2668,10 @@ Sorts the elements of a sequence in ascending order according to a key.
 
 A sequence whose elements are sorted according to a key.
 
+#### Inherited from
+
+[Lz](Lz.md).[orderBy](Lz.md#orderby)
+
 #### Defined in
 
 [src/Lz.ts:535](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L535)
@@ -2453,6 +2700,10 @@ Sorts the elements of a sequence in ascending order by using a specified compara
 `LzOrdered`<`T`, `V`\>
 
 A sequence whose elements are sorted according to a key.
+
+#### Inherited from
+
+[Lz](Lz.md).[orderBy](Lz.md#orderby)
 
 #### Defined in
 
@@ -2486,6 +2737,10 @@ Sorts the elements of a sequence in descending order according to a key.
 
 A sequence whose elements are sorted according to a key.
 
+#### Inherited from
+
+[Lz](Lz.md).[orderByDescending](Lz.md#orderbydescending)
+
 #### Defined in
 
 [src/Lz.ts:575](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L575)
@@ -2514,6 +2769,10 @@ Sorts the elements of a sequence in descending order by using a specified compar
 `LzOrdered`<`T`, `V`\>
 
 A sequence whose elements are sorted according to a key.
+
+#### Inherited from
+
+[Lz](Lz.md).[orderByDescending](Lz.md#orderbydescending)
 
 #### Defined in
 
@@ -2545,6 +2804,10 @@ Partitions the sequence into arrays of specified size.
 [`Lz`](Lz.md)<`T`[]\>
 
 A sequence that contains the partitioned arrays.
+
+#### Inherited from
+
+[Lz](Lz.md).[partition](Lz.md#partition)
 
 #### Defined in
 
@@ -2582,6 +2845,10 @@ until the object is enumerated either by calling its toArray method directly or 
 
 A new sequence that begins with <i>element</i>.
 
+#### Inherited from
+
+[Lz](Lz.md).[prepend](Lz.md#prepend)
+
 #### Defined in
 
 [src/Lz.ts:102](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L102)
@@ -2613,6 +2880,10 @@ until the object is enumerated either by calling its toArray method directly or 
 [`Lz`](Lz.md)<`number`\>
 
 A sequence that contains a range of sequential integral numbers.
+
+#### Inherited from
+
+[Lz](Lz.md).[range](Lz.md#range)
 
 #### Defined in
 
@@ -2652,6 +2923,10 @@ until the object is enumerated either by calling its toArray method directly or 
 
 A sequence that contains a repeated value.
 
+#### Inherited from
+
+[Lz](Lz.md).[repeat](Lz.md#repeat)
+
 #### Defined in
 
 [src/Lz.ts:628](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L628)
@@ -2690,6 +2965,10 @@ until the object is enumerated either by calling its toArray method directly or 
 
 A sequence that contains the results of the repeated action.
 
+#### Inherited from
+
+[Lz](Lz.md).[repeatAction](Lz.md#repeataction)
+
 #### Defined in
 
 [src/Lz.ts:652](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L652)
@@ -2719,6 +2998,10 @@ Inverts the order of the elements in a sequence.
 [`Lz`](Lz.md)<`T`\>
 
 A sequence whose elements correspond to those of the input sequence in reverse order.
+
+#### Inherited from
+
+[Lz](Lz.md).[reverse](Lz.md#reverse)
 
 #### Defined in
 
@@ -2752,6 +3035,10 @@ Projects each element of a sequence into a new form.
 
 An iterable whose elements are the result of invoking the transform function on each element of source.
 
+#### Inherited from
+
+[Lz](Lz.md).[select](Lz.md#select)
+
 #### Defined in
 
 [src/Lz.ts:771](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L771)
@@ -2784,6 +3071,10 @@ Projects each element of a sequence to an IterableIterator<U> and flattens the r
 
 An sequence whose elements are the result of invoking the one-to-many transform function on each element of the input
 sequence.
+
+#### Inherited from
+
+[Lz](Lz.md).[selectMany](Lz.md#selectmany)
 
 #### Defined in
 
@@ -2819,6 +3110,10 @@ ComparatorFunction<T>.
 <i>true</i> if the two source sequences are of equal length and their corresponding elements
 compare equal according to <i>comparator</i>; otherwise, <i>false</i>.
 
+#### Inherited from
+
+[Lz](Lz.md).[sequenceEqual](Lz.md#sequenceequal)
+
 #### Defined in
 
 [src/Lz.ts:710](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L710)
@@ -2852,6 +3147,10 @@ in predicate, or the source sequence is empty.
 `T`
 
 The single element of the input sequence that satisfies a condition.
+
+#### Inherited from
+
+[Lz](Lz.md).[single](Lz.md#single)
 
 #### Defined in
 
@@ -2889,6 +3188,10 @@ this method throws an exception if more than one element satisfies the condition
 The single element of the input sequence that satisfies the condition, or <i>defaultValue</i> if
 no such element is found.
 
+#### Inherited from
+
+[Lz](Lz.md).[singleOrDefault](Lz.md#singleordefault)
+
 #### Defined in
 
 [src/Lz.ts:1364](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1364)
@@ -2919,6 +3222,10 @@ Bypasses a specified number of elements in a sequence and then returns the remai
 [`Lz`](Lz.md)<`T`\>
 
 An iterable that contains the elements that occur after the specified index in the input sequence.
+
+#### Inherited from
+
+[Lz](Lz.md).[skip](Lz.md#skip)
 
 #### Defined in
 
@@ -2952,6 +3259,10 @@ Bypasses elements in a sequence as long as a specified condition is true and the
 A sequence that contains the elements from the input sequence starting at the first element in the linear series
 that does not pass the test specified by predicate.
 
+#### Inherited from
+
+[Lz](Lz.md).[skipWhile](Lz.md#skipwhile)
+
 #### Defined in
 
 [src/Lz.ts:915](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L915)
@@ -2983,6 +3294,10 @@ Computes the sum of the sequence of values that are obtained by invoking a trans
 
 The sum of the projected values.
 
+#### Inherited from
+
+[Lz](Lz.md).[sum](Lz.md#sum)
+
 #### Defined in
 
 [src/Lz.ts:1182](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1182)
@@ -3005,6 +3320,10 @@ The sum of the projected values.
 #### Returns
 
 `number`
+
+#### Inherited from
+
+[Lz](Lz.md).[sum](Lz.md#sum)
 
 #### Defined in
 
@@ -3036,6 +3355,10 @@ Returns a specified number of contiguous elements from the start of a sequence.
 [`Lz`](Lz.md)<`T`\>
 
 An iterable that contains the specified number of elements from the start of the input sequence.
+
+#### Inherited from
+
+[Lz](Lz.md).[take](Lz.md#take)
 
 #### Defined in
 
@@ -3069,6 +3392,10 @@ Returns elements from a sequence as long as a specified condition is true.
 A sequence that contains the elements from the input sequence that occur before the element at which the test no
 longer passes.
 
+#### Inherited from
+
+[Lz](Lz.md).[takeWhile](Lz.md#takewhile)
+
 #### Defined in
 
 [src/Lz.ts:883](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L883)
@@ -3099,6 +3426,10 @@ Creates an array from a IterableIterator<T>.
 
 An array that contains the elements from the input sequence.
 
+#### Inherited from
+
+[Lz](Lz.md).[toArray](Lz.md#toarray)
+
 #### Defined in
 
 [src/Lz.ts:1524](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1524)
@@ -3122,7 +3453,7 @@ Creates a Map from a sequence of IterableIterator<[T1, T2]>
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `source` | `LzIterable`<[`T1`, `T2`]\> | The sequence to create a Map<K, T> from. |
+| `source` | `LzIterable`<[`T1`, `T2`]\> | The sequence to create a Map<T1, T2> from. |
 
 #### Returns
 
@@ -3130,67 +3461,13 @@ Creates a Map from a sequence of IterableIterator<[T1, T2]>
 
 A Map that contains keys and values.
 
-#### Defined in
+#### Overrides
 
-[src/Lz.ts:1471](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1471)
-
-▸ `Static` **toDictionary**<`T`, `K`\>(`source`, `keySelector`): `Map`<`K`, `T`\>
-
-Creates a Map from an Array according to a specified key selector function.
-
-#### Type parameters
-
-| Name |
-| :------ |
-| `T` |
-| `K` |
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `source` | `LzIterable`<`T`\> | The sequence to create a Map<K, T> from. |
-| `keySelector` | `SelectorFunction`<`T`, `K`\> | A function to extract a key from each element. |
-
-#### Returns
-
-`Map`<`K`, `T`\>
-
-A Map that contains keys and values.
+[Lz](Lz.md).[toDictionary](Lz.md#todictionary)
 
 #### Defined in
 
-[src/Lz.ts:1479](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1479)
-
-▸ `Static` **toDictionary**<`T`, `K`, `U`\>(`source`, `keySelector`, `elementSelector`): `Map`<`K`, `U`\>
-
-Creates a Map from an Array according to a specified key selector function.
-
-#### Type parameters
-
-| Name |
-| :------ |
-| `T` |
-| `K` |
-| `U` |
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `source` | `LzIterable`<`T`\> | The sequence to create a Map<K, T> from. |
-| `keySelector` | `SelectorFunction`<`T`, `K`\> | A function to extract a key from each element. |
-| `elementSelector` | `SelectorFunction`<`T`, `U`\> | A function to map each source element to an element in the returned Map. |
-
-#### Returns
-
-`Map`<`K`, `U`\>
-
-A Map that contains keys and values.
-
-#### Defined in
-
-[src/Lz.ts:1489](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1489)
+[src/Lz.ts:1558](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1558)
 
 ___
 
@@ -3217,6 +3494,10 @@ Returns the input typed as LzIterable<T>.
 [`Lz`](Lz.md)<`T`\>
 
 The input sequence typed as LzIterable<T>.
+
+#### Inherited from
+
+[Lz](Lz.md).[toIterable](Lz.md#toiterable)
 
 #### Defined in
 
@@ -3255,6 +3536,10 @@ until the object is enumerated either by calling its toArray method directly or 
 
 A sequence that contains the elements from both input sequences, excluding duplicates.
 
+#### Inherited from
+
+[Lz](Lz.md).[union](Lz.md#union)
+
 #### Defined in
 
 [src/Lz.ts:1053](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1053)
@@ -3285,6 +3570,10 @@ Filters a sequence of values based on a predicate.
 [`Lz`](Lz.md)<`T`\>
 
 An iterable that contains elements from the input sequence that satisfy the condition.
+
+#### Inherited from
+
+[Lz](Lz.md).[where](Lz.md#where)
 
 #### Defined in
 
@@ -3319,6 +3608,10 @@ Applies a specified function to the corresponding elements of two sequences, pro
 [`Lz`](Lz.md)<`V`\>
 
 A sequence that contains merged elements of two input sequences.
+
+#### Inherited from
+
+[Lz](Lz.md).[zip](Lz.md#zip)
 
 #### Defined in
 
