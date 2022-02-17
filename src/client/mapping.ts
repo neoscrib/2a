@@ -79,7 +79,9 @@ export default ({ method, value, blob, stream, produces, interceptors, before, a
             }
 
             if (formParams?.has(i)) {
-                body = new FormData();
+                if (!body || !(body instanceof FormData)) {
+                    body = new FormData();
+                }
                 const name = formParams.get(i);
                 body.append(name, current);
 
