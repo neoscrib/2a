@@ -27,12 +27,13 @@ interface IMappingOptions {
 
 export default ({ method, value, blob, stream, response, produces, consumes, throws = true, cache, fromCache, cacheQueryOptions, interceptors, before, after, fetch }: IMappingOptions): MethodDecorator => (t: any, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<any>) => {
     const target = t.prototype ?? t;
-    const clientOptions: IClientOptions = Reflect.getMetadata(ClientConstants.ClientOptions, target);
-    if (!clientOptions) {
-        throw new Error(`Client options not defined for ${target}`);
-    }
 
     descriptor.value = async <T>(...args: any[]): Promise<T | Blob | ReadableStream<Uint8Array> | Response | CustomFetchResponse<T>> => {
+        const clientOptions: IClientOptions = Reflect.getMetadata(ClientConstants.ClientOptions, target);
+        if (!clientOptions) {
+            throw new Error(`Client options not defined for ${target}`);
+        }
+
         const { body, headers, inits, url } = processArgs(target, propertyKey, args, clientOptions.baseUrl(), value, produces, consumes);
         const init = buildRequestInit(interceptors, clientOptions, inits, method, headers, body);
         const id = executeBefore(before, init, clientOptions);

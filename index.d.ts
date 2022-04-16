@@ -30,6 +30,7 @@ declare module '2a/client' {
     export import formParam = twoa.client.formParam;
     export import queryParam = twoa.client.queryParam;
     export import init = twoa.client.init;
+    export import HttpMethod = twoa.client.HttpMethod;
 }
 
 declare module '2a/di' {
@@ -1834,7 +1835,7 @@ declare namespace twoa {
         }
 
         export interface IMappingOptions {
-            method?: HttpMethod;
+            method?: HttpMethod | string;
             value: string;
             blob?: boolean;
             stream?: boolean;
