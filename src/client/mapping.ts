@@ -54,6 +54,7 @@ export default ({ method, value, blob, stream, response, produces, consumes, thr
             }
 
             if (!resp) {
+                fromCache = false;
                 resp = await window.fetch(request);
             }
         } catch (error) {
@@ -66,7 +67,7 @@ export default ({ method, value, blob, stream, response, produces, consumes, thr
         const isJson = resp.headers.get('content-type')?.includes('application/json');
 
         if (resp.ok || resp.redirected) {
-            if (cacheStore && resp instanceof Response) {
+            if (fromCache && cacheStore && resp instanceof Response) {
                 const clone = resp.clone();
                 await cacheStore.put(resp.url, clone);
             }
