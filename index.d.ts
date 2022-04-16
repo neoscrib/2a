@@ -168,6 +168,36 @@ declare namespace twoa {
         public static defaultIfEmpty<T>(source: LzIterable<T>, defaultValue: T): Lz<T>;
 
         /**
+         * Produces the symmetrical set difference of two sequences by using the specified <i>ComparatorFunction<T></i> to
+         * compare values.
+         * @param {LzIterable<T>} second A sequence whose elements that also occur in the first sequence will
+         * cause those elements to be removed from the returned sequence.
+         * @param {ComparatorFunction<T>} comparator Optional. A ComparatorFunction<T> to compare values.
+         * @returns {Lz<T>} A sequence that contains the symmetrical set difference of the elements of two sequences.
+         * @remarks
+         * This method is implemented by using deferred execution. The immediate return value is an object that stores all
+         * the information that is required to perform the action. The query represented by this method is not executed
+         * until the object is enumerated either by calling its toArray method directly or by using for...of.
+         */
+        public disjunctive(second: LzIterable<T>, comparator?: ComparatorFunction<T>): Lz<T>;
+
+        /**
+         * Produces the symmetrical set difference of two sequences by using the specified <i>ComparatorFunction<T></i> to
+         * compare values.
+         * @param {LzIterable<T>} first A sequence whose elements that also occur in the second sequence will
+         * cause those elements to be removed from the returned sequence.
+         * @param {LzIterable<T>} second A sequence whose elements that also occur in the first sequence will
+         * cause those elements to be removed from the returned sequence.
+         * @param {ComparatorFunction<T>} comparator Optional. A ComparatorFunction<T> to compare values.
+         * @returns {Lz<T>} A sequence that contains the symmetrical set difference of the elements of two sequences.
+         * @remarks
+         * This method is implemented by using deferred execution. The immediate return value is an object that stores all
+         * the information that is required to perform the action. The query represented by this method is not executed
+         * until the object is enumerated either by calling its toArray method directly or by using for...of.
+         */
+        public static disjunctive<T>(first: LzIterable<T>, second: LzIterable<T>, comparator?: ComparatorFunction<T>): Lz<T>;
+
+        /**
          * Returns distinct elements from a sequence by using a specified ComparatorFunction<T> to compare values.
          * @param {ComparatorFunction<T>} comparator Optional. A ComparatorFunction<T> to compare values.
          * @returns {Lz<T>} A sequence that contains distinct elements from the source sequence.
@@ -372,12 +402,29 @@ declare namespace twoa {
         public orderBy<V>(selector: SelectorFunctionNoIndex<T, V>): LzOrdered<T, V>;
 
         /**
+         * Sorts the elements of a sequence in ascending or descending order according to a key.
+         * @param {SelectorFunctionNoIndex<T, V>} selector A function to extract a key from an element.
+         * @param {boolean} descending Whether to sort in descending order rather than ascending.
+         * @returns {Lz<T>} A sequence whose elements are sorted according to a key.
+         */
+        public orderBy<V>(selector: SelectorFunctionNoIndex<T, V>, descending: boolean): LzOrdered<T, V>;
+
+        /**
          * Sorts the elements of a sequence in ascending order by using a specified comparator.
          * @param {SelectorFunctionNoIndex<T, V>} selector A function to extract a key from an element.
          * @param {ComparatorFunction<V>} comparator A ComparatorFunction<V> to compare keys.
          * @returns {LzOrdered<T, V>} A sequence whose elements are sorted according to a key.
          */
         public orderBy<V>(selector: SelectorFunctionNoIndex<T, V>, comparator: ComparatorFunction<V>): LzOrdered<T, V>;
+
+        /**
+         * Sorts the elements of a sequence in ascending or descending order by using a specified comparator.
+         * @param {SelectorFunctionNoIndex<T, V>} selector A function to extract a key from an element.
+         * @param {ComparatorFunction<V>} comparator A ComparatorFunction<V> to compare keys.
+         * @param {boolean} descending Whether to sort in descending order rather than ascending.
+         * @returns {Lz<T>} A sequence whose elements are sorted according to a key.
+         */
+        public orderBy<V>(selector: SelectorFunctionNoIndex<T, V>, comparator: ComparatorFunction<V>, descending: boolean): LzOrdered<T, V>;
 
         /**
          * Sorts the elements of a sequence in ascending order according to a key.
@@ -388,6 +435,15 @@ declare namespace twoa {
         public static orderBy<T, V>(source: LzIterable<T>, selector: SelectorFunctionNoIndex<T, V>): LzOrdered<T, V>;
 
         /**
+         * Sorts the elements of a sequence in ascending or descending order according to a key.
+         * @param {LzIterable<T>} source A sequence of values to order.
+         * @param {SelectorFunctionNoIndex<T, V>} selector A function to extract a key from an element.
+         * @param {boolean} descending Whether to sort in descending order rather than ascending.
+         * @returns {Lz<T>} A sequence whose elements are sorted according to a key.
+         */
+        public static orderBy<T, V>(source: LzIterable<T>, selector: SelectorFunctionNoIndex<T, V>, descending: boolean): LzOrdered<T, V>;
+
+        /**
          * Sorts the elements of a sequence in ascending order by using a specified comparator.
          * @param {LzIterable<T>} source A sequence of values to order.
          * @param {SelectorFunctionNoIndex<T, V>} selector A function to extract a key from an element.
@@ -395,6 +451,16 @@ declare namespace twoa {
          * @returns {LzOrdered<T, V>} A sequence whose elements are sorted according to a key.
          */
         public static orderBy<T, V>(source: LzIterable<T>, selector: SelectorFunctionNoIndex<T, V>, comparator: ComparatorFunction<V>): LzOrdered<T, V>;
+
+        /**
+         * Sorts the elements of a sequence in ascending or descending order by using a specified comparator.
+         * @param {LzIterable<T>} source A sequence of values to order.
+         * @param {SelectorFunctionNoIndex<T, V>} selector A function to extract a key from an element.
+         * @param {ComparatorFunction<V>} comparator A ComparatorFunction<V> to compare keys.
+         * @param {boolean} descending Whether to sort in descending order rather than ascending.
+         * @returns {Lz<T>} A sequence whose elements are sorted according to a key.
+         */
+        public static orderBy<T, V>(source: LzIterable<T>, selector: SelectorFunctionNoIndex<T, V>, comparator: ComparatorFunction<V>, descending: boolean): LzOrdered<T, V>;
 
         /**
          * Sorts the elements of a sequence in descending order according to a key.
@@ -980,6 +1046,19 @@ declare namespace twoa {
          * @returns {T[]} An array that contains the elements from the input sequence.
          */
         public static toArray<T>(source: LzIterable<T>): T[];
+
+        /**
+         * Creates a Set<T> from an IterableIterator<T>.
+         * @returns {Set<T>} A Set<T> that contains values of type T selected from the input sequence.
+         */
+        public toSet(): Set<T>;
+
+        /**
+         * Creates a Set<T> from an IterableIterator<T>.
+         * @param {LzIterable<T>} source An IterableIterator<T> to create a Set<T> from.
+         * @returns {Set<T>} A Set<T> that contains values of type T selected from the input sequence.
+         */
+        public static toSet<T>(source: LzIterable<T>): Set<T>;
 
         public [ Symbol.iterator ](): IterableIterator<T>;
 
@@ -1751,13 +1830,20 @@ declare namespace twoa {
             before?(init: RequestInit, id: string): void;
             after?(response: Response | CustomFetchResponse<any> | Error, id: string): void;
             fetch?<T>(input: string, init?: RequestInit): Promise<CustomFetchResponse<T>>;
+            cache?: string;
         }
 
         export interface IMappingOptions {
-            method?: 'GET' | 'HEAD' | 'POST' | 'PUT' | 'PATCH' | 'DELETE' | 'OPTIONS' | 'TRACE';
+            method?: HttpMethod;
             value: string;
             blob?: boolean;
+            stream?: boolean;
+            response?: boolean;
             produces?: string;
+            throws?: boolean;
+            cache?: string;
+            fromCache?: boolean;
+            cacheQueryOptions?: CacheQueryOptions;
             interceptors?: (() => RequestInit)[];
             before?(init: RequestInit, id: string): void;
             after?(response: Response | CustomFetchResponse<any> | Error, id: string): void;
@@ -1784,6 +1870,17 @@ declare namespace twoa {
         export function formParam(name: string): ParameterDecorator;
 
         export function queryParam(options: string | IQueryParamOptions): ParameterDecorator;
+
+        export enum HttpMethod {
+            GET = 'GET',
+            HEAD = 'HEAD',
+            POST = 'POST',
+            PUT = 'PUT',
+            PATCH = 'PATCH',
+            DELETE = 'DELETE',
+            OPTIONS = 'OPTIONS',
+            TRACE = 'TRACE'
+        }
     }
 
     export namespace di {

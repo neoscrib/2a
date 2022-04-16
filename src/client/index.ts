@@ -6,5 +6,6 @@ import pathParam from './pathParam';
 import formParam from './formParam';
 import queryParam from './queryParam';
 import init from './init';
+import { HttpMethod } from './HttpMethod';
 
-export { client, mapping, bodyParam, headerParam, pathParam, formParam, queryParam, init };
+export { client, mapping, bodyParam, headerParam, pathParam, formParam, queryParam, init, HttpMethod };

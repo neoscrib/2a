@@ -176,6 +176,49 @@ export default class Lz<T> implements IterableIterator<T> {
     }
 
     /**
+     * Produces the symmetrical set difference of two sequences by using the specified <i>ComparatorFunction<T></i> to
+     * compare values.
+     * @param {LzIterable<T>} second A sequence whose elements that also occur in the first sequence will
+     * cause those elements to be removed from the returned sequence.
+     * @param {ComparatorFunction<T>} comparator Optional. A ComparatorFunction<T> to compare values.
+     * @returns {Lz<T>} A sequence that contains the symmetrical set difference of the elements of two sequences.
+     * @remarks
+     * This method is implemented by using deferred execution. The immediate return value is an object that stores all
+     * the information that is required to perform the action. The query represented by this method is not executed
+     * until the object is enumerated either by calling its toArray method directly or by using for...of.
+     */
+    public disjunctive(second: LzIterable<T>, comparator?: ComparatorFunction<T>): Lz<T> {
+        return Lz.disjunctive(this, second, comparator);
+    }
+
+    /**
+     * Produces the symmetrical set difference of two sequences by using the specified <i>ComparatorFunction<T></i> to
+     * compare values.
+     * @param {LzIterable<T>} first A sequence whose elements that also occur in the second sequence will
+     * cause those elements to be removed from the returned sequence.
+     * @param {LzIterable<T>} second A sequence whose elements that also occur in the first sequence will
+     * cause those elements to be removed from the returned sequence.
+     * @param {ComparatorFunction<T>} comparator Optional. A ComparatorFunction<T> to compare values.
+     * @returns {Lz<T>} A sequence that contains the symmetrical set difference of the elements of two sequences.
+     * @remarks
+     * This method is implemented by using deferred execution. The immediate return value is an object that stores all
+     * the information that is required to perform the action. The query represented by this method is not executed
+     * until the object is enumerated either by calling its toArray method directly or by using for...of.
+     */
+    public static disjunctive<T>(first: LzIterable<T>, second: LzIterable<T>,
+                                 comparator?: ComparatorFunction<T>): Lz<T> {
+        return new Lz<T>(Lz.disjunctiveInternal(first, second, comparator));
+    }
+
+    private static *disjunctiveInternal<T>(first: LzIterable<T>, second: LzIterable<T>,
+                                           comparator: ComparatorFunction<T> = Comparator.defaultComparator): IterableIterator<T> {
+        const a = Array.isArray(first) ? first : [ ...first ];
+        const b = Array.isArray(second) ? second : [ ...second ];
+        yield* Lz.exceptInternal(a, b, comparator);
+        yield* Lz.exceptInternal(b, a, comparator);
+    }
+
+    /**
      * Returns distinct elements from a sequence by using a specified ComparatorFunction<T> to compare values.
      * @param {ComparatorFunction<T>} comparator Optional. A ComparatorFunction<T> to compare values.
      * @returns {Lz<T>} A sequence that contains distinct elements from the source sequence.
@@ -515,6 +558,14 @@ export default class Lz<T> implements IterableIterator<T> {
     public orderBy<V>(selector: SelectorFunctionNoIndex<T, V>): LzOrdered<T, V>;
 
     /**
+     * Sorts the elements of a sequence in ascending or descending order according to a key.
+     * @param {SelectorFunctionNoIndex<T, V>} selector A function to extract a key from an element.
+     * @param {boolean} descending Whether to sort in descending order rather than ascending.
+     * @returns {Lz<T>} A sequence whose elements are sorted according to a key.
+     */
+    public orderBy<V>(selector: SelectorFunctionNoIndex<T, V>, descending: boolean): LzOrdered<T, V>;
+
+    /**
      * Sorts the elements of a sequence in ascending order by using a specified comparator.
      * @param {SelectorFunctionNoIndex<T, V>} selector A function to extract a key from an element.
      * @param {ComparatorFunction<V>} comparator A ComparatorFunction<V> to compare keys.
@@ -522,8 +573,21 @@ export default class Lz<T> implements IterableIterator<T> {
      */
     public orderBy<V>(selector: SelectorFunctionNoIndex<T, V>, comparator: ComparatorFunction<V>): LzOrdered<T, V>;
 
-    public orderBy<V>(selector: SelectorFunctionNoIndex<T, V>, comparator?: ComparatorFunction<V>): LzOrdered<T, V> {
-        return new LzOrdered<T, V>(this, selector, comparator);
+    /**
+     * Sorts the elements of a sequence in ascending or descending order by using a specified comparator.
+     * @param {SelectorFunctionNoIndex<T, V>} selector A function to extract a key from an element.
+     * @param {ComparatorFunction<V>} comparator A ComparatorFunction<V> to compare keys.
+     * @param {boolean} descending Whether to sort in descending order rather than ascending.
+     * @returns {Lz<T>} A sequence whose elements are sorted according to a key.
+     */
+    public orderBy<V>(selector: SelectorFunctionNoIndex<T, V>, comparator: ComparatorFunction<V>, descending: boolean): LzOrdered<T, V>;
+
+    public orderBy<V>(selector: SelectorFunctionNoIndex<T, V>, comparator?: ComparatorFunction<V> | boolean, descending?: boolean): LzOrdered<T, V> {
+        if (typeof comparator === 'function') {
+            return new LzOrdered<T, V>(this, selector, comparator, descending);
+        } else {
+            return new LzOrdered<T, V>(this, selector, undefined, comparator ?? descending);
+        }
     }
 
     /**
@@ -535,6 +599,15 @@ export default class Lz<T> implements IterableIterator<T> {
     public static orderBy<T, V>(source: LzIterable<T>, selector: SelectorFunctionNoIndex<T, V>): LzOrdered<T, V>;
 
     /**
+     * Sorts the elements of a sequence in ascending or descending order according to a key.
+     * @param {LzIterable<T>} source A sequence of values to order.
+     * @param {SelectorFunctionNoIndex<T, V>} selector A function to extract a key from an element.
+     * @param {boolean} descending Whether to sort in descending order rather than ascending.
+     * @returns {Lz<T>} A sequence whose elements are sorted according to a key.
+     */
+    public static orderBy<T, V>(source: LzIterable<T>, selector: SelectorFunctionNoIndex<T, V>, descending: boolean): LzOrdered<T, V>;
+
+    /**
      * Sorts the elements of a sequence in ascending order by using a specified comparator.
      * @param {LzIterable<T>} source A sequence of values to order.
      * @param {SelectorFunctionNoIndex<T, V>} selector A function to extract a key from an element.
@@ -543,8 +616,22 @@ export default class Lz<T> implements IterableIterator<T> {
      */
     public static orderBy<T, V>(source: LzIterable<T>, selector: SelectorFunctionNoIndex<T, V>, comparator: ComparatorFunction<V>): LzOrdered<T, V>;
 
-    public static orderBy<T, V>(source: LzIterable<T>, selector: SelectorFunctionNoIndex<T, V>, comparator?: ComparatorFunction<V>): LzOrdered<T, V> {
-        return new LzOrdered<T, V>(Lz.toIterable(source), selector, comparator);
+    /**
+     * Sorts the elements of a sequence in ascending or descending order by using a specified comparator.
+     * @param {LzIterable<T>} source A sequence of values to order.
+     * @param {SelectorFunctionNoIndex<T, V>} selector A function to extract a key from an element.
+     * @param {ComparatorFunction<V>} comparator A ComparatorFunction<V> to compare keys.
+     * @param {boolean} descending Whether to sort in descending order rather than ascending.
+     * @returns {Lz<T>} A sequence whose elements are sorted according to a key.
+     */
+    public static orderBy<T, V>(source: LzIterable<T>, selector: SelectorFunctionNoIndex<T, V>, comparator: ComparatorFunction<V>, descending: boolean): LzOrdered<T, V>;
+
+    public static orderBy<T, V>(source: LzIterable<T>, selector: SelectorFunctionNoIndex<T, V>, comparator?: ComparatorFunction<V> | boolean, descending?: boolean): LzOrdered<T, V> {
+        if (typeof comparator === 'function') {
+            return new LzOrdered<T, V>(Lz.toIterable(source), selector, comparator, descending);
+        } else {
+            return new LzOrdered<T, V>(Lz.toIterable(source), selector, undefined, comparator ?? descending);
+        }
     }
 
     /**
@@ -1523,6 +1610,23 @@ export default class Lz<T> implements IterableIterator<T> {
      */
     public static toArray<T>(source: LzIterable<T>): T[] {
         return [ ...source ];
+    }
+
+    /**
+     * Creates a Set<T> from an IterableIterator<T>.
+     * @returns {Set<T>} A Set<T> that contains values of type T selected from the input sequence.
+     */
+    public toSet(): Set<T> {
+        return new Set([ ...this ]);
+    }
+
+    /**
+     * Creates a Set<T> from an IterableIterator<T>.
+     * @param {LzIterable<T>} source An IterableIterator<T> to create a Set<T> from.
+     * @returns {Set<T>} A Set<T> that contains values of type T selected from the input sequence.
+     */
+    public static toSet<T>(source: LzIterable<T>): Set<T> {
+        return new Set([ ...source ]);
     }
 
     public [Symbol.iterator](): IterableIterator<T> {

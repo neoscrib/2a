@@ -1,8 +1,8 @@
 // tslint:disable:no-reference
 /// <reference path="../index.d.ts" />
 
-import { expect } from 'chai';
-import 'mocha';
+import { assert, expect } from 'chai';
+import { describe } from 'mocha';
 import Lz, { LzGrouped } from '../src/Lz';
 
 describe('Lz', () => {
@@ -48,6 +48,15 @@ describe('Lz', () => {
                 const expected = [ 100 ];
                 expect(actual).to.deep.equal(expected);
             }
+        });
+    });
+
+    describe('disjunctive', () => {
+        it('returns the symmetrical difference of two sequences', () => {
+            const a = [ 0, 1, 2, 3, 4, 5 ];
+            const b = [ 2, 3, 4, 5, 6, 7 ];
+            const actual = Lz.disjunctive(a, b).toArray();
+            expect(actual).to.deep.equal([ 0, 1, 6, 7 ]);
         });
     });
 
@@ -713,6 +722,23 @@ describe('Lz', () => {
             const actual = Lz.toArray(items());
             const expected = [ 10, 20, 30, 40, 50, 60, 70, 80, 90 ];
             expect(actual).to.deep.equal(expected);
+        });
+    });
+
+    describe('toSet', () => {
+        it('creates a set from an IterableIterator<T>.', () => {
+            function *items() {
+                for (let c = 'a'.charCodeAt(0); c <= 'f'.charCodeAt(0); c++) {
+                    yield String.fromCharCode(c);
+                    yield String.fromCharCode(c);
+                    yield String.fromCharCode(c);
+                }
+            }
+
+            const actual = Lz.toSet(items());
+            const expected = [ 'a', 'b', 'c', 'd', 'e', 'f' ];
+            assert.instanceOf(actual, Set);
+            expect([ ...actual ]).to.deep.equal(expected);
         });
     });
 });

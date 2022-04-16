@@ -143,7 +143,7 @@
 
 #### Defined in
 
-[src/Lz.ts:22](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L22)
+[src/Lz.ts:22](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L22)
 
 ## Properties
 
@@ -153,7 +153,7 @@
 
 #### Defined in
 
-[src/Lz.ts:18](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L18)
+[src/Lz.ts:18](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L18)
 
 ## Methods
 
@@ -171,7 +171,7 @@ IterableIterator.\_\_@iterator@78
 
 #### Defined in
 
-[src/Lz.ts:1528](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1528)
+[src/Lz.ts:1528](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L1528)
 
 ___
 
@@ -202,7 +202,7 @@ The final accumulator value.
 
 #### Defined in
 
-[src/Lz.ts:1099](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1099)
+[src/Lz.ts:1099](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L1099)
 
 ___
 
@@ -227,7 +227,7 @@ otherwise, <b>false</b>.
 
 #### Defined in
 
-[src/Lz.ts:1282](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1282)
+[src/Lz.ts:1282](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L1282)
 
 ___
 
@@ -251,7 +251,7 @@ Determines whether any element of a sequence satisfies a condition.
 
 #### Defined in
 
-[src/Lz.ts:1256](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1256)
+[src/Lz.ts:1256](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L1256)
 
 ___
 
@@ -280,7 +280,7 @@ A new sequence that ends with element.
 
 #### Defined in
 
-[src/Lz.ts:56](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L56)
+[src/Lz.ts:56](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L56)
 
 ___
 
@@ -304,7 +304,7 @@ The average of the sequence of values, or 0 if the source sequence is empty.
 
 #### Defined in
 
-[src/Lz.ts:1193](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1193)
+[src/Lz.ts:1193](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L1193)
 
 ▸ **average**(`selector?`): `number`
 
@@ -320,7 +320,7 @@ The average of the sequence of values, or 0 if the source sequence is empty.
 
 #### Defined in
 
-[src/Lz.ts:1194](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1194)
+[src/Lz.ts:1194](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L1194)
 
 ___
 
@@ -344,7 +344,7 @@ A sequence that contains the concatenated elements of the two input sequences.
 
 #### Defined in
 
-[src/Lz.ts:116](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L116)
+[src/Lz.ts:116](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L116)
 
 ___
 
@@ -368,7 +368,7 @@ A number that represents how many elements in the sequence satisfy the condition
 
 #### Defined in
 
-[src/Lz.ts:1225](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1225)
+[src/Lz.ts:1225](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L1225)
 
 ___
 
@@ -399,7 +399,7 @@ A sequence that contains <i>defaultValue</i> if <i>source</i> is empty; otherwis
 
 #### Defined in
 
-[src/Lz.ts:146](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L146)
+[src/Lz.ts:146](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L146)
 
 ___
 
@@ -428,7 +428,7 @@ A sequence that contains distinct elements from the source sequence.
 
 #### Defined in
 
-[src/Lz.ts:187](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L187)
+[src/Lz.ts:187](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L187)
 
 ___
 
@@ -459,7 +459,7 @@ A sequence that contains the set difference of the elements of two sequences.
 
 #### Defined in
 
-[src/Lz.ts:240](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L240)
+[src/Lz.ts:240](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L240)
 
 ___
 
@@ -485,7 +485,7 @@ The first element.
 
 #### Defined in
 
-[src/Lz.ts:1386](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1386)
+[src/Lz.ts:1386](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L1386)
 
 ___
 
@@ -510,7 +510,7 @@ The first element, or a default value if the sequence contains no elements.
 
 #### Defined in
 
-[src/Lz.ts:1419](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1419)
+[src/Lz.ts:1419](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L1419)
 
 ___
 
@@ -532,7 +532,7 @@ Performs the specified action on each element of the sequence.
 
 #### Defined in
 
-[src/Lz.ts:278](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L278)
+[src/Lz.ts:278](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L278)
 
 ___
 
@@ -563,7 +563,7 @@ A Map where each entry contains a collection of objects of type T.
 
 #### Defined in
 
-[src/Lz.ts:939](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L939)
+[src/Lz.ts:939](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L939)
 
 ▸ **groupBy**<`K`, `V`\>(`keySelector`, `elementSelector?`): [`LzGrouped`](LzGrouped.md)<`K`, `V`[]\>
 
@@ -592,7 +592,7 @@ A Map where each entry contains a collection of objects of type V.
 
 #### Defined in
 
-[src/Lz.ts:947](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L947)
+[src/Lz.ts:947](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L947)
 
 ___
 
@@ -622,7 +622,7 @@ A new sequence that contains <i>element</i> at <i>index</i>.
 
 #### Defined in
 
-[src/Lz.ts:299](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L299)
+[src/Lz.ts:299](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L299)
 
 ___
 
@@ -652,7 +652,7 @@ A sequence that contains the elements that form the set intersection of two sequ
 
 #### Defined in
 
-[src/Lz.ts:338](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L338)
+[src/Lz.ts:338](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L338)
 
 ___
 
@@ -693,7 +693,7 @@ join on two sequences.
 
 #### Defined in
 
-[src/Lz.ts:383](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L383)
+[src/Lz.ts:383](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L383)
 
 ___
 
@@ -719,7 +719,7 @@ The value at the last position in the source sequence.
 
 #### Defined in
 
-[src/Lz.ts:431](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L431)
+[src/Lz.ts:431](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L431)
 
 ___
 
@@ -744,7 +744,7 @@ The value at the last position in the source sequence.
 
 #### Defined in
 
-[src/Lz.ts:469](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L469)
+[src/Lz.ts:469](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L469)
 
 ___
 
@@ -768,7 +768,7 @@ The maximum value in the sequence.
 
 #### Defined in
 
-[src/Lz.ts:1124](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1124)
+[src/Lz.ts:1124](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L1124)
 
 ▸ **max**(`selector?`): `number`
 
@@ -784,7 +784,7 @@ The maximum value in the sequence.
 
 #### Defined in
 
-[src/Lz.ts:1125](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1125)
+[src/Lz.ts:1125](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L1125)
 
 ___
 
@@ -808,7 +808,7 @@ The minimum value in the sequence.
 
 #### Defined in
 
-[src/Lz.ts:1147](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1147)
+[src/Lz.ts:1147](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L1147)
 
 ▸ **min**(`selector?`): `number`
 
@@ -824,7 +824,7 @@ The minimum value in the sequence.
 
 #### Defined in
 
-[src/Lz.ts:1148](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1148)
+[src/Lz.ts:1148](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L1148)
 
 ___
 
@@ -848,7 +848,7 @@ IterableIterator.next
 
 #### Defined in
 
-[src/Lz.ts:1532](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1532)
+[src/Lz.ts:1532](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L1532)
 
 ___
 
@@ -878,7 +878,7 @@ A sequence whose elements are sorted according to a key.
 
 #### Defined in
 
-[src/Lz.ts:515](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L515)
+[src/Lz.ts:515](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L515)
 
 ▸ **orderBy**<`V`\>(`selector`, `comparator`): `LzOrdered`<`T`, `V`\>
 
@@ -905,7 +905,7 @@ A sequence whose elements are sorted according to a key.
 
 #### Defined in
 
-[src/Lz.ts:523](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L523)
+[src/Lz.ts:523](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L523)
 
 ___
 
@@ -935,7 +935,7 @@ A sequence whose elements are sorted according to a key.
 
 #### Defined in
 
-[src/Lz.ts:555](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L555)
+[src/Lz.ts:555](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L555)
 
 ▸ **orderByDescending**<`V`\>(`selector`, `comparator`): `LzOrdered`<`T`, `V`\>
 
@@ -962,7 +962,7 @@ A sequence whose elements are sorted according to a key.
 
 #### Defined in
 
-[src/Lz.ts:563](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L563)
+[src/Lz.ts:563](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L563)
 
 ___
 
@@ -986,7 +986,7 @@ A sequence that contains the partitioned arrays.
 
 #### Defined in
 
-[src/Lz.ts:998](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L998)
+[src/Lz.ts:998](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L998)
 
 ___
 
@@ -1015,7 +1015,7 @@ A new sequence that begins with <i>element</i>.
 
 #### Defined in
 
-[src/Lz.ts:88](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L88)
+[src/Lz.ts:88](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L88)
 
 ___
 
@@ -1039,7 +1039,7 @@ IterableIterator.return
 
 #### Defined in
 
-[src/Lz.ts:1536](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1536)
+[src/Lz.ts:1536](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L1536)
 
 ___
 
@@ -1057,7 +1057,7 @@ A sequence whose elements correspond to those of the input sequence in reverse o
 
 #### Defined in
 
-[src/Lz.ts:669](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L669)
+[src/Lz.ts:669](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L669)
 
 ___
 
@@ -1087,7 +1087,7 @@ An iterable whose elements are the result of invoking the transform function on 
 
 #### Defined in
 
-[src/Lz.ts:761](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L761)
+[src/Lz.ts:761](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L761)
 
 ___
 
@@ -1118,7 +1118,7 @@ sequence.
 
 #### Defined in
 
-[src/Lz.ts:788](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L788)
+[src/Lz.ts:788](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L788)
 
 ___
 
@@ -1145,7 +1145,7 @@ compare equal according to <i>comparator</i>; otherwise, <i>false</i>.
 
 #### Defined in
 
-[src/Lz.ts:697](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L697)
+[src/Lz.ts:697](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L697)
 
 ___
 
@@ -1172,7 +1172,7 @@ The single element of the input sequence that satisfies a condition.
 
 #### Defined in
 
-[src/Lz.ts:1311](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1311)
+[src/Lz.ts:1311](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L1311)
 
 ___
 
@@ -1200,7 +1200,7 @@ The single element of the input sequence that satisfies a condition.
 
 #### Defined in
 
-[src/Lz.ts:1349](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1349)
+[src/Lz.ts:1349](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L1349)
 
 ___
 
@@ -1224,7 +1224,7 @@ An iterable that contains the elements that occur after the specified index in t
 
 #### Defined in
 
-[src/Lz.ts:843](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L843)
+[src/Lz.ts:843](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L843)
 
 ___
 
@@ -1249,7 +1249,7 @@ that does not pass the test specified by predicate.
 
 #### Defined in
 
-[src/Lz.ts:904](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L904)
+[src/Lz.ts:904](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L904)
 
 ___
 
@@ -1273,7 +1273,7 @@ The sum of the projected values.
 
 #### Defined in
 
-[src/Lz.ts:1170](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1170)
+[src/Lz.ts:1170](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L1170)
 
 ▸ **sum**(`selector?`): `number`
 
@@ -1289,7 +1289,7 @@ The sum of the projected values.
 
 #### Defined in
 
-[src/Lz.ts:1171](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1171)
+[src/Lz.ts:1171](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L1171)
 
 ___
 
@@ -1313,7 +1313,7 @@ An iterable that contains the specified number of elements from the start of the
 
 #### Defined in
 
-[src/Lz.ts:815](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L815)
+[src/Lz.ts:815](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L815)
 
 ___
 
@@ -1338,7 +1338,7 @@ longer passes.
 
 #### Defined in
 
-[src/Lz.ts:872](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L872)
+[src/Lz.ts:872](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L872)
 
 ___
 
@@ -1362,7 +1362,7 @@ IterableIterator.throw
 
 #### Defined in
 
-[src/Lz.ts:1540](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1540)
+[src/Lz.ts:1540](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L1540)
 
 ___
 
@@ -1380,7 +1380,7 @@ An array that contains the elements from the input sequence.
 
 #### Defined in
 
-[src/Lz.ts:1515](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1515)
+[src/Lz.ts:1515](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L1515)
 
 ___
 
@@ -1406,7 +1406,7 @@ A Map that contains keys and values.
 
 #### Defined in
 
-[src/Lz.ts:1446](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1446)
+[src/Lz.ts:1446](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L1446)
 
 ▸ **toDictionary**<`K`, `T`\>(`keySelector`): `Map`<`K`, `T`\>
 
@@ -1433,7 +1433,7 @@ A Map that contains keys and values.
 
 #### Defined in
 
-[src/Lz.ts:1453](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1453)
+[src/Lz.ts:1453](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L1453)
 
 ▸ **toDictionary**<`K`, `U`\>(`keySelector`, `elementSelector`): `Map`<`K`, `U`\>
 
@@ -1461,7 +1461,7 @@ A Map that contains keys and values.
 
 #### Defined in
 
-[src/Lz.ts:1461](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1461)
+[src/Lz.ts:1461](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L1461)
 
 ___
 
@@ -1479,7 +1479,7 @@ The input sequence typed as LzIterable<T>.
 
 #### Defined in
 
-[src/Lz.ts:30](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L30)
+[src/Lz.ts:30](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L30)
 
 ___
 
@@ -1509,7 +1509,7 @@ A sequence that contains the elements from both input sequences, excluding dupli
 
 #### Defined in
 
-[src/Lz.ts:1038](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1038)
+[src/Lz.ts:1038](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L1038)
 
 ___
 
@@ -1533,7 +1533,7 @@ An iterable that contains elements from the input sequence that satisfy the cond
 
 #### Defined in
 
-[src/Lz.ts:732](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L732)
+[src/Lz.ts:732](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L732)
 
 ___
 
@@ -1565,7 +1565,7 @@ A sequence that contains merged elements of two input sequences.
 
 #### Defined in
 
-[src/Lz.ts:1064](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1064)
+[src/Lz.ts:1064](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L1064)
 
 ___
 
@@ -1598,7 +1598,7 @@ The final accumulator value.
 
 #### Defined in
 
-[src/Lz.ts:1110](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1110)
+[src/Lz.ts:1110](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L1110)
 
 ___
 
@@ -1630,7 +1630,7 @@ otherwise, <b>false</b>.
 
 #### Defined in
 
-[src/Lz.ts:1293](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1293)
+[src/Lz.ts:1293](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L1293)
 
 ___
 
@@ -1661,7 +1661,7 @@ Determines whether any element of a sequence satisfies a condition.
 
 #### Defined in
 
-[src/Lz.ts:1266](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1266)
+[src/Lz.ts:1266](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L1266)
 
 ___
 
@@ -1697,7 +1697,7 @@ A new sequence that ends with element.
 
 #### Defined in
 
-[src/Lz.ts:70](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L70)
+[src/Lz.ts:70](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L70)
 
 ___
 
@@ -1728,7 +1728,7 @@ The average of the sequence of values, or 0 if the source sequence is empty.
 
 #### Defined in
 
-[src/Lz.ts:1205](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1205)
+[src/Lz.ts:1205](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L1205)
 
 ▸ `Static` **average**<`T`\>(`source`, `selector?`): `number`
 
@@ -1751,7 +1751,7 @@ The average of the sequence of values, or 0 if the source sequence is empty.
 
 #### Defined in
 
-[src/Lz.ts:1206](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1206)
+[src/Lz.ts:1206](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L1206)
 
 ___
 
@@ -1782,7 +1782,7 @@ A sequence that contains the concatenated elements of the two input sequences.
 
 #### Defined in
 
-[src/Lz.ts:126](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L126)
+[src/Lz.ts:126](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L126)
 
 ___
 
@@ -1813,7 +1813,7 @@ A number that represents how many elements in the sequence satisfy the condition
 
 #### Defined in
 
-[src/Lz.ts:1235](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1235)
+[src/Lz.ts:1235](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L1235)
 
 ___
 
@@ -1851,7 +1851,7 @@ A sequence that contains <i>defaultValue</i> if <i>source</i> is empty; otherwis
 
 #### Defined in
 
-[src/Lz.ts:162](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L162)
+[src/Lz.ts:162](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L162)
 
 ___
 
@@ -1887,7 +1887,7 @@ A sequence that contains distinct elements from the source sequence.
 
 #### Defined in
 
-[src/Lz.ts:201](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L201)
+[src/Lz.ts:201](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L201)
 
 ___
 
@@ -1911,7 +1911,7 @@ An empty sequence whose type argument is <i>T</i>.
 
 #### Defined in
 
-[src/Lz.ts:224](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L224)
+[src/Lz.ts:224](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L224)
 
 ___
 
@@ -1949,7 +1949,7 @@ A sequence that contains the set difference of the elements of two sequences.
 
 #### Defined in
 
-[src/Lz.ts:258](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L258)
+[src/Lz.ts:258](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L258)
 
 ___
 
@@ -1982,7 +1982,7 @@ The first element.
 
 #### Defined in
 
-[src/Lz.ts:1397](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1397)
+[src/Lz.ts:1397](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L1397)
 
 ___
 
@@ -2014,7 +2014,7 @@ The first element, or a default value if the sequence contains no elements.
 
 #### Defined in
 
-[src/Lz.ts:1430](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1430)
+[src/Lz.ts:1430](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L1430)
 
 ___
 
@@ -2041,7 +2041,7 @@ ___
 
 #### Defined in
 
-[src/Lz.ts:282](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L282)
+[src/Lz.ts:282](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L282)
 
 ___
 
@@ -2074,7 +2074,7 @@ A Map where each entry contains a collection of objects of type V.
 
 #### Defined in
 
-[src/Lz.ts:959](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L959)
+[src/Lz.ts:959](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L959)
 
 ▸ `Static` **groupBy**<`T`, `K`, `V`\>(`source`, `keySelector`, `elementSelector?`): [`LzGrouped`](LzGrouped.md)<`K`, `V`[]\>
 
@@ -2105,7 +2105,7 @@ A Map where each entry contains a collection of objects of type V.
 
 #### Defined in
 
-[src/Lz.ts:969](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L969)
+[src/Lz.ts:969](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L969)
 
 ___
 
@@ -2142,7 +2142,7 @@ A new sequence that contains <i>element</i> at <i>index</i>.
 
 #### Defined in
 
-[src/Lz.ts:314](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L314)
+[src/Lz.ts:314](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L314)
 
 ___
 
@@ -2179,7 +2179,7 @@ A sequence that contains the elements that form the set intersection of two sequ
 
 #### Defined in
 
-[src/Lz.ts:354](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L354)
+[src/Lz.ts:354](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L354)
 
 ___
 
@@ -2222,7 +2222,7 @@ join on two sequences.
 
 #### Defined in
 
-[src/Lz.ts:404](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L404)
+[src/Lz.ts:404](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L404)
 
 ___
 
@@ -2255,7 +2255,7 @@ The value at the last position in the source sequence.
 
 #### Defined in
 
-[src/Lz.ts:442](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L442)
+[src/Lz.ts:442](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L442)
 
 ___
 
@@ -2287,7 +2287,7 @@ The value at the last position in the source sequence.
 
 #### Defined in
 
-[src/Lz.ts:480](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L480)
+[src/Lz.ts:480](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L480)
 
 ___
 
@@ -2318,7 +2318,7 @@ The maximum value in the sequence.
 
 #### Defined in
 
-[src/Lz.ts:1136](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1136)
+[src/Lz.ts:1136](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L1136)
 
 ▸ `Static` **max**<`T`\>(`source`, `selector?`): `number`
 
@@ -2341,7 +2341,7 @@ The maximum value in the sequence.
 
 #### Defined in
 
-[src/Lz.ts:1137](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1137)
+[src/Lz.ts:1137](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L1137)
 
 ___
 
@@ -2372,7 +2372,7 @@ The minimum value in the sequence.
 
 #### Defined in
 
-[src/Lz.ts:1159](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1159)
+[src/Lz.ts:1159](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L1159)
 
 ▸ `Static` **min**<`T`\>(`source`, `selector?`): `number`
 
@@ -2395,7 +2395,7 @@ The minimum value in the sequence.
 
 #### Defined in
 
-[src/Lz.ts:1160](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1160)
+[src/Lz.ts:1160](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L1160)
 
 ___
 
@@ -2427,7 +2427,7 @@ A sequence whose elements are sorted according to a key.
 
 #### Defined in
 
-[src/Lz.ts:535](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L535)
+[src/Lz.ts:535](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L535)
 
 ▸ `Static` **orderBy**<`T`, `V`\>(`source`, `selector`, `comparator`): `LzOrdered`<`T`, `V`\>
 
@@ -2456,7 +2456,7 @@ A sequence whose elements are sorted according to a key.
 
 #### Defined in
 
-[src/Lz.ts:544](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L544)
+[src/Lz.ts:544](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L544)
 
 ___
 
@@ -2488,7 +2488,7 @@ A sequence whose elements are sorted according to a key.
 
 #### Defined in
 
-[src/Lz.ts:575](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L575)
+[src/Lz.ts:575](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L575)
 
 ▸ `Static` **orderByDescending**<`T`, `V`\>(`source`, `selector`, `comparator`): `LzOrdered`<`T`, `V`\>
 
@@ -2517,7 +2517,7 @@ A sequence whose elements are sorted according to a key.
 
 #### Defined in
 
-[src/Lz.ts:584](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L584)
+[src/Lz.ts:584](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L584)
 
 ___
 
@@ -2548,7 +2548,7 @@ A sequence that contains the partitioned arrays.
 
 #### Defined in
 
-[src/Lz.ts:1009](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1009)
+[src/Lz.ts:1009](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L1009)
 
 ___
 
@@ -2584,7 +2584,7 @@ A new sequence that begins with <i>element</i>.
 
 #### Defined in
 
-[src/Lz.ts:102](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L102)
+[src/Lz.ts:102](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L102)
 
 ___
 
@@ -2616,7 +2616,7 @@ A sequence that contains a range of sequential integral numbers.
 
 #### Defined in
 
-[src/Lz.ts:601](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L601)
+[src/Lz.ts:601](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L601)
 
 ___
 
@@ -2654,7 +2654,7 @@ A sequence that contains a repeated value.
 
 #### Defined in
 
-[src/Lz.ts:628](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L628)
+[src/Lz.ts:628](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L628)
 
 ___
 
@@ -2692,7 +2692,7 @@ A sequence that contains the results of the repeated action.
 
 #### Defined in
 
-[src/Lz.ts:652](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L652)
+[src/Lz.ts:652](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L652)
 
 ___
 
@@ -2722,7 +2722,7 @@ A sequence whose elements correspond to those of the input sequence in reverse o
 
 #### Defined in
 
-[src/Lz.ts:678](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L678)
+[src/Lz.ts:678](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L678)
 
 ___
 
@@ -2754,7 +2754,7 @@ An iterable whose elements are the result of invoking the transform function on 
 
 #### Defined in
 
-[src/Lz.ts:771](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L771)
+[src/Lz.ts:771](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L771)
 
 ___
 
@@ -2787,7 +2787,7 @@ sequence.
 
 #### Defined in
 
-[src/Lz.ts:799](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L799)
+[src/Lz.ts:799](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L799)
 
 ___
 
@@ -2821,7 +2821,7 @@ compare equal according to <i>comparator</i>; otherwise, <i>false</i>.
 
 #### Defined in
 
-[src/Lz.ts:710](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L710)
+[src/Lz.ts:710](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L710)
 
 ___
 
@@ -2855,7 +2855,7 @@ The single element of the input sequence that satisfies a condition.
 
 #### Defined in
 
-[src/Lz.ts:1324](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1324)
+[src/Lz.ts:1324](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L1324)
 
 ___
 
@@ -2891,7 +2891,7 @@ no such element is found.
 
 #### Defined in
 
-[src/Lz.ts:1364](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1364)
+[src/Lz.ts:1364](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L1364)
 
 ___
 
@@ -2922,7 +2922,7 @@ An iterable that contains the elements that occur after the specified index in t
 
 #### Defined in
 
-[src/Lz.ts:853](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L853)
+[src/Lz.ts:853](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L853)
 
 ___
 
@@ -2954,7 +2954,7 @@ that does not pass the test specified by predicate.
 
 #### Defined in
 
-[src/Lz.ts:915](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L915)
+[src/Lz.ts:915](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L915)
 
 ___
 
@@ -2985,7 +2985,7 @@ The sum of the projected values.
 
 #### Defined in
 
-[src/Lz.ts:1182](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1182)
+[src/Lz.ts:1182](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L1182)
 
 ▸ `Static` **sum**<`T`\>(`source`, `selector?`): `number`
 
@@ -3008,7 +3008,7 @@ The sum of the projected values.
 
 #### Defined in
 
-[src/Lz.ts:1183](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1183)
+[src/Lz.ts:1183](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L1183)
 
 ___
 
@@ -3039,7 +3039,7 @@ An iterable that contains the specified number of elements from the start of the
 
 #### Defined in
 
-[src/Lz.ts:825](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L825)
+[src/Lz.ts:825](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L825)
 
 ___
 
@@ -3071,7 +3071,7 @@ longer passes.
 
 #### Defined in
 
-[src/Lz.ts:883](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L883)
+[src/Lz.ts:883](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L883)
 
 ___
 
@@ -3101,7 +3101,7 @@ An array that contains the elements from the input sequence.
 
 #### Defined in
 
-[src/Lz.ts:1524](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1524)
+[src/Lz.ts:1524](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L1524)
 
 ___
 
@@ -3132,7 +3132,7 @@ A Map that contains keys and values.
 
 #### Defined in
 
-[src/Lz.ts:1471](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1471)
+[src/Lz.ts:1471](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L1471)
 
 ▸ `Static` **toDictionary**<`T`, `K`\>(`source`, `keySelector`): `Map`<`K`, `T`\>
 
@@ -3160,7 +3160,7 @@ A Map that contains keys and values.
 
 #### Defined in
 
-[src/Lz.ts:1479](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1479)
+[src/Lz.ts:1479](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L1479)
 
 ▸ `Static` **toDictionary**<`T`, `K`, `U`\>(`source`, `keySelector`, `elementSelector`): `Map`<`K`, `U`\>
 
@@ -3190,7 +3190,7 @@ A Map that contains keys and values.
 
 #### Defined in
 
-[src/Lz.ts:1489](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1489)
+[src/Lz.ts:1489](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L1489)
 
 ___
 
@@ -3220,7 +3220,7 @@ The input sequence typed as LzIterable<T>.
 
 #### Defined in
 
-[src/Lz.ts:39](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L39)
+[src/Lz.ts:39](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L39)
 
 ___
 
@@ -3257,7 +3257,7 @@ A sequence that contains the elements from both input sequences, excluding dupli
 
 #### Defined in
 
-[src/Lz.ts:1053](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1053)
+[src/Lz.ts:1053](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L1053)
 
 ___
 
@@ -3288,7 +3288,7 @@ An iterable that contains elements from the input sequence that satisfy the cond
 
 #### Defined in
 
-[src/Lz.ts:743](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L743)
+[src/Lz.ts:743](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L743)
 
 ___
 
@@ -3322,4 +3322,4 @@ A sequence that contains merged elements of two input sequences.
 
 #### Defined in
 
-[src/Lz.ts:1076](https://github.com/neoscrib/2a/blob/c557db4/src/Lz.ts#L1076)
+[src/Lz.ts:1076](https://github.com/neoscrib/2a/blob/9c708ca/src/Lz.ts#L1076)
