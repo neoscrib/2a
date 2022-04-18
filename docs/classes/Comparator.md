@@ -10,7 +10,9 @@
 
 ### Methods
 
+- [comparing](Comparator.md#comparing)
 - [defaultComparator](Comparator.md#defaultcomparator)
+- [selector](Comparator.md#selector)
 
 ## Constructors
 
@@ -19,6 +21,33 @@
 • **new Comparator**()
 
 ## Methods
+
+### comparing
+
+▸ `Static` **comparing**<`T`, `U`\>(`selector`): `ComparatorFunction`<`T`\>
+
+#### Type parameters
+
+| Name |
+| :------ |
+| `T` |
+| `U` |
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `selector` | `SelectorFunctionNoIndex`<`T`, `U`\> \| keyof `T` |
+
+#### Returns
+
+`ComparatorFunction`<`T`\>
+
+#### Defined in
+
+[src/Comparator.ts:38](https://github.com/neoscrib/2a/blob/97a4b2d/src/Comparator.ts#L38)
+
+___
 
 ### defaultComparator
 
@@ -43,4 +72,31 @@
 
 #### Defined in
 
-[src/Comparator.ts:4](https://github.com/neoscrib/2a/blob/f53e49a/src/Comparator.ts#L4)
+[src/Comparator.ts:8](https://github.com/neoscrib/2a/blob/97a4b2d/src/Comparator.ts#L8)
+
+___
+
+### selector
+
+▸ `Static` **selector**<`T`, `U`\>(`selector`): `SelectorFunctionNoIndex`<`T`, `U`\>
+
+#### Type parameters
+
+| Name |
+| :------ |
+| `T` |
+| `U` |
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `selector` | keyof `T` |
+
+#### Returns
+
+`SelectorFunctionNoIndex`<`T`, `U`\>
+
+#### Defined in
+
+[src/Comparator.ts:48](https://github.com/neoscrib/2a/blob/97a4b2d/src/Comparator.ts#L48)
