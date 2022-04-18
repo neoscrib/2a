@@ -18,8 +18,8 @@ interface IMappingOptions {
     throws?: boolean;
     cache?: string;
     fromCache?: boolean;
-    cacheMissBehavior?: 'fetch' | 'return';
     cacheQueryOptions?: CacheQueryOptions;
+    cacheMissBehavior?: 'fetch' | 'return';
     interceptors?: (() => RequestInit)[];
     before?(init: RequestInit, id: string): void;
     after?(response: Response | CustomFetchResponse<any> | Error, id: string): void;
