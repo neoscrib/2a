@@ -62,6 +62,8 @@ export default ({ method, value, blob, stream, response, produces, consumes, thr
                 // copy headers to a plain object when using a custom fetch function
                 init.headers = headersToObject(init.headers);
                 resp = await customFetch(url.toString(), init);
+            } else {
+                resp = await window.fetch(request);
             }
         } catch (error) {
             executeAfter(after, error, id, clientOptions);
