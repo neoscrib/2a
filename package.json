@@ -8,7 +8,7 @@
         "prepublishOnly": "[ $(echo $PWD | sed 's/\\// /g' | awk '{print $NF}') = 'dist' ] || (echo 'Must publish from dist directory! Try \"npm run dist\"' && exit 1)",
         "dist": "./publish.sh",
         "lint": "tslint --project ./tsconfig.json",
-        "test": "cross-env TS_NODE_PROJECT=tsconfig.test.json TS_NODE_FILES=true mocha --require ts-node/register ./src/**/*.spec.ts",
+        "test": "cross-env TS_NODE_PROJECT=tsconfig.test.json TS_NODE_FILES=true mocha",
         "typedoc": "typedoc --cleanOutputDir --excludePrivate --excludeProtected --hideGenerator --readme none --out docs src/index.ts"
     },
     "repository": {
@@ -28,6 +28,8 @@
         "@types/uuid": "^8.3.4",
         "chai": "^4.3.0",
         "cross-env": "^7.0.3",
+        "jsdom": "^19.0.0",
+        "jsdom-global": "^3.0.2",
         "mocha": "^8.2.1",
         "ts-node": "^9.0.0",
         "tslint": "^6.1.3",

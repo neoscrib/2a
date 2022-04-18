@@ -3,7 +3,7 @@
 
 import { assert, expect } from 'chai';
 import { describe } from 'mocha';
-import Lz, { LzGrouped } from '../src/Lz';
+import Lz from '../src/Lz';
 
 describe('Lz', () => {
     describe('append', () => {

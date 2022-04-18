@@ -70,6 +70,8 @@ declare namespace twoa {
 
     export class Comparator {
         public static defaultComparator<T>(a: T, b: T): number;
+        public static comparing<T, U>(selector: SelectorFunctionNoIndex<T, U> | keyof T): ComparatorFunction<T>;
+        public static selector<T, U>(selector: keyof T): SelectorFunctionNoIndex<T, U>;
     }
 
     export class Lz<T> implements IterableIterator<T> {
