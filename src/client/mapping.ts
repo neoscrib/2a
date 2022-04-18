@@ -18,6 +18,7 @@ interface IMappingOptions {
     throws?: boolean;
     cache?: string;
     fromCache?: boolean;
+    cacheMissBehavior?: 'fetch' | 'return';
     cacheQueryOptions?: CacheQueryOptions;
     interceptors?: (() => RequestInit)[];
     before?(init: RequestInit, id: string): void;
@@ -25,7 +26,7 @@ interface IMappingOptions {
     fetch?<T>(input: RequestInfo, init?: RequestInit): Promise<CustomFetchResponse<T>>;
 }
 
-export default ({ method, value, blob, stream, response, produces, consumes, throws = true, cache, fromCache, cacheQueryOptions, interceptors, before, after, fetch }: IMappingOptions): MethodDecorator => (t: any, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<any>) => {
+export default ({ method, value, blob, stream, response, produces, consumes, throws = true, cache, fromCache, cacheQueryOptions, cacheMissBehavior = 'fetch', interceptors, before, after, fetch }: IMappingOptions): MethodDecorator => (t: any, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<any>) => {
     const target = t.prototype ?? t;
 
     descriptor.value = async <T>(...args: any[]): Promise<T | Blob | ReadableStream<Uint8Array> | Response | CustomFetchResponse<T>> => {
@@ -47,15 +48,20 @@ export default ({ method, value, blob, stream, response, produces, consumes, thr
         try {
             if (fromCache) {
                 resp = await cacheStore.match(request, cacheQueryOptions);
+
+                if (!resp) {
+                    switch (cacheMissBehavior) {
+                        case 'return': return;
+                        case 'fetch':
+                        default:
+                            fromCache = false;
+                            resp = await window.fetch(request);
+                    }
+                }
             } else if (customFetch) {
                 // copy headers to a plain object when using a custom fetch function
                 init.headers = headersToObject(init.headers);
                 resp = await customFetch(url.toString(), init);
-            }
-
-            if (!resp) {
-                fromCache = false;
-                resp = await window.fetch(request);
             }
         } catch (error) {
             executeAfter(after, error, id, clientOptions);
