@@ -1096,12 +1096,29 @@ declare namespace twoa {
         public thenBy<V>(selector: SelectorFunctionNoIndex<T, V>): LzOrdered<T, V>;
 
         /**
+         * Performs a subsequent ordering of the elements in a sequence in ascending or descending order according to a key.
+         * @param {SelectorFunctionNoIndex<T, V>} selector A function to extract a key from an element.
+         * @param {boolean} descending Whether to sort in descending order rather than ascending.
+         * @returns {LzOrdered<T, V>} A sequence whose elements are sorted according to a key.
+         */
+        public thenBy<V>(selector: SelectorFunctionNoIndex<T, V>, descending: boolean): LzOrdered<T, V>;
+
+        /**
          * Performs a subsequent ordering of the elements in a sequence in ascending order by using a specified comparator.
          * @param {SelectorFunctionNoIndex<T, V>} selector A function to extract a key from an element.
          * @param {ComparatorFunction<V>} comparator A ComparatorFunction<V> to compare keys.
          * @returns {LzOrdered<T, V>} A sequence whose elements are sorted according to a key.
          */
         public thenBy<V>(selector: SelectorFunctionNoIndex<T, V>, comparator: ComparatorFunction<V>): LzOrdered<T, V>;
+
+        /**
+         * Performs a subsequent ordering of the elements in a sequence in ascending or descending order by using a specified comparator.
+         * @param {SelectorFunctionNoIndex<T, V>} selector A function to extract a key from an element.
+         * @param {ComparatorFunction<V>} comparator A ComparatorFunction<V> to compare keys.
+         * @param {boolean} descending Whether to sort in descending order rather than ascending.
+         * @returns {LzOrdered<T, V>} A sequence whose elements are sorted according to a key.
+         */
+        public thenBy<V>(selector: SelectorFunctionNoIndex<T, V>, comparator: ComparatorFunction<V>, descending: boolean): LzOrdered<T, V>;
 
         /**
          * Performs a subsequent ordering of the elements in a sequence in descending order according to a key.
