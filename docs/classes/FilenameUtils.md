@@ -117,7 +117,7 @@ The extension separator character.
 
 #### Defined in
 
-[src/FilenameUtils.ts:106](https://github.com/neoscrib/2a/blob/d5cfd4e/src/FilenameUtils.ts#L106)
+[src/FilenameUtils.ts:106](https://github.com/neoscrib/2a/blob/93f4a64/src/FilenameUtils.ts#L106)
 
 ___
 
@@ -131,7 +131,7 @@ The extension separator String.
 
 #### Defined in
 
-[src/FilenameUtils.ts:112](https://github.com/neoscrib/2a/blob/d5cfd4e/src/FilenameUtils.ts#L112)
+[src/FilenameUtils.ts:112](https://github.com/neoscrib/2a/blob/93f4a64/src/FilenameUtils.ts#L112)
 
 ## Methods
 
@@ -197,7 +197,7 @@ the concatenated path, or null if invalid.  Null bytes inside string will be rem
 
 #### Defined in
 
-[src/FilenameUtils.ts:196](https://github.com/neoscrib/2a/blob/d5cfd4e/src/FilenameUtils.ts#L196)
+[src/FilenameUtils.ts:196](https://github.com/neoscrib/2a/blob/93f4a64/src/FilenameUtils.ts#L196)
 
 ___
 
@@ -236,7 +236,7 @@ true is the candidate leaf is under by the specified composite. False otherwise.
 
 #### Defined in
 
-[src/FilenameUtils.ts:239](https://github.com/neoscrib/2a/blob/d5cfd4e/src/FilenameUtils.ts#L239)
+[src/FilenameUtils.ts:239](https://github.com/neoscrib/2a/blob/93f4a64/src/FilenameUtils.ts#L239)
 
 ___
 
@@ -265,7 +265,7 @@ true if the fileNames are equal, null equals null
 
 #### Defined in
 
-[src/FilenameUtils.ts:432](https://github.com/neoscrib/2a/blob/d5cfd4e/src/FilenameUtils.ts#L432)
+[src/FilenameUtils.ts:432](https://github.com/neoscrib/2a/blob/93f4a64/src/FilenameUtils.ts#L432)
 
 ___
 
@@ -294,7 +294,7 @@ true if the fileNames are equal, null equals null
 
 #### Defined in
 
-[src/FilenameUtils.ts:460](https://github.com/neoscrib/2a/blob/d5cfd4e/src/FilenameUtils.ts#L460)
+[src/FilenameUtils.ts:460](https://github.com/neoscrib/2a/blob/93f4a64/src/FilenameUtils.ts#L460)
 
 ___
 
@@ -325,7 +325,7 @@ true if the fileNames are equal, null equals null
 
 #### Defined in
 
-[src/FilenameUtils.ts:477](https://github.com/neoscrib/2a/blob/d5cfd4e/src/FilenameUtils.ts#L477)
+[src/FilenameUtils.ts:477](https://github.com/neoscrib/2a/blob/93f4a64/src/FilenameUtils.ts#L477)
 
 ___
 
@@ -354,7 +354,7 @@ true if the fileNames are equal, null equals null
 
 #### Defined in
 
-[src/FilenameUtils.ts:492](https://github.com/neoscrib/2a/blob/d5cfd4e/src/FilenameUtils.ts#L492)
+[src/FilenameUtils.ts:492](https://github.com/neoscrib/2a/blob/93f4a64/src/FilenameUtils.ts#L492)
 
 ___
 
@@ -378,7 +378,7 @@ The Windows or Linux name separator.
 
 #### Defined in
 
-[src/FilenameUtils.ts:502](https://github.com/neoscrib/2a/blob/d5cfd4e/src/FilenameUtils.ts#L502)
+[src/FilenameUtils.ts:502](https://github.com/neoscrib/2a/blob/93f4a64/src/FilenameUtils.ts#L502)
 
 ___
 
@@ -416,7 +416,7 @@ will be removed
 
 #### Defined in
 
-[src/FilenameUtils.ts:554](https://github.com/neoscrib/2a/blob/d5cfd4e/src/FilenameUtils.ts#L554)
+[src/FilenameUtils.ts:554](https://github.com/neoscrib/2a/blob/93f4a64/src/FilenameUtils.ts#L554)
 
 ___
 
@@ -465,7 +465,7 @@ if the fileName is {@code null}.
 
 #### Defined in
 
-[src/FilenameUtils.ts:588](https://github.com/neoscrib/2a/blob/d5cfd4e/src/FilenameUtils.ts#L588)
+[src/FilenameUtils.ts:588](https://github.com/neoscrib/2a/blob/93f4a64/src/FilenameUtils.ts#L588)
 
 ___
 
@@ -510,7 +510,7 @@ the path of the file, an empty string if none exists, null if invalid
 
 #### Defined in
 
-[src/FilenameUtils.ts:626](https://github.com/neoscrib/2a/blob/d5cfd4e/src/FilenameUtils.ts#L626)
+[src/FilenameUtils.ts:626](https://github.com/neoscrib/2a/blob/93f4a64/src/FilenameUtils.ts#L626)
 
 ___
 
@@ -556,7 +556,7 @@ the path of the file, an empty string if none exists, null if invalid
 
 #### Defined in
 
-[src/FilenameUtils.ts:658](https://github.com/neoscrib/2a/blob/d5cfd4e/src/FilenameUtils.ts#L658)
+[src/FilenameUtils.ts:658](https://github.com/neoscrib/2a/blob/93f4a64/src/FilenameUtils.ts#L658)
 
 ___
 
@@ -594,7 +594,7 @@ Null bytes inside string will be removed
 
 #### Defined in
 
-[src/FilenameUtils.ts:682](https://github.com/neoscrib/2a/blob/d5cfd4e/src/FilenameUtils.ts#L682)
+[src/FilenameUtils.ts:682](https://github.com/neoscrib/2a/blob/93f4a64/src/FilenameUtils.ts#L682)
 
 ___
 
@@ -638,7 +638,7 @@ Null bytes inside string will be removed
 
 #### Defined in
 
-[src/FilenameUtils.ts:715](https://github.com/neoscrib/2a/blob/d5cfd4e/src/FilenameUtils.ts#L715)
+[src/FilenameUtils.ts:715](https://github.com/neoscrib/2a/blob/93f4a64/src/FilenameUtils.ts#L715)
 
 ___
 
@@ -683,7 +683,7 @@ Null bytes inside string will be removed
 
 #### Defined in
 
-[src/FilenameUtils.ts:746](https://github.com/neoscrib/2a/blob/d5cfd4e/src/FilenameUtils.ts#L746)
+[src/FilenameUtils.ts:746](https://github.com/neoscrib/2a/blob/93f4a64/src/FilenameUtils.ts#L746)
 
 ___
 
@@ -732,7 +732,7 @@ the prefix of the file, null if invalid. Null bytes inside string will be remove
 
 #### Defined in
 
-[src/FilenameUtils.ts:781](https://github.com/neoscrib/2a/blob/d5cfd4e/src/FilenameUtils.ts#L781)
+[src/FilenameUtils.ts:781](https://github.com/neoscrib/2a/blob/93f4a64/src/FilenameUtils.ts#L781)
 
 ___
 
@@ -793,7 +793,7 @@ the length of the prefix, -1 if invalid or null
 
 #### Defined in
 
-[src/FilenameUtils.ts:840](https://github.com/neoscrib/2a/blob/d5cfd4e/src/FilenameUtils.ts#L840)
+[src/FilenameUtils.ts:840](https://github.com/neoscrib/2a/blob/93f4a64/src/FilenameUtils.ts#L840)
 
 ___
 
@@ -833,7 +833,7 @@ the index of the last extension separator character, or -1 if there is no such c
 
 #### Defined in
 
-[src/FilenameUtils.ts:920](https://github.com/neoscrib/2a/blob/d5cfd4e/src/FilenameUtils.ts#L920)
+[src/FilenameUtils.ts:920](https://github.com/neoscrib/2a/blob/93f4a64/src/FilenameUtils.ts#L920)
 
 ___
 
@@ -863,7 +863,7 @@ is no such character
 
 #### Defined in
 
-[src/FilenameUtils.ts:942](https://github.com/neoscrib/2a/blob/d5cfd4e/src/FilenameUtils.ts#L942)
+[src/FilenameUtils.ts:942](https://github.com/neoscrib/2a/blob/93f4a64/src/FilenameUtils.ts#L942)
 
 ___
 
@@ -894,7 +894,7 @@ true if the fileName is one of the extensions
 
 #### Defined in
 
-[src/FilenameUtils.ts:974](https://github.com/neoscrib/2a/blob/d5cfd4e/src/FilenameUtils.ts#L974)
+[src/FilenameUtils.ts:974](https://github.com/neoscrib/2a/blob/93f4a64/src/FilenameUtils.ts#L974)
 
 ▸ `Static` **isExtension**(`fileName`, `extension`): `boolean`
 
@@ -921,7 +921,7 @@ true if the fileName has the specified extension
 
 #### Defined in
 
-[src/FilenameUtils.ts:989](https://github.com/neoscrib/2a/blob/d5cfd4e/src/FilenameUtils.ts#L989)
+[src/FilenameUtils.ts:989](https://github.com/neoscrib/2a/blob/93f4a64/src/FilenameUtils.ts#L989)
 
 ▸ `Static` **isExtension**(`fileName`, ...`extensions`): `boolean`
 
@@ -948,7 +948,7 @@ true if the fileName is one of the extensions
 
 #### Defined in
 
-[src/FilenameUtils.ts:1003](https://github.com/neoscrib/2a/blob/d5cfd4e/src/FilenameUtils.ts#L1003)
+[src/FilenameUtils.ts:1003](https://github.com/neoscrib/2a/blob/93f4a64/src/FilenameUtils.ts#L1003)
 
 ___
 
@@ -1010,7 +1010,7 @@ the normalized fileName, or null if invalid. Null bytes inside string will be re
 
 #### Defined in
 
-[src/FilenameUtils.ts:1229](https://github.com/neoscrib/2a/blob/d5cfd4e/src/FilenameUtils.ts#L1229)
+[src/FilenameUtils.ts:1229](https://github.com/neoscrib/2a/blob/93f4a64/src/FilenameUtils.ts#L1229)
 
 ___
 
@@ -1071,7 +1071,7 @@ the normalized fileName, or null if invalid. Null bytes inside string will be re
 
 #### Defined in
 
-[src/FilenameUtils.ts:1280](https://github.com/neoscrib/2a/blob/d5cfd4e/src/FilenameUtils.ts#L1280)
+[src/FilenameUtils.ts:1280](https://github.com/neoscrib/2a/blob/93f4a64/src/FilenameUtils.ts#L1280)
 
 ___
 
@@ -1106,7 +1106,7 @@ the fileName minus the extension
 
 #### Defined in
 
-[src/FilenameUtils.ts:1305](https://github.com/neoscrib/2a/blob/d5cfd4e/src/FilenameUtils.ts#L1305)
+[src/FilenameUtils.ts:1305](https://github.com/neoscrib/2a/blob/93f4a64/src/FilenameUtils.ts#L1305)
 
 ___
 
@@ -1130,7 +1130,7 @@ the updated path.
 
 #### Defined in
 
-[src/FilenameUtils.ts:1340](https://github.com/neoscrib/2a/blob/d5cfd4e/src/FilenameUtils.ts#L1340)
+[src/FilenameUtils.ts:1340](https://github.com/neoscrib/2a/blob/93f4a64/src/FilenameUtils.ts#L1340)
 
 ___
 
@@ -1154,7 +1154,7 @@ the new path.
 
 #### Defined in
 
-[src/FilenameUtils.ts:1351](https://github.com/neoscrib/2a/blob/d5cfd4e/src/FilenameUtils.ts#L1351)
+[src/FilenameUtils.ts:1351](https://github.com/neoscrib/2a/blob/93f4a64/src/FilenameUtils.ts#L1351)
 
 ___
 
@@ -1178,7 +1178,7 @@ the updated path.
 
 #### Defined in
 
-[src/FilenameUtils.ts:1362](https://github.com/neoscrib/2a/blob/d5cfd4e/src/FilenameUtils.ts#L1362)
+[src/FilenameUtils.ts:1362](https://github.com/neoscrib/2a/blob/93f4a64/src/FilenameUtils.ts#L1362)
 
 ___
 
@@ -1217,4 +1217,4 @@ true if the fileName matches the wildcard string
 
 #### Defined in
 
-[src/FilenameUtils.ts:1441](https://github.com/neoscrib/2a/blob/d5cfd4e/src/FilenameUtils.ts#L1441)
+[src/FilenameUtils.ts:1441](https://github.com/neoscrib/2a/blob/93f4a64/src/FilenameUtils.ts#L1441)
