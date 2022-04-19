@@ -1138,21 +1138,24 @@ declare namespace twoa {
 
     export class SortedMap<K, V> extends Map<K, V> implements IterableIterator<[K, V]> {
         constructor();
-        constructor(entries: IterableIterator<[K, V]> | null, comparator?: (a: K, b: K, c?: V, d?: V) => number);
+        constructor(entries: Iterable<readonly [K, V]> | null, comparator?: (a: K, b: K, c?: V, d?: V) => number);
 
         /**
          * Returns the first (lowest) key currently in this map.
+         * @returns the first (lowest) key currently in this map
          */
         public firstKey(): K;
 
         /**
          * Returns the last (highest) key currently in this map.
+         * @returns the last (highest) key currently in this map
          */
         public lastKey(): K;
 
         /**
          * Returns a view of the portion of this map whose keys are greater than or equal to fromKey.
          * @param fromKey low endpoint (inclusive) of the keys in the returned map
+         * @returns a view of the portion of this map whose keys are greater than or equal to fromKey
          */
         public tailMap(fromKey: K): SortedMap<K, V>;
 
@@ -1160,14 +1163,67 @@ declare namespace twoa {
          * Returns a view of the portion of this map whose keys range from fromKey, inclusive, to toKey, exclusive.
          * @param fromKey low endpoint (inclusive) of the keys in the returned map
          * @param toKey high endpoint (exclusive) of the keys in the returned map
+         * @returns a view of the portion of this map whose keys range from fromKey, inclusive, to toKey, exclusive
          */
         public subMap(fromKey: K, toKey: K): SortedMap<K, V>;
 
         /**
          * Returns a view of the portion of this map whose keys are strictly less than toKey.
          * @param toKey high endpoint (exclusive) of the keys in the returned map
+         * @returns a view of the portion of this map whose keys are strictly less than toKey
          */
         public headMap(toKey: K): SortedMap<K, V>;
+
+        /**
+         * If the specified key is not already associated with a value associates it with the given value and returns that value, else returns the current value.
+         * @param {K} key key with which the specified value is to be associated
+         * @param {V} value value to be associated with the specified key
+         * @returns {V} the previous value associated with the specified key, or the specified value if there was no mapping for the key.
+         */
+        public setIfAbsent(key: K, value: V): V;
+
+        /**
+         * The clear() method removes all elements from a Map object.
+         */
+        public clear(): void;
+
+        /**
+         * The delete() method removes the specified element from a Map object by key.
+         * @param {K} key The key of the element to remove from the Map object.
+         * @returns {boolean} true if an element in the Map object existed and has been removed, or false if the element does not exist.
+         */
+        public delete(key: K): boolean;
+
+        /**
+         * Returns an iterable of entries in the map.
+         * @returns {IterableIterator<[K, V]>} an iterable of entries in the map.
+         */
+        public [Symbol.iterator](): IterableIterator<[ K, V ]>;
+
+        /**
+         * Returns an iterable of key, value pairs for every entry in the map.
+         * @returns {IterableIterator<[K, V]>} an iterable of key, value pairs for every entry in the map.
+         */
+        public entries(): IterableIterator<[ K, V ]>;
+
+        /**
+         * Returns an iterable of keys in the map
+         * @returns {IterableIterator<K>} an iterable of keys in the map
+         */
+        public keys(): IterableIterator<K>;
+
+        /**
+         * Returns an iterable of values in the map.
+         * @returns {IterableIterator<V>} an iterable of values in the map.
+         */
+        public values(): IterableIterator<V>;
+
+        /**
+         * The forEach() method executes a provided function once per each key/value pair in the Map object, in insertion order.
+         * @param {(value: V, key: K, map: SortedMap<K, V>) => void} callbackFn Function to execute for each entry in the map.
+         * @param thisArg Value to use as this when executing callback.
+         */
+        public forEach(callbackFn: (value: V, key: K, map: SortedMap<K, V>) => void, thisArg?: any): void;
 
         public next(value?: any): IteratorResult<[ K, V ]>;
         public return(value?: any): IteratorResult<[ K, V ]>;
@@ -1191,7 +1247,6 @@ declare namespace twoa {
 
         /**
          * Gets the current length of the final string.
-         * @note This builds the string in its current state in order to determine the length.
          * @returns {number} The length of the final string in its current state.
          */
         public get length(): number;

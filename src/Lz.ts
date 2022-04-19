@@ -1739,12 +1739,12 @@ class LzOrdered<T, K> extends Lz<T> {
     }
 
     private static sort<T, K>(source: LzIterable<T>, selector: SelectorFunctionNoIndex<T, K>, comparator: ComparatorFunction<K>, descending: boolean): SortedMap<K, T[]> {
-        const comparer = (a: K, b: K) => descending ? comparator(b, a) : comparator(a, b);
+        const comparer = descending ? (a: K, b: K) => comparator(b, a) : comparator;
         const sorted = new SortedMap<K, T[]>(null, comparer);
 
         for (const item of source) {
             const key = selector(item);
-            (sorted.get(key) ?? sorted.set(key, []).get(key)).push(item);
+            sorted.setIfAbsent(key, []).push(item);
         }
         return sorted;
     }
@@ -1757,9 +1757,9 @@ class LzOrdered<T, K> extends Lz<T> {
                 const sorted = LzOrdered.sort(items, this.selector, this.comparator, this.descending);
                 for (const values of sorted.values()) {
                     if (flag) {
-                        yield Lz.toIterable(values);
+                        yield values;
                     } else {
-                        yield* Lz.toIterable(values);
+                        yield* values;
                     }
                 }
             }
@@ -1767,9 +1767,9 @@ class LzOrdered<T, K> extends Lz<T> {
             const sorted = LzOrdered.sort(this.source, this.selector, this.comparator, this.descending);
             for (const values of sorted.values()) {
                 if (flag) {
-                    yield Lz.toIterable(values);
+                    yield values;
                 } else {
-                    yield* Lz.toIterable(values);
+                    yield* values;
                 }
             }
         }

@@ -74,6 +74,6 @@ export default class StringBuilder {
     }
 
     public get length(): number {
-        return this.toString().length;
+        return this.content.reduce((acc, cur) => acc + cur.length, 0);
     }
 }
