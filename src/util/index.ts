@@ -1,7 +1,5 @@
-import Color from './Color';
-import MathHelper from './MathHelper';
-import NamesGenerator from './NamesGenerator';
-import { createUrl } from './createUrl';
-
-export { Color, MathHelper, NamesGenerator, createUrl };
-
+export * from './Color';
+export * from './MathHelper';
+export * from './NamesGenerator';
+export * from './TextMatching';
+export * from './utils';

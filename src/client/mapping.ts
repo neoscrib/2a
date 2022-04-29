@@ -75,7 +75,7 @@ export default ({ method, value, blob, stream, response, produces, consumes, thr
         const isJson = resp.headers.get('content-type')?.includes('application/json');
 
         if (resp.ok || resp.redirected) {
-            if (!fromCache && cacheStore && resp instanceof Response) {
+            if (!fromCache && cacheStore && typeof resp.clone === 'function') {
                 const clone = resp.clone();
                 await cacheStore.put(resp.url, clone);
             }

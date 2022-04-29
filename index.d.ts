@@ -1,3 +1,4 @@
+// noinspection JSUnusedGlobalSymbols,JSValidateJSDoc
 // tslint:disable:max-classes-per-file
 // tslint:disable:no-namespace
 // tslint:disable:ban-types
@@ -49,7 +50,13 @@ declare module '2a/scheduling' {
 
 declare module '2a/util' {
     export import Color = twoa.util.Color;
+    export import MathHelper = twoa.util.MathHelper;
+    export import NamesGenerator = twoa.util.NamesGenerator;
+    export import TextMatching = twoa.util.TextMatching;
     export import createUrl = twoa.util.createUrl;
+    export import downloadFile = twoa.util.downloadFile;
+    export import blobToObject = twoa.util.blobToObject;
+    export import blobToString = twoa.util.blobToString;
 }
 
 declare namespace twoa {
@@ -1897,7 +1904,10 @@ declare namespace twoa {
     }
 
     export namespace client {
-        export type CustomFetchResponse<T> = Omit<Response, keyof Body | 'clone' | 'trailer' | 'type'> & { data: T };
+        export type CustomFetchResponse<T> = Omit<Response, keyof Body | 'clone' | 'trailer' | 'type'> & {
+            data: T;
+            clone?(): Response;
+        };
 
         export interface IClientOptions {
             baseUrl(): string;
@@ -2090,6 +2100,19 @@ declare namespace twoa {
             public static getRandomName(retry?: number): string;
         }
 
+        export class TextMatching {
+            /**
+             * Calculates the Levenshtein distance between two text sequences
+             * @param {string} a First string
+             * @param {string} b Second string
+             * @param {boolean} caseInsensitive Whether to calculate the distance in a case-insensitive manner; default: false
+             * @returns {number} The Levenshtein distance between the two test sequences
+             */
+            public static levenshtein(a: string, b: string, caseInsensitive?: boolean): number;
+
+            public static matchAll(a: string[], b: string[], replacements?: (string | RegExp)[]): [ string, string ][];
+        }
+
         /**
          * Creates a URL with the specified base, path, and query params.
          * @param {string} baseUrl The URL to use for the base.
@@ -2098,6 +2121,21 @@ declare namespace twoa {
          * @returns {string} The constructed URL with any necessary component encodings.
          */
         export function createUrl(baseUrl: string, path: string, params?: Record<string, any>): string;
+
+        export function downloadFile(url: string): void;
+        export function downloadFile(content: Blob, filename: string): void;
+        export function downloadFile(content: string, filename: string, type: string): void;
+
+        export function blobToObject<T>(blob: Blob): Promise<T>;
+        export function blobToString(blob: Blob, encoding?: string): Promise<string>;
+
+        export interface IFlattenOptions {
+            acceptKey?(key: string, nestedKey: string): boolean;
+        }
+
+        export function flatten<T extends object, U>(obj: T, root?: string, options?: IFlattenOptions): U;
+
+        export function deepEqual(a: any, b: any): boolean;
     }
 
     export namespace geometry {
