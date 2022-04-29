@@ -47,6 +47,7 @@
 - [next](SortedMap.md#next)
 - [return](SortedMap.md#return)
 - [set](SortedMap.md#set)
+- [setIfAbsent](SortedMap.md#setifabsent)
 - [subMap](SortedMap.md#submap)
 - [tailMap](SortedMap.md#tailmap)
 - [throw](SortedMap.md#throw)
@@ -71,7 +72,7 @@ Map&lt;K, V\&gt;.constructor
 
 #### Defined in
 
-[src/SortedMap.ts:9](https://github.com/neoscrib/2a/blob/93f4a64/src/SortedMap.ts#L9)
+[src/SortedMap.ts:9](https://github.com/neoscrib/2a/blob/b4baa0e/src/SortedMap.ts#L9)
 
 • **new SortedMap**<`K`, `V`\>(`entries?`, `comparator?`)
 
@@ -86,7 +87,7 @@ Map&lt;K, V\&gt;.constructor
 
 | Name | Type |
 | :------ | :------ |
-| `entries?` | `IterableIterator`<[`K`, `V`]\> |
+| `entries?` | `Iterable`<readonly [`K`, `V`]\> |
 | `comparator?` | (`a`: `K`, `b`: `K`, `c?`: `V`, `d?`: `V`) => `number` |
 
 #### Overrides
@@ -95,7 +96,7 @@ Map&lt;K, V\&gt;.constructor
 
 #### Defined in
 
-[src/SortedMap.ts:10](https://github.com/neoscrib/2a/blob/93f4a64/src/SortedMap.ts#L10)
+[src/SortedMap.ts:10](https://github.com/neoscrib/2a/blob/b4baa0e/src/SortedMap.ts#L10)
 
 ## Properties
 
@@ -145,9 +146,13 @@ node_modules/typescript/lib/lib.es2015.symbol.wellknown.d.ts:317
 
 ▸ **[iterator]**(): `IterableIterator`<[`K`, `V`]\>
 
+Returns an iterable of entries in the map.
+
 #### Returns
 
 `IterableIterator`<[`K`, `V`]\>
+
+an iterable of entries in the map.
 
 #### Implementation of
 
@@ -159,13 +164,15 @@ Map.\_\_@iterator@78
 
 #### Defined in
 
-[src/SortedMap.ts:95](https://github.com/neoscrib/2a/blob/93f4a64/src/SortedMap.ts#L95)
+[src/SortedMap.ts:155](https://github.com/neoscrib/2a/blob/b4baa0e/src/SortedMap.ts#L155)
 
 ___
 
 ### clear
 
 ▸ **clear**(): `void`
+
+The clear() method removes all elements from a Map object.
 
 #### Returns
 
@@ -177,7 +184,7 @@ Map.clear
 
 #### Defined in
 
-[src/SortedMap.ts:67](https://github.com/neoscrib/2a/blob/93f4a64/src/SortedMap.ts#L67)
+[src/SortedMap.ts:94](https://github.com/neoscrib/2a/blob/b4baa0e/src/SortedMap.ts#L94)
 
 ___
 
@@ -185,15 +192,19 @@ ___
 
 ▸ **delete**(`key`): `boolean`
 
+The delete() method removes the specified element from a Map object by key.
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `key` | `K` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `key` | `K` | The key of the element to remove from the Map object. |
 
 #### Returns
 
 `boolean`
+
+true if an element in the Map object existed and has been removed, or false if the element does not exist.
 
 #### Overrides
 
@@ -201,7 +212,7 @@ Map.delete
 
 #### Defined in
 
-[src/SortedMap.ts:72](https://github.com/neoscrib/2a/blob/93f4a64/src/SortedMap.ts#L72)
+[src/SortedMap.ts:104](https://github.com/neoscrib/2a/blob/b4baa0e/src/SortedMap.ts#L104)
 
 ___
 
@@ -209,9 +220,13 @@ ___
 
 ▸ **entries**(): `IterableIterator`<[`K`, `V`]\>
 
+Returns an iterable of key, value pairs for every entry in the map.
+
 #### Returns
 
 `IterableIterator`<[`K`, `V`]\>
+
+an iterable of key, value pairs for every entry in the map.
 
 #### Overrides
 
@@ -219,7 +234,7 @@ Map.entries
 
 #### Defined in
 
-[src/SortedMap.ts:99](https://github.com/neoscrib/2a/blob/93f4a64/src/SortedMap.ts#L99)
+[src/SortedMap.ts:163](https://github.com/neoscrib/2a/blob/b4baa0e/src/SortedMap.ts#L163)
 
 ___
 
@@ -227,26 +242,32 @@ ___
 
 ▸ **firstKey**(): `K`
 
+Returns the first (lowest) key currently in this map.
+
 #### Returns
 
 `K`
 
+the first (lowest) key currently in this map
+
 #### Defined in
 
-[src/SortedMap.ts:26](https://github.com/neoscrib/2a/blob/93f4a64/src/SortedMap.ts#L26)
+[src/SortedMap.ts:31](https://github.com/neoscrib/2a/blob/b4baa0e/src/SortedMap.ts#L31)
 
 ___
 
 ### forEach
 
-▸ **forEach**(`callbackfn`, `thisArg?`): `void`
+▸ **forEach**(`callbackFn`, `thisArg?`): `void`
+
+The forEach() method executes a provided function once per each key/value pair in the Map object, in insertion order.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `callbackfn` | (`value`: `V`, `key`: `K`, `map`: `Map`<`K`, `V`\>) => `void` |
-| `thisArg?` | `any` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `callbackFn` | (`value`: `V`, `key`: `K`, `map`: [`SortedMap`](SortedMap.md)<`K`, `V`\>) => `void` | Function to execute for each entry in the map. |
+| `thisArg?` | `any` | Value to use as this when executing callback. |
 
 #### Returns
 
@@ -258,7 +279,7 @@ Map.forEach
 
 #### Defined in
 
-[src/SortedMap.ts:149](https://github.com/neoscrib/2a/blob/93f4a64/src/SortedMap.ts#L149)
+[src/SortedMap.ts:224](https://github.com/neoscrib/2a/blob/b4baa0e/src/SortedMap.ts#L224)
 
 ___
 
@@ -314,19 +335,23 @@ ___
 
 ▸ **headMap**(`toKey`): [`SortedMap`](SortedMap.md)<`K`, `V`\>
 
+Returns a view of the portion of this map whose keys are strictly less than toKey.
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `toKey` | `K` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `toKey` | `K` | high endpoint (exclusive) of the keys in the returned map |
 
 #### Returns
 
 [`SortedMap`](SortedMap.md)<`K`, `V`\>
 
+a view of the portion of this map whose keys are strictly less than toKey
+
 #### Defined in
 
-[src/SortedMap.ts:57](https://github.com/neoscrib/2a/blob/93f4a64/src/SortedMap.ts#L57)
+[src/SortedMap.ts:81](https://github.com/neoscrib/2a/blob/b4baa0e/src/SortedMap.ts#L81)
 
 ___
 
@@ -334,9 +359,13 @@ ___
 
 ▸ **keys**(): `IterableIterator`<`K`\>
 
+Returns an iterable of keys in the map
+
 #### Returns
 
 `IterableIterator`<`K`\>
+
+an iterable of keys in the map
 
 #### Overrides
 
@@ -344,7 +373,7 @@ Map.keys
 
 #### Defined in
 
-[src/SortedMap.ts:105](https://github.com/neoscrib/2a/blob/93f4a64/src/SortedMap.ts#L105)
+[src/SortedMap.ts:173](https://github.com/neoscrib/2a/blob/b4baa0e/src/SortedMap.ts#L173)
 
 ___
 
@@ -352,13 +381,17 @@ ___
 
 ▸ **lastKey**(): `K`
 
+Returns the last (highest) key currently in this map.
+
 #### Returns
 
 `K`
 
+the last (highest) key currently in this map
+
 #### Defined in
 
-[src/SortedMap.ts:34](https://github.com/neoscrib/2a/blob/93f4a64/src/SortedMap.ts#L34)
+[src/SortedMap.ts:43](https://github.com/neoscrib/2a/blob/b4baa0e/src/SortedMap.ts#L43)
 
 ___
 
@@ -382,7 +415,7 @@ IterableIterator.next
 
 #### Defined in
 
-[src/SortedMap.ts:155](https://github.com/neoscrib/2a/blob/93f4a64/src/SortedMap.ts#L155)
+[src/SortedMap.ts:230](https://github.com/neoscrib/2a/blob/b4baa0e/src/SortedMap.ts#L230)
 
 ___
 
@@ -406,7 +439,7 @@ IterableIterator.return
 
 #### Defined in
 
-[src/SortedMap.ts:159](https://github.com/neoscrib/2a/blob/93f4a64/src/SortedMap.ts#L159)
+[src/SortedMap.ts:234](https://github.com/neoscrib/2a/blob/b4baa0e/src/SortedMap.ts#L234)
 
 ___
 
@@ -414,16 +447,20 @@ ___
 
 ▸ **set**(`key`, `value`): [`SortedMap`](SortedMap.md)<`K`, `V`\>
 
+The set() method adds or updates an element with a specified key and a value to a Map object.
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `key` | `K` |
-| `value` | `V` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `key` | `K` | The key of the element to add to the Map object. |
+| `value` | `V` | The value of the element to add to the Map object. |
 
 #### Returns
 
 [`SortedMap`](SortedMap.md)<`K`, `V`\>
+
+The Map object.
 
 #### Overrides
 
@@ -431,7 +468,32 @@ Map.set
 
 #### Defined in
 
-[src/SortedMap.ts:77](https://github.com/neoscrib/2a/blob/93f4a64/src/SortedMap.ts#L77)
+[src/SortedMap.ts:118](https://github.com/neoscrib/2a/blob/b4baa0e/src/SortedMap.ts#L118)
+
+___
+
+### setIfAbsent
+
+▸ **setIfAbsent**(`key`, `value`): `V`
+
+If the specified key is not already associated with a value associates it with the given value and returns that value, else returns the current value.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `key` | `K` | key with which the specified value is to be associated |
+| `value` | `V` | value to be associated with the specified key |
+
+#### Returns
+
+`V`
+
+the previous value associated with the specified key, or the specified value if there was no mapping for the key.
+
+#### Defined in
+
+[src/SortedMap.ts:142](https://github.com/neoscrib/2a/blob/b4baa0e/src/SortedMap.ts#L142)
 
 ___
 
@@ -439,20 +501,24 @@ ___
 
 ▸ **subMap**(`fromKey`, `toKey`): [`SortedMap`](SortedMap.md)<`K`, `V`\>
 
+Returns a view of the portion of this map whose keys range from fromKey, inclusive, to toKey, exclusive.
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `fromKey` | `K` |
-| `toKey` | `K` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `fromKey` | `K` | low endpoint (inclusive) of the keys in the returned map |
+| `toKey` | `K` | high endpoint (exclusive) of the keys in the returned map |
 
 #### Returns
 
 [`SortedMap`](SortedMap.md)<`K`, `V`\>
 
+a view of the portion of this map whose keys range from fromKey, inclusive, to toKey, exclusive
+
 #### Defined in
 
-[src/SortedMap.ts:53](https://github.com/neoscrib/2a/blob/93f4a64/src/SortedMap.ts#L53)
+[src/SortedMap.ts:72](https://github.com/neoscrib/2a/blob/b4baa0e/src/SortedMap.ts#L72)
 
 ___
 
@@ -460,19 +526,23 @@ ___
 
 ▸ **tailMap**(`fromKey`): [`SortedMap`](SortedMap.md)<`K`, `V`\>
 
+Returns a view of the portion of this map whose keys are greater than or equal to fromKey.
+
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `fromKey` | `K` |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `fromKey` | `K` | low endpoint (inclusive) of the keys in the returned map |
 
 #### Returns
 
 [`SortedMap`](SortedMap.md)<`K`, `V`\>
 
+a view of the portion of this map whose keys are greater than or equal to fromKey
+
 #### Defined in
 
-[src/SortedMap.ts:43](https://github.com/neoscrib/2a/blob/93f4a64/src/SortedMap.ts#L43)
+[src/SortedMap.ts:56](https://github.com/neoscrib/2a/blob/b4baa0e/src/SortedMap.ts#L56)
 
 ___
 
@@ -496,7 +566,7 @@ IterableIterator.throw
 
 #### Defined in
 
-[src/SortedMap.ts:163](https://github.com/neoscrib/2a/blob/93f4a64/src/SortedMap.ts#L163)
+[src/SortedMap.ts:238](https://github.com/neoscrib/2a/blob/b4baa0e/src/SortedMap.ts#L238)
 
 ___
 
@@ -504,9 +574,13 @@ ___
 
 ▸ **values**(): `IterableIterator`<`V`\>
 
+Returns an iterable of values in the map.
+
 #### Returns
 
 `IterableIterator`<`V`\>
+
+an iterable of values in the map.
 
 #### Overrides
 
@@ -514,4 +588,4 @@ Map.values
 
 #### Defined in
 
-[src/SortedMap.ts:143](https://github.com/neoscrib/2a/blob/93f4a64/src/SortedMap.ts#L143)
+[src/SortedMap.ts:213](https://github.com/neoscrib/2a/blob/b4baa0e/src/SortedMap.ts#L213)

@@ -45,7 +45,7 @@
 
 #### Defined in
 
-[src/Comparator.ts:38](https://github.com/neoscrib/2a/blob/93f4a64/src/Comparator.ts#L38)
+[src/Comparator.ts:38](https://github.com/neoscrib/2a/blob/b4baa0e/src/Comparator.ts#L38)
 
 ___
 
@@ -72,7 +72,7 @@ ___
 
 #### Defined in
 
-[src/Comparator.ts:8](https://github.com/neoscrib/2a/blob/93f4a64/src/Comparator.ts#L8)
+[src/Comparator.ts:8](https://github.com/neoscrib/2a/blob/b4baa0e/src/Comparator.ts#L8)
 
 ___
 
@@ -99,4 +99,4 @@ ___
 
 #### Defined in
 
-[src/Comparator.ts:48](https://github.com/neoscrib/2a/blob/93f4a64/src/Comparator.ts#L48)
+[src/Comparator.ts:48](https://github.com/neoscrib/2a/blob/b4baa0e/src/Comparator.ts#L48)
