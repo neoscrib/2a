@@ -8,9 +8,13 @@ import Application from './Application';
  * @param {T} target The class to receive autowired dependencies
  * @returns {{new(...args: any[]): any, prototype: {}}} Wrapped class which injects autowired dependencies upon instantiation
  */
-export default <T extends new(...args: any[]) => any>(target: T) => class extends target {
-    public constructor(...args: any[]) {
-        super(...args);
-        Application.inject(this, target);
-    }
+export default <T extends new(...args: any[]) => any>(target: T) => {
+    const wrapper = class extends target {
+        public constructor(...args: any[]) {
+            super(...args);
+            Application.inject(this, target);
+        }
+    };
+    Object.defineProperty(wrapper, 'name', { writable: false, value: target.name });
+    return wrapper;
 };
