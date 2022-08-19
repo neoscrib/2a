@@ -46,4 +46,4 @@
 
 #### Defined in
 
-[src/BinarySearch.ts:4](https://github.com/neoscrib/2a/blob/81ad55f/src/BinarySearch.ts#L4)
+[src/BinarySearch.ts:4](https://github.com/neoscrib/2a/blob/bd5810c/src/BinarySearch.ts#L4)
