@@ -915,8 +915,9 @@ export default class Lz<T> implements IterableIterator<T> {
 
     private static *takeInternal<T>(source: LzIterable<T>, count: number): IterableIterator<T> {
         for (const item of source) {
-            yield item;
-            if (--count === 0) {
+            if (count-- > 0) {
+                yield item;
+            } else {
                 break;
             }
         }
@@ -943,7 +944,7 @@ export default class Lz<T> implements IterableIterator<T> {
 
     private static *skipInternal<T>(source: LzIterable<T>, count: number): IterableIterator<T> {
         for (const item of source) {
-            if (--count >= 0) {
+            if (count-- > 0) {
                 continue;
             }
             yield item;

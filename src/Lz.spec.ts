@@ -331,8 +331,12 @@ describe('Lz', () => {
     describe('take', () => {
         it('returns a specified number of contiguous elements from the start of a sequence.', () => {
             const items = [ 10, 20, 30, 40, 50, 60, 70, 80, 90, 80, 70, 60, 50, 40, 30, 20, 10 ];
-            const actual = Lz.take(items, 10).toArray();
-            const expected = [ 10, 20, 30, 40, 50, 60, 70, 80, 90, 80 ];
+            let actual = Lz.take(items, 10).toArray();
+            let expected = [ 10, 20, 30, 40, 50, 60, 70, 80, 90, 80 ];
+            expect(actual).to.deep.equal(expected);
+
+            actual = Lz.take(items, 0).toArray();
+            expected = [];
             expect(actual).to.deep.equal(expected);
         });
     });
@@ -340,8 +344,12 @@ describe('Lz', () => {
     describe('skip', () => {
         it('bypasses a specified number of elements in a sequence and then returns the remaining elements.', () => {
             const items = [ 10, 20, 30, 40, 50, 60, 70, 80, 90, 80, 70, 60, 50, 40, 30, 20, 10 ];
-            const actual = Lz.skip(items, 10).toArray();
-            const expected = [ 70, 60, 50, 40, 30, 20, 10 ];
+            let actual = Lz.skip(items, 10).toArray();
+            let expected = [ 70, 60, 50, 40, 30, 20, 10 ];
+            expect(actual).to.deep.equal(expected);
+
+            actual = Lz.skip(items, 0).toArray();
+            expected = [ 10, 20, 30, 40, 50, 60, 70, 80, 90, 80, 70, 60, 50, 40, 30, 20, 10 ];
             expect(actual).to.deep.equal(expected);
         });
     });

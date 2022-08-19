@@ -1,4 +1,6 @@
 import IFlattenOptions = twoa.util.IFlattenOptions;
+import Lz from '../Lz';
+import IUUIDOptions = twoa.util.IUUIDOptions;
 
 export function createUrl(baseUrl: string, path: string, params: Record<string, any> = {}): string {
     const url = new URL(path, baseUrl);
@@ -92,4 +94,31 @@ export function deepEqual(a: any, b: any): boolean {
     }
 
     return false;
+}
+
+export function uuid(options?: { binary?: false; native?: boolean; }): string;
+export function uuid(options: { binary: true; native?: boolean }): Uint8Array;
+export function uuid(options: IUUIDOptions): string | Uint8Array;
+export function uuid({ binary = false, native = true }: IUUIDOptions = {}): string | Uint8Array {
+    // @ts-ignore
+    const crypto = window?.crypto ?? require?.('crypto');
+    if (!binary && native && typeof crypto?.randomUUID === 'function') {
+        return crypto.randomUUID();
+    }
+
+    let arr = new Uint8Array(16);
+    arr = crypto?.getRandomValues?.(arr) ?? crypto?.randomFillSync?.(arr);
+    arr[6] = (arr[6] & 0x0f) | 0x40;
+    arr[8] = (arr[8] & 0x3f) | 0x80;
+    if (binary) {
+        return arr;
+    }
+
+    return canonicalizeUUID(arr);
+}
+
+const byteToHex = Lz.range(0x100, 256).select(n => n.toString(16).slice(1)).toArray();
+export function canonicalizeUUID(buf: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | number[]): string {
+    const [ a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p ] = [ ...buf ].map((n: number) => byteToHex[n]);
+    return `${a}${b}${c}${d}-${e}${f}-${g}${h}-${i}${j}-${k}${l}${m}${n}${o}${p}`;
 }

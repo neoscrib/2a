@@ -1,9 +1,9 @@
 import Reflect from '../Reflect';
+import { uuid } from '../util';
 import { IClientOptions } from './client';
 import { ClientConstants } from './constants';
 import { HttpMethod } from './HttpMethod';
 import { IQueryParamOptions } from './queryParam';
-import { v4 } from 'uuid';
 
 import CustomFetchResponse = twoa.client.CustomFetchResponse;
 
@@ -207,7 +207,7 @@ function processArgs(target: any, propertyKey: string | symbol, args: any[], bas
 }
 
 function executeBefore(before: (init: RequestInit, id: string) => void, init: RequestInit, clientOptions: IClientOptions) {
-    const id = v4();
+    const id = uuid();
     before?.(init, id);
     clientOptions.before?.(init, id);
     return id;

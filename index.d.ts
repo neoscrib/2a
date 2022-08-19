@@ -57,6 +57,7 @@ declare module '2a/util' {
     export import downloadFile = twoa.util.downloadFile;
     export import blobToObject = twoa.util.blobToObject;
     export import blobToString = twoa.util.blobToString;
+    export import uuid = twoa.util.uuid;
 }
 
 declare namespace twoa {
@@ -2128,6 +2129,39 @@ declare namespace twoa {
 
         export function blobToObject<T>(blob: Blob): Promise<T>;
         export function blobToString(blob: Blob, encoding?: string): Promise<string>;
+
+        export interface IUUIDOptions {
+            /**
+             * Whether to return the UUID as an unsigned 8-bit integer array or as a canonical string
+             */
+            binary?: boolean;
+
+            /**
+             * Whether to use the native function, if available.
+             */
+            native?: boolean;
+        }
+
+        /**
+         * Generates a canonical v4 UUID
+         * @param {{binary?: false, native?: boolean}} options
+         * @returns {string} The canonical v4 UUID
+         */
+        export function uuid(options?: { binary?: false; native?: boolean; }): string;
+
+        /**
+         * Generates a binary v4 UUID
+         * @param {{binary: true, native?: boolean}} options
+         * @returns {Uint8Array} The v4 UUID as an unsigned 8-bit integer array
+         */
+        export function uuid(options: { binary: true; native?: boolean }): Uint8Array;
+
+        /**
+         * Generates a v4 UUID with the specified options
+         * @param {IUUIDOptions} options
+         * @returns {string | Uint8Array} A v4 UUID as a canonical string or unsigned 8-bit integer array
+         */
+        export function uuid(options: IUUIDOptions): string | Uint8Array;
 
         export interface IFlattenOptions {
             acceptKey?(key: string, nestedKey: string): boolean;
