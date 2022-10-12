@@ -100,21 +100,20 @@ export function uuid(options?: { binary?: false; native?: boolean; }): string;
 export function uuid(options: { binary: true; native?: boolean }): Uint8Array;
 export function uuid(options: IUUIDOptions): string | Uint8Array;
 export function uuid({ binary = false, native = true }: IUUIDOptions = {}): string | Uint8Array {
-    // @ts-ignore
-    const crypto = window?.crypto ?? require?.('crypto');
-    if (!binary && native && typeof crypto?.randomUUID === 'function') {
-        return crypto.randomUUID();
-    }
+    if (window?.crypto) {
+        if (!binary && native) {
+            return (window.crypto as any).randomUUID();
+        }
 
-    let arr = new Uint8Array(16);
-    arr = crypto?.getRandomValues?.(arr) ?? crypto?.randomFillSync?.(arr);
-    arr[6] = (arr[6] & 0x0f) | 0x40;
-    arr[8] = (arr[8] & 0x3f) | 0x80;
-    if (binary) {
-        return arr;
-    }
+        let arr = new Uint8Array(16);
+        arr = window.crypto.getRandomValues(arr);
+        arr[6] = (arr[6] & 0x0f) | 0x40;
+        arr[8] = (arr[8] & 0x3f) | 0x80;
 
-    return canonicalizeUUID(arr);
+        return binary ? arr : canonicalizeUUID(arr);
+    } else {
+        console.warn("window.crypto doesn't exist!");
+    }
 }
 
 const byteToHex = Lz.range(0x100, 256).select(n => n.toString(16).slice(1)).toArray();
