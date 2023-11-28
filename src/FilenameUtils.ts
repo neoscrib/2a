@@ -124,7 +124,7 @@ export default class FilenameUtils {
     /**
      * The system separator character.
      */
-    private static readonly SYSTEM_NAME_SEPARATOR = FilenameUtils.UNIX_NAME_SEPARATOR;
+    private static readonly SYSTEM_NAME_SEPARATOR: string = FilenameUtils.UNIX_NAME_SEPARATOR;
 
     /**
      * The separator character that is the opposite of the system separator.
@@ -1162,7 +1162,6 @@ export default class FilenameUtils {
      * @return true if the system is Windows
      */
     protected static isSystemWindows(): boolean {
-        // @ts-ignore
         return FilenameUtils.SYSTEM_NAME_SEPARATOR === FilenameUtils.WINDOWS_NAME_SEPARATOR;
     }
 
@@ -1454,7 +1453,7 @@ export default class FilenameUtils {
         // loop around a backtrack stack, to handle complex * matching
         do {
             if (backtrack.length > 0) {
-                const [ wcsIdx, textIdx ] = backtrack.pop();
+                [ wcsIdx, textIdx ] = backtrack.pop();
                 anyChars = true;
             }
 

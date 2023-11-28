@@ -45,23 +45,23 @@ export default function interval({ callback, fixedRate, fixedDelay, initialDelay
 
 function fixedDelayInterval(callback: Function, initialDelay: number, fixedDelay: number) {
     // execute with a fixed delay between the end one execution and the start of the next
-    let timer: number;
+    let timer: number | NodeJS.Timeout;
     let currentDelay = initialDelay ?? 0;
     let finished = false;
     let internalCancel: () => void;
 
     const cancel = () => {
         finished = true;
-        window.clearInterval(timer);
+        clearInterval(timer);
         internalCancel?.();
     };
 
-    window.setTimeout(async () => {
+    setTimeout(async () => {
         while (!finished) {
             try {
-                await new Promise<void>(async (resolve, reject) => {
+                await new Promise<void>((resolve, reject) => {
                     internalCancel = reject;
-                    timer = window.setTimeout(async () => {
+                    timer = setTimeout(async () => {
                         try {
                             const result = await callback();
                             if (result === true) {
@@ -87,10 +87,10 @@ function fixedDelayInterval(callback: Function, initialDelay: number, fixedDelay
 
 function fixedRateInterval(callback: Function, initialDelay: number, fixedRate: number) {
     // execute with a fixed rate between the start of one execution and the start of the next
-    let timer: number;
+    let timer: number | NodeJS.Timeout;
     let currentRate = initialDelay ?? 0;
 
-    const cancel = () => window.clearInterval(timer);
+    const cancel = () => clearInterval(timer);
     const wrapped = async () => {
         try {
             const result = await callback();
@@ -99,12 +99,12 @@ function fixedRateInterval(callback: Function, initialDelay: number, fixedRate: 
             } else {
                 if (typeof result === 'number') {
                     if (currentRate !== result) {
-                        window.clearInterval(timer);
-                        timer = window.setInterval(wrapped, currentRate = result);
+                        clearInterval(timer);
+                        timer = setInterval(wrapped, currentRate = result);
                     }
                 } else if (currentRate !== fixedRate) {
-                    window.clearInterval(timer);
-                    timer = window.setInterval(wrapped, currentRate = fixedRate);
+                    clearInterval(timer);
+                    timer = setInterval(wrapped, currentRate = fixedRate);
                 }
             }
         } catch (e) {
@@ -112,9 +112,9 @@ function fixedRateInterval(callback: Function, initialDelay: number, fixedRate: 
         }
     };
 
-    timer = window.setTimeout(() => {
-        window.setTimeout(wrapped);
-        timer = window.setInterval(wrapped, currentRate = fixedRate);
+    timer = setTimeout(() => {
+        setTimeout(wrapped);
+        timer = setInterval(wrapped, currentRate = fixedRate);
     }, currentRate);
 
     return cancel;

@@ -1,4 +1,3 @@
-// tslint:disable:no-reference
 /// <reference path="../index.d.ts" />
 
 import { expect } from 'chai';

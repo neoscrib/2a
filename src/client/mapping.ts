@@ -7,7 +7,7 @@ import { IQueryParamOptions } from './queryParam';
 
 import CustomFetchResponse = twoa.client.CustomFetchResponse;
 
-interface IMappingOptions {
+export interface IMappingOptions {
     method: HttpMethod;
     value: string;
     blob?: boolean;
@@ -26,6 +26,9 @@ interface IMappingOptions {
     fetch?<T>(input: RequestInfo, init?: RequestInit): Promise<CustomFetchResponse<T>>;
 }
 
+const f = window?.fetch ?? global?.fetch;
+const caches = window?.caches;
+
 export default ({ method, value, blob, stream, response, produces, consumes, throws = true, cache, fromCache, cacheQueryOptions, cacheMissBehavior = 'fetch', interceptors, before, after, fetch }: IMappingOptions): MethodDecorator => (t: any, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<any>) => {
     const target = t.prototype ?? t;
 
@@ -40,7 +43,7 @@ export default ({ method, value, blob, stream, response, produces, consumes, thr
         const id = executeBefore(before, init, clientOptions);
 
         const cacheName = cache ?? clientOptions.cache;
-        const cacheStore = cacheName ? await window.caches.open(cacheName) : undefined;
+        const cacheStore = cacheName ? await caches?.open(cacheName) : undefined;
         const customFetch = fetch ?? clientOptions.fetch;
         const request = new Request(url.toString(), init);
         let resp: Response | CustomFetchResponse<T>;
@@ -55,7 +58,7 @@ export default ({ method, value, blob, stream, response, produces, consumes, thr
                         case 'fetch':
                         default:
                             fromCache = false;
-                            resp = await window.fetch(request);
+                            resp = await f(request);
                     }
                 }
             } else if (customFetch) {
@@ -63,7 +66,7 @@ export default ({ method, value, blob, stream, response, produces, consumes, thr
                 init.headers = headersToObject(init.headers);
                 resp = await customFetch(url.toString(), init);
             } else {
-                resp = await window.fetch(request);
+                resp = await f(request);
             }
         } catch (error) {
             executeAfter(after, error, id, clientOptions);
@@ -114,7 +117,7 @@ function processArgs(target: any, propertyKey: string | symbol, args: any[], bas
     const inits: RequestInit[] = [];
     const headers = new Headers();
     const query: Record<string, any> = {};
-    let body: FormData | string | Blob;
+    let body: FormData | URLSearchParams | string | Blob;
 
     for (let i = 0; i < args.length; i++) {
         const current = args[i];
@@ -236,7 +239,7 @@ function headersToObject(headers: HeadersInit): Record<string, string> {
     return [ ...headers as unknown as IterableIterator<[ string, string ]> ].reduce((acc, [ key, value ]) => ({ ...acc, [key]: value }), {});
 }
 
-function buildRequestInit(interceptors: IMappingOptions['interceptors'], clientOptions: IClientOptions, inits: RequestInit[], method: HttpMethod, headers: Headers, body: FormData | string | Blob) {
+function buildRequestInit(interceptors: IMappingOptions['interceptors'], clientOptions: IClientOptions, inits: RequestInit[], method: HttpMethod, headers: Headers, body: FormData | URLSearchParams | string | Blob) {
     return [ ...interceptors ?? [], ...clientOptions.interceptors ?? [] ]
         .map(item => item())
         .concat(...inits)

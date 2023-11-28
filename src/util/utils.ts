@@ -96,23 +96,25 @@ export function deepEqual(a: any, b: any): boolean {
     return false;
 }
 
+const crypto = window?.crypto ?? global?.crypto;
+
 export function uuid(options?: { binary?: false; native?: boolean; }): string;
 export function uuid(options: { binary: true; native?: boolean }): Uint8Array;
 export function uuid(options: IUUIDOptions): string | Uint8Array;
 export function uuid({ binary = false, native = true }: IUUIDOptions = {}): string | Uint8Array {
-    if (window?.crypto) {
+    if (crypto) {
         if (!binary && native) {
-            return (window.crypto as any).randomUUID();
+            return crypto.randomUUID();
         }
 
         let arr = new Uint8Array(16);
-        arr = window.crypto.getRandomValues(arr);
+        arr = crypto.getRandomValues(arr);
         arr[6] = (arr[6] & 0x0f) | 0x40;
         arr[8] = (arr[8] & 0x3f) | 0x80;
 
         return binary ? arr : canonicalizeUUID(arr);
     } else {
-        console.warn("window.crypto doesn't exist!");
+        console.warn("crypto doesn't exist!");
     }
 }
 

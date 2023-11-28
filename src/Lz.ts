@@ -1472,7 +1472,7 @@ export default class Lz<T> implements IterableIterator<T> {
      * @throws If the source sequence contains no elements or the predicate did not match any elements.
      */
     public first(predicate?: PredicateFunction<T>): T {
-        return Lz.first(this);
+        return Lz.first(this, predicate);
     }
 
     /**
@@ -1531,7 +1531,7 @@ export default class Lz<T> implements IterableIterator<T> {
      * Creates a Map from a sequence of IterableIterator<[T1, T2]>
      * @returns {Map<T1, T2>} A Map that contains keys and values.
      */
-    public toDictionary<T1, T2, T extends [T1, T2]>(): Map<T1, T2>;
+    public toDictionary<T1, T2>(): Map<T1, T2>;
 
     /**
      * Creates a Map from an Array according to a specified key selector function.

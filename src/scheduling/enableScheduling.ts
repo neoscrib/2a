@@ -33,6 +33,7 @@ export default (options?: IEnableSchedulingOptions) => {
             console.log(target, Reflect.getMetadata(SchedulingConstants.Schedules, target));
             return class extends (target as unknown as T) {
                 public constructor(...args: any[]) {
+                    // eslint-disable-next-line constructor-super
                     super(...args);
                     startScheduled.call(this, target, options);
                 }

@@ -703,11 +703,6 @@ describe('Lz', () => {
                 { type: 'y', items: [ 'j', 'k', 'l' ] }
             ];
 
-            const group = Lz.toIterable([
-                [ 'x', [ 'a', 'b', 'c' ] ],
-                [ 'y', [ 'd', 'e', 'f' ] ]
-            ]).toDictionary();
-
             const actual = Lz.groupBy(items, item => item.type, item => item.items).toDictionary();
             const expected = new Map([
                 [ 'x', [ [ 'a', 'b', 'c' ], [ 'g', 'h', 'i' ] ] ],
